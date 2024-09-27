@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import RouterCustom from './router';
+import './styles/style.scss';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <div>
-    <h1>Hello</h1>
-    <h2>Ngáo</h2>
-  </div>
+  <BrowserRouter>
+    <RouterCustom />
+  </BrowserRouter>
 );
