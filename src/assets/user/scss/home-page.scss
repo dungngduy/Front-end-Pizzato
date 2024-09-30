@@ -61,6 +61,11 @@
     }
 }
 
+.header__menu__wrapper {
+    border: 1px solid #eee;
+    padding: 10px 0;
+}
+
 .header__logo img {
     width: 80%;
     height: 100%;
@@ -251,6 +256,137 @@
     border: 1px solid map-get($map: $theme-colors, $key: "main");
     background-color: map-get($map: $theme-colors, $key: "main");
     color: #fff;
+}
+
+.carousel {
+    width: 100%;
+    height: 600px;
+
+    .ant-carousel .slick-slide {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        img {
+            width: 100%;
+            height: 600px;
+        }
+    }
+}
+
+.new__product {
+    margin: 50px 0px;
+
+    .new__product__title {
+        font-size: 16px;
+        font-weight: 600;
+        font-style: italic;
+        
+        strong {
+            font-size: 24px;
+            animation: changeColor 2s steps(1) infinite;
+        }
+    }
+
+    .new__product__description {
+        margin: 20px 0;
+
+        strong {
+            color: map-get($map: $theme-colors, $key: "main");
+        }
+    }
+
+    .new__product__truth {
+        margin: 20px 0;
+
+        .new__product__truth__items {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            column-gap: 8px;
+            margin-bottom: 10px;
+
+            span {
+                background-color: map-get($map: $theme-colors, $key: "main");
+                border: 1px solid map-get($map: $theme-colors, $key: "main");
+            }
+        }
+    }
+    .new__product__button {
+        button {
+            background-color: map-get($map: $theme-colors, $key: "main");
+            border: 1px solid map-get($map: $theme-colors, $key: "main");
+            color: #fff;
+            padding: 10px 30px;
+            border-radius: 20px;
+            font-size: 16px;
+            transition: 0.5s all ease-in-out;
+
+            &:hover {
+                background-color: #fff;
+                color: map-get($map: $theme-colors, $key: "main");
+                border: 1px solid map-get($map: $theme-colors, $key: "main");
+            }
+        }
+    }
+}
+
+.new__product__image {
+    margin: 50px 0;
+}
+
+.new__product__image-top {
+    height: 300px;
+    margin: 10px 0;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+}
+
+.new__product__image-bottom {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 98%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .new__product__image-bottom-left {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .new__product__image-bottom-right {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+@keyframes changeColor {
+    0% {
+        color: red;
+    }
+    25% {
+        color: orange;
+    }
+    50% {
+        color: yellow;
+    }
+    75% {
+        color: rgb(242, 2, 255);
+    }
+    100% {
+        color: blue;
+    }
 }
 
 .footer__container {

@@ -1,7 +1,87 @@
 import {memo} from "react";
+import {
+    Carousel,
+    Checkbox
+} from 'antd';
+import 'assets/user/scss/home-page.scss';
 
 const homePage = () => {
-    return <h1>HomePage</h1>;
+    return (
+        <main>
+            <nav className="carousel">
+                <Carousel autoplay>
+                    <div className="carousel__item">
+                        <img src="/assets/images/banners/banner-1.webp" alt="Banner-1" />
+                    </div>
+                    <div className="carousel__item">
+                        <img src="/assets/images/banners/banner-2.jpg" alt="Banner-2" />
+                    </div>
+                    <div className="carousel__item">
+                        <img src="/assets/images/banners/banner-3.jpg" alt="Banner-3" />
+                    </div>
+                </Carousel>
+            </nav>
+            <div className="container">
+                <div className="row new__product__container">
+                    <div className="col-xl-6">
+                        <div className="new__product">
+                            <h4 className="new__product__title">Sản phẩm <strong className="change_color">HOT</strong> hôm nay</h4>
+                            <h2 className="new__product__description">
+                                <strong>Chúng tôi</strong> tạo ra sản phẩm <br /> thực phẩm tốt nhất
+                            </h2>
+                            <p className="new__product__content">
+                                Pizza Gà Nướng Mật Ong là sự kết hợp hoàn hảo giữa thịt gà nướng mềm mại, 
+                                vị ngọt dịu của mật ong và phô mai tan chảy. Với lớp đế mỏng giòn và rau củ 
+                                tươi ngon, mỗi miếng pizza là một trải nghiệm ẩm thực tuyệt vời. Hãy thưởng 
+                                thức ngay để cảm nhận sự khác biệt!
+                            </p>
+                            <div className="new__product__truth">
+                                <div className="new__product__truth__items">
+                                    <Checkbox defaultChecked />
+                                    <p>
+                                        Thưởng thức hương vị mới lạ từ Pizza Xốt Truffle, 
+                                        lớp đế mỏng giòn tan kết hợp phô mai béo ngậy.
+                                    </p>
+                                </div>
+                                <div className="new__product__truth__items">
+                                    <Checkbox defaultChecked />
+                                    <p>
+                                    Từng lát thịt bò đậm đà hoà quyện cùng rau củ tươi ngon, 
+                                    tạo nên món pizza đầy hấp dẫn.
+                                    </p>
+                                </div>
+                                <div className="new__product__truth__items">
+                                    <Checkbox defaultChecked />
+                                    <p>
+                                    Nhanh tay đặt ngay Pizza Hải Sản Thượng Hạng với giá chỉ 
+                                    199,000 VND, ưu đãi hấp dẫn hôm nay!
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="new__product__button">
+                                <button type="button">Đọc thêm</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xl-6">
+                        <div className="new__product__image">
+                            <div className="col-xl-12 new__product__image-top">
+                                <img src="/assets/images/new-products/new-pro-1.jpg" alt="New-pro-1" />
+                            </div>
+                            <div className="col-xl-12 new__product__image-bottom">
+                                <div className="col-xl-6 new__product__image-bottom-left">
+                                    <img src="/assets/images/new-products/new-pro-2.jpeg" alt="New-pro-2" />
+                                </div>
+                                <div className="col-xl-6 new__product__image-bottom-right">
+                                    <img src="/assets/images/new-products/new-pro-3.webp" alt="New-pro-3" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    );
 };
 
 export default memo(homePage);

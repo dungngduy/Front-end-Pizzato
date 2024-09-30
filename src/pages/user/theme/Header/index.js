@@ -80,7 +80,7 @@ const Header = () => {
                                     <AiOutlineMail /> pizzato@gmail.com
                                 </li>
                                 <li>
-                                    <AiOutlinePhone /> +012 345 6789
+                                    <AiOutlinePhone /> +123 456 7890
                                 </li>
                             </ul>
                         </div>
@@ -103,65 +103,64 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            <div className="container">
-                <div className="row">
-                    <div className="col-xl-3 col-lg-3">
-                        <div className="header__logo">
-                            <Link to={""}>
-                                <img src="/assets/images/logo-pizzato.webp" alt="Logo" />
-                            </Link>
+            <div className="header__menu__wrapper">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-xl-3 col-lg-3">
+                            <div className="header__logo">
+                                <Link to={""}>
+                                    <img src="/assets/images/logo-pizzato.webp" alt="Logo" />
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-xl-6 col-lg-6">
-                        <div className="header__menu">
+                        <div className="col-xl-6 col-lg-6">
+                            <div className="header__menu">
+                                <ul>
+                                    {
+                                        Menus.map((menu, index) => {
+                                            return (
+                                                <li key={index} className={index === 0 ? "active" : ""}>
+                                                    <Link to={menu.path}>{menu.name}</Link>
+                                                    {
+                                                        menu.child && (
+                                                            <ul className="header__menu__dropdown">
+                                                                {menu.child.map((childItem, childKey) => (
+                                                                    <li key={`${index}-${childKey}`}>
+                                                                        <Link to={childItem.path}>{childItem.name}</Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        )
+                                                    }
+                                                </li>
+                                            );
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-xl-3 col-lg-3 search__container">
                             <ul>
-                                {
-                                    Menus.map((menu, index) => {
-                                        return (
-                                            <li key={index} className={index === 0 ? "active" : ""}>
-                                                <Link to={menu.path}>{menu.name}</Link>
-                                                {
-                                                    menu.child && (
-                                                        <ul className="header__menu__dropdown">
-                                                            {menu.child.map((childItem, childKey) => (
-                                                                <li key={`${index}-${childKey}`}>
-                                                                    <Link to={childItem.path}>{childItem.name}</Link>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    )
-                                                }
-                                            </li>
-                                        );
-                                    })
-                                }
+                                <li onClick={toggleSearchPopup}><AiOutlineSearch /></li>
+                                <li><AiOutlineUser /></li>
+                                <li><AiOutlineShoppingCart /> <span>2</span></li>
                             </ul>
                         </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-3 search__container">
-                        <ul>
-                            <li onClick={toggleSearchPopup}><AiOutlineSearch /></li>
-                            <li><AiOutlineUser /></li>
-                            <li><AiOutlineShoppingCart /> <span>2</span></li>
-                        </ul>
                     </div>
                 </div>
             </div>
 
             {/* Popup tìm kiếm */}
             {isSearchVisible && (
-                <>
-                    {/* Lớp nền mờ */}
+                <div>
                     <div className="overlay active" onClick={closePopup}></div>
-
-                    {/* Popup */}
                     <div className="search-popup active">
                         <div className="popup-content">
                             <input type="text" placeholder="Tìm kiếm món ăn tại đây..." />
                             <button onClick={closePopup}>Tìm kiếm</button>
                         </div>
                     </div>
-                </>
+                </div>
             )}
         </header>
     );
