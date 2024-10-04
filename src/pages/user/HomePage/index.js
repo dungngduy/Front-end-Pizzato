@@ -1,11 +1,644 @@
-import {memo} from "react";
+import { memo, useState } from "react";
+import { Link } from "react-router-dom";
+import { Checkbox, Carousel, Card, Rate } from 'antd';
 import {
-    Carousel,
-    Checkbox
-} from 'antd';
+    MdFastfood,
+    MdOutlineFeedback,
+    MdDateRange
+} from "react-icons/md";
+import {
+    PiChefHatBold,
+    PiMoneyWavyBold,
+    PiUser
+} from "react-icons/pi";
+import CarouselMulti from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import 'assets/user/scss/home-page.scss';
 
-const homePage = () => {
+const tabList = [
+    {
+        key: 'tab1',
+        tab: 'Pizza Margarita',
+    },
+    {
+        key: 'tab2',
+        tab: 'Pizza Peperoni',
+    },
+    {
+        key: 'tab3',
+        tab: 'Pizza Vegetarian',
+    },
+    {
+        key: 'tab4',
+        tab: 'Pizza Mexican',
+    },
+    {
+        key: 'tab5',
+        tab: 'Pizza Calzone',
+    },
+    {
+        key: 'tab6',
+        tab: 'Pizza Chicken',
+    },
+];
+const contentList = {
+    tab1: (
+        <div className="row tab__content">
+            <div className="col-xl-4">
+                <div className="menu__item__main">
+                    <img src="/assets/images/menu-items/pizza-1.png" alt="Pizza-1" />
+                </div>
+            </div>
+            <div className="col-xl-8">
+                <div className="row">
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ),
+    tab2: (
+        <div className="row tab__content">
+            <div className="col-xl-4">
+                <div className="menu__item__main">
+                    <img src="/assets/images/menu-items/pizza-2.png" alt="Pizza-2" />
+                </div>
+            </div>
+            <div className="col-xl-8">
+                <div className="row">
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ),
+    tab3: (
+        <div className="row tab__content">
+            <div className="col-xl-4">
+                <div className="menu__item__main">
+                    <img src="/assets/images/menu-items/pizza-3.png" alt="Pizza-3" />
+                </div>
+            </div>
+            <div className="col-xl-8">
+                <div className="row">
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ),
+    tab4: (
+        <div className="row tab__content">
+            <div className="col-xl-4">
+                <div className="menu__item__main">
+                    <img src="/assets/images/menu-items/pizza-4.png" alt="Pizza-4" />
+                </div>
+            </div>
+            <div className="col-xl-8">
+                <div className="row">
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ),
+    tab5: (
+        <div className="row tab__content">
+            <div className="col-xl-4">
+                <div className="menu__item__main">
+                    <img src="/assets/images/menu-items/pizza-5.png" alt="Pizza-5" />
+                </div>
+            </div>
+            <div className="col-xl-8">
+                <div className="row">
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ),
+    tab6: (
+        <div className="row tab__content">
+            <div className="col-xl-4">
+                <div className="menu__item__main">
+                    <img src="/assets/images/menu-items/pizza-6.png" alt="Pizza-6" />
+                </div>
+            </div>
+            <div className="col-xl-8">
+                <div className="row">
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-6 col-xl-6">
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                        <div className="menu__item">
+                            <div className="menu__item__image">
+                                <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
+                            </div>
+                            <div className="menu__item__content">
+                                <h3>Pizza Margarita</h3>
+                                <p>
+                                    HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
+                                    ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
+                                </p>
+                                <h4>Giá: 125.000đ</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ),
+};
+
+const HomePage = () => {
+    const responsive = {
+        superLargeDesktop: {
+            breakpoint: { max: 4000, min: 3000 },
+            items: 5
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 4
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1
+        }
+    };
+
+    const [activeTabKey1, setActiveTabKey1] = useState('tab1');
+    const onTab1Change = (key) => {
+        setActiveTabKey1(key);
+    };
+
     return (
         <main>
             <nav className="carousel">
@@ -79,9 +712,382 @@ const homePage = () => {
                         </div>
                     </div>
                 </div>
+                <div className="row categories__container">
+                    <div className="col-xl-12">
+                        <h4 className="categories__title">Danh mục</h4>
+                        <h2 className="categories__description">Chọn thực đơn món ăn</h2>
+                        <CarouselMulti 
+                            responsive={responsive}
+                            autoPlaySpeed={3000}
+                            autoPlay={true}
+                            infinite={true}
+                            arrows={false}
+                            className="categories__list"
+                        >
+                            <div className="categories__item">
+                                <img src="/assets/images/categories/category-1.jpeg" alt="Danh mục 1" />
+                                <p>Danh mục 1</p>
+                            </div>
+                            <div className="categories__item">
+                                <img src="/assets/images/categories/category-2.jpg" alt="Danh mục 2" />
+                                <p>Danh mục 2</p>
+                            </div>
+                            <div className="categories__item">
+                                <img src="/assets/images/categories/category-3.jpg" alt="Danh mục 3" />
+                                <p>Danh mục 3</p>
+                            </div>
+                            <div className="categories__item">
+                                <img src="/assets/images/categories/category-4.jpeg" alt="Danh mục 4" />
+                                <p>Danh mục 4</p>
+                            </div>
+                            <div className="categories__item">
+                                <img src="/assets/images/categories/category-5.jpg" alt="Danh mục 5" />
+                                <p>Danh mục 5</p>
+                            </div>
+                        </CarouselMulti>
+                    </div>
+                </div>
+                <div className="row choose__food">
+                    <div className="col-xl-6 left__choose__food__box">
+                        <div className="choose__food__image">
+                            <img src="/assets/images/pizza-choose.jpeg" alt="Choose food" />
+                            <div className="choose__food__content">
+                                <p>
+                                    HHT - Pizza là món ăn đặc trưng của nền ẩm thực nước Ý,
+                                    nhưng thực tế, nó được cả thế giới ưa chuộng. Thậm chí, người dân
+                                    ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao lại thế?
+                                </p>
+                                <h4>Nguyễn Duy Dũng</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xl-6 right__choose__food__box">
+                        <h4>Vì sao bạn nên lựa chọn Pizzato?</h4>
+                        <h2>Con người chúng ta bị hấp dẫn bởi những món ăn nhiều chất béo, ngọt, đậm đà và nhiều hương vị</h2>
+                        <p className="outside__text">
+                            Hiện nay, bánh Pizza đã và đang trở thành món ăn quen thuộc với nhiều gia đình tại Việt Nam, đặc biệt
+                            được phần đông giới trẻ rất yêu thích. Tuy nhiên, khi bạn đói hay quá bận rộn để vào bếp thì việc đặt
+                            hàng và chờ đợi sẽ tốn khá nhiều thời gian và công sức. Vậy còn gì hấp dẫn hơn một chiếc Pizza cấp đông
+                            của Pizzato ???
+                        </p>
+                        <div className="resson__choose">
+                            <div className="resson__choose__content">
+                                <div className="resson__choose__icon">
+                                    <MdFastfood />
+                                </div>
+                                <div className="resson__choose__text">
+                                    <h2>Chất lượng cao</h2>
+                                    <p>
+                                        Pizza của chúng tôi được làm từ nguyên liệu tươi ngon nhất, hương vị tuyệt vời
+                                        trong từng miếng. Kết hợp hoàn hảo với phô mai thơm ngon và các loại nhân đa dạng,
+                                        mang đến trải nghiệm ẩm thực tuyệt vời.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="resson__choose__content">
+                                <div className="resson__choose__icon">
+                                    <PiChefHatBold />
+                                </div>
+                                <div className="resson__choose__text">
+                                    <h2>Những đầu bếp chuyên nghiệp</h2>
+                                    <p>
+                                        Đầu bếp của chúng tôi là những chuyên gia ẩm thực dày dạn kinh nghiệm, tận tâm mang đến những chiếc pizza
+                                        thơm ngon và độc đáo, được chế biến theo công thức truyền thống và đầy sáng tạo.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="resson__choose__content">
+                                <div className="resson__choose__icon">
+                                    <PiMoneyWavyBold />
+                                </div>
+                                <div className="resson__choose__text">
+                                    <h2>Khuyến mãi cực khủng</h2>
+                                    <p>
+                                        Chúng tôi cung cấp pizza chất lượng cao với giá cả hợp lý, giúp bạn thưởng thức món ăn yêu thích mà không
+                                        lo về ngân sách.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="menu__container">
+                    <h2 className="our__menu"><strong>Thực đơn</strong> của chúng tôi</h2>
+                    <p className="description">
+                        Thực đơn của chúng tôi đa dạng với nhiều lựa chọn pizza hấp dẫn, <br /> từ các hương vị truyền thống đến
+                        những sáng tạo mới lạ, <br /> phù hợp với mọi khẩu vị và sở thích của khách hàng.
+                    </p>
+                    <div className="menu__list">
+                        <Card
+                            style={{
+                                width: '100%',
+                            }}
+                            tabList={tabList}
+                            activeTabKey={activeTabKey1}
+                            onTabChange={onTab1Change}
+                        >
+                            {contentList[activeTabKey1]}
+                        </Card>
+                    </div>
+                </div>
+            </div>
+            <div className="sub__banner" style={{ backgroundImage: "url('/assets/images/sub-banner.webp')" }}>
+                <div className="overlay__sub__banner">
+                    <div className="container">
+                        <div className="sub__banner__flexbox">
+                            <CarouselMulti 
+                                responsive={responsive}
+                                infinite={true}
+                                className="sub__banner__list"
+                            >
+                                <div className="sub__banner__item">
+                                    <div className="infomation__chef">
+                                        <img src="/assets/images/our-chef.jpg" alt="Our Chef" />
+                                        <div className="infomation__chef__name">
+                                            <h3>Nguyễn Duy Dũng</h3>
+                                            <p>Đầu bếp chính</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="sub__banner__item">
+                                    <div className="infomation__chef">
+                                        <img src="/assets/images/our-chef.jpg" alt="Our Chef" />
+                                        <div className="infomation__chef__name">
+                                            <h3>Nguyễn Duy Dũng</h3>
+                                            <p>Đầu bếp chính</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="sub__banner__item">
+                                    <div className="infomation__chef">
+                                        <img src="/assets/images/our-chef.jpg" alt="Our Chef" />
+                                        <div className="infomation__chef__name">
+                                            <h3>Nguyễn Duy Dũng</h3>
+                                            <p>Đầu bếp chính</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="sub__banner__item">
+                                    <div className="infomation__chef">
+                                        <img src="/assets/images/our-chef.jpg" alt="Our Chef" />
+                                        <div className="infomation__chef__name">
+                                            <h3>Nguyễn Duy Dũng</h3>
+                                            <p>Đầu bếp chính</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="sub__banner__item">
+                                    <div className="infomation__chef">
+                                        <img src="/assets/images/our-chef.jpg" alt="Our Chef" />
+                                        <div className="infomation__chef__name">
+                                            <h3>Nguyễn Duy Dũng</h3>
+                                            <p>Đầu bếp chính</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </CarouselMulti>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="container">
+                <div>
+                    <Carousel arrows infinite={true}>
+                        <div className="feedback__box">
+                            <div className="row">
+                                <div className="col-xl-6">
+                                    <div className="feedback__content">
+                                        <h2><strong>Phản hồi</strong> từ khách hàng</h2>
+                                        <div className="feedback__icon">
+                                            <MdOutlineFeedback />
+                                        </div>
+                                        <p className="feedback__description">
+                                            Pizza rất ngon! Vỏ bánh giòn tan, nhân đầy đặn và phô mai béo
+                                            ngậy. Mình rất ấn tượng với sự tươi ngon của các nguyên liệu.
+                                            Chắc chắn sẽ quay lại đặt thêm lần sau!
+                                        </p>
+                                        <div className="feedback__person">
+                                            <div className="feedback__person__image">
+                                                <img src="/assets/images/avt.jpeg" alt="Person 1" />
+                                            </div>
+                                            <div className="feedback__person__info">
+                                                <div className="rating">
+                                                    <Rate disabled defaultValue={4} />
+                                                </div>
+                                                <h4>Nguyễn Duy Dũng</h4>
+                                                <p>Khách hàng</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-6">
+                                    <div className="feedback__image">
+                                        <img src="/assets/images/feedback.jpg" alt="Feedback" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="feedback__box">
+                            <div className="row">
+                                <div className="col-xl-6">
+                                    <div className="feedback__content">
+                                        <h2><strong>Phản hồi</strong> từ khách hàng</h2>
+                                        <div className="feedback__icon">
+                                            <MdOutlineFeedback />
+                                        </div>
+                                        <p className="feedback__description">
+                                            Pizza rất ngon! Vỏ bánh giòn tan, nhân đầy đặn và phô mai béo
+                                            ngậy. Mình rất ấn tượng với sự tươi ngon của các nguyên liệu.
+                                            Chắc chắn sẽ quay lại đặt thêm lần sau!
+                                        </p>
+                                        <div className="feedback__person">
+                                            <div className="feedback__person__image">
+                                                <img src="/assets/images/avt.jpeg" alt="Person 1" />
+                                            </div>
+                                            <div className="feedback__person__info">
+                                                <div className="rating">
+                                                    <Rate disabled defaultValue={4} />
+                                                </div>
+                                                <h4>Nguyễn Duy Dũng</h4>
+                                                <p>Khách hàng</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-6">
+                                    <div className="feedback__image">
+                                        <img src="/assets/images/feedback.jpg" alt="Feedback" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="feedback__box">
+                            <div className="row">
+                                <div className="col-xl-6">
+                                    <div className="feedback__content">
+                                        <h2><strong>Phản hồi</strong> từ khách hàng</h2>
+                                        <div className="feedback__icon">
+                                            <MdOutlineFeedback />
+                                        </div>
+                                        <p className="feedback__description">
+                                            Pizza rất ngon! Vỏ bánh giòn tan, nhân đầy đặn và phô mai béo
+                                            ngậy. Mình rất ấn tượng với sự tươi ngon của các nguyên liệu.
+                                            Chắc chắn sẽ quay lại đặt thêm lần sau!
+                                        </p>
+                                        <div className="feedback__person">
+                                            <div className="feedback__person__image">
+                                                <img src="/assets/images/avt.jpeg" alt="Person 1" />
+                                            </div>
+                                            <div className="feedback__person__info">
+                                                <div className="rating">
+                                                    <Rate disabled defaultValue={4} />
+                                                </div>
+                                                <h4>Nguyễn Duy Dũng</h4>
+                                                <p>Khách hàng</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-6">
+                                    <div className="feedback__image">
+                                        <img src="/assets/images/feedback.jpg" alt="Feedback" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Carousel>
+                </div>
+                <div className="news__box">
+                    <div className="row">
+                        <div className="col-xl-4">
+                            <div className="new__item">
+                                <div className="news__image">
+                                    <img src="/assets/images/news.jpg" alt="News" />
+                                </div>
+                                <div className="new__content">
+                                    <div className="new__author">
+                                        <div className="date">
+                                            <MdDateRange />
+                                            <p>19-05-2024</p>
+                                        </div>
+                                        <div className="author">
+                                            <PiUser />
+                                            <p>Nguyễn Duy Dũng</p>
+                                        </div>
+                                    </div>
+                                    <div className="new__info">
+                                        <h2>Pizza Margarita</h2>
+                                        <p>
+                                            HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý
+                                        </p>
+                                        <div className="new__button">
+                                            <Link to=""><button type="button">Đọc tiếp</button></Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-xl-4">
+                            <div className="new__item">
+                                <div className="news__image">
+                                    <img src="/assets/images/news.jpg" alt="News" />
+                                </div>
+                                <div className="new__content">
+                                    <div className="new__author">
+                                        <div className="date">
+                                            <MdDateRange />
+                                            <p>19-05-2024</p>
+                                        </div>
+                                        <div className="author">
+                                            <PiUser />
+                                            <p>Nguyễn Duy Dũng</p>
+                                        </div>
+                                    </div>
+                                    <div className="new__info">
+                                        <h2>Pizza Margarita</h2>
+                                        <p>
+                                            HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý
+                                        </p>
+                                        <div className="new__button">
+                                            <Link to=""><button type="button">Đọc tiếp</button></Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-xl-4">
+                            <div className="new__item">
+                                <div className="news__image">
+                                    <img src="/assets/images/news.jpg" alt="News" />
+                                </div>
+                                <div className="new__content">
+                                    <div className="new__author">
+                                        <div className="date">
+                                            <MdDateRange />
+                                            <p>19-05-2024</p>
+                                        </div>
+                                        <div className="author">
+                                            <PiUser />
+                                            <p>Nguyễn Duy Dũng</p>
+                                        </div>
+                                    </div>
+                                    <div className="new__info">
+                                        <h2>Pizza Margarita</h2>
+                                        <p>
+                                            HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý
+                                        </p>
+                                        <div className="new__button">
+                                            <Link to=""><button type="button">Đọc tiếp</button></Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     );
 };
 
-export default memo(homePage);
+export default memo(HomePage);

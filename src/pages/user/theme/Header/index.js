@@ -143,7 +143,7 @@ const Header = () => {
                             <ul>
                                 <li onClick={toggleSearchPopup}><AiOutlineSearch /></li>
                                 <li><AiOutlineUser /></li>
-                                <li><AiOutlineShoppingCart /> <span>2</span></li>
+                                <li><AiOutlineShoppingCart /> <span>10</span></li>
                             </ul>
                         </div>
                     </div>
