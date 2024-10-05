@@ -858,6 +858,145 @@
     opacity: 1 !important;
 }
 
+.news__box {
+    margin: 50px 0;
+
+    .title__new {
+        text-align: center;
+        width: 100%;
+
+        h2 {
+            font-style: italic;
+
+            strong {
+                color: map-get($map: $theme-colors, $key: "main");
+            }
+        }
+
+        p {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+    }
+
+    .new__item {
+        height: 468px;
+        margin: 0 5px;
+    
+        .news__image {
+            height: 250px;
+    
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    
+        .new__content {
+            .new__author {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                column-gap: 30px;
+                margin: 10px 0;
+    
+                .date {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    column-gap: 5px;
+    
+                    svg {
+                        color: map-get($map: $theme-colors, $key: "main");
+                        font-size: 16px;
+                    }
+    
+                    p {
+                        color: #999999;
+                        font-style: italic;
+                    }
+                }
+    
+                .author {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    column-gap: 5px;
+    
+                    svg {
+                        color: map-get($map: $theme-colors, $key: "main");
+                        font-size: 16px;
+                    }
+    
+                    p {
+                        color: #999999;
+                        font-style: italic;
+                    }
+                }
+            }
+    
+            .new__info {
+                a {
+                    text-decoration: none;
+                    color: #000;
+    
+                    h2 {
+                        font-weight: 600;
+                        margin-bottom: 10px;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        line-clamp: 2;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+        
+                        &:hover {
+                            color: map-get($map: $theme-colors, $key: "main");
+                            transition: all 0.5s ease-in-out;
+                        }
+                    }
+    
+                    p {
+                        margin-bottom: 20px;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        box-orient: vertical;
+                        -webkit-line-clamp: 3;
+                        line-clamp: 3;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+    
+                    .new__button {
+                        .href__button {
+                            button {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                column-gap: 10px;
+                                border: 1px solid map-get($map: $theme-colors, $key: "main") !important;
+                                color: map-get($map: $theme-colors, $key: "main") !important;
+                                background-color: #fff !important;
+                                padding: 10px 20px !important;
+                                font-size: 16px;
+                                border-radius: 8px;
+                                cursor: pointer;
+    
+                                &:hover {
+                                    background-color: map-get($map: $theme-colors, $key: "main") !important;
+                                    color: #fff !important;
+                                    transition: all 0.5s ease-in-out;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 .footer__container {
     position: relative;
     background-size: cover;

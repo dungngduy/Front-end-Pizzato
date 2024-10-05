@@ -1,18 +1,13 @@
 import { memo, useState } from "react";
 import 'assets/user/scss/home-page.scss';
 import { 
-    AiOutlineFacebook,
-    AiOutlineInstagram,
-    AiOutlineTwitter,
-    AiOutlineYoutube,
-    AiOutlineMail,
-    AiOutlinePhone,
     AiOutlineSearch,
     AiOutlineUser,
     AiOutlineShoppingCart
 } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import { ROUTER } from "utils/router";
+import HeaderTop from "./header-top";
 
 const Header = () => {
     // Menu
@@ -71,39 +66,8 @@ const Header = () => {
 
     return (
         <header>
-            <div className="header__top">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-6 header__top__left">
-                            <ul>
-                                <li>
-                                    <AiOutlineMail /> pizzato@gmail.com
-                                </li>
-                                <li>
-                                    <AiOutlinePhone /> +123 456 7890
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-6 header__top__right">
-                            <ul>
-                                <li>
-                                    <Link to={""}><AiOutlineFacebook /></Link>
-                                </li>
-                                <li>
-                                    <Link to={""}><AiOutlineInstagram /></Link>
-                                </li>
-                                <li>
-                                    <Link to={""}><AiOutlineYoutube /></Link>
-                                </li>
-                                <li>
-                                    <Link to={""}><AiOutlineTwitter /></Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="header__menu__wrapper">
+            <HeaderTop />
+            <div className="header__menu__wrapper" data-aos="fade-up">
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-3 col-lg-3">

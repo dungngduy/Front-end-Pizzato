@@ -16,7 +16,7 @@ const Footer = () => {
                 <div className="overlay__footer">
                     <div className="container">
                         <div className="row">
-                            <div className="col-xl-3">
+                            <div className="col-xl-3" data-aos="fade-right">
                                 <h2 className="footer__about">
                                     Giới thiệu chung
                                 </h2>
@@ -31,7 +31,7 @@ const Footer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-xl-3">
+                            <div className="col-xl-3" data-aos="fade-right">
                                 <h2 className="footer__about__me">
                                     Về chúng tôi
                                 </h2>
@@ -45,7 +45,7 @@ const Footer = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-xl-3">
+                            <div className="col-xl-3" data-aos="fade-left">
                                 <h2 className="footer__help">
                                     Trợ giúp
                                 </h2>
@@ -59,7 +59,7 @@ const Footer = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-xl-3">
+                            <div className="col-xl-3" data-aos="fade-left">
                                 <h2 className="footer__post">
                                     Bài viết gần đây
                                 </h2>
@@ -112,12 +112,12 @@ const Footer = () => {
             <div className="footer__copyright">
                 <div className="container">
                     <div className="row footer__copyright">
-                        <div className="col-xl-6 footer__copyright__text">
+                        <div className="col-xl-6 footer__copyright__text" data-aos="fade-right">
                             <ul>
                                 <li>Copyright © 2024. All rights reserved</li>
                             </ul>
                         </div>
-                        <div className="col-xl-6">
+                        <div className="col-xl-6" data-aos="fade-left">
                             <div className="footer__copyright__icons">
                                 <ul>
                                     <li>
