@@ -1,3 +1,10 @@
 $theme-colors: (
     "main": #BC9A6C,
-)
+    "white": #fff,
+    "black": #000,
+);
+
+$theme-transitions: (
+    "main": 0.5s all ease-in-out,
+    "other": 0.3s all ease-in-out,
+);
