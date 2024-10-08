@@ -41,9 +41,7 @@ const News = () => {
                                         Trên thực tế hiện nay có thể tìm thấy món ăn này ở bất cứ quốc gia nào mà bạn đặt chân đến
                                     </p>
                                     <div className="new__button">
-                                        <Link to="" className="href__button">
-                                            <button type="button">Đọc tiếp <MdOutlineTrendingFlat /></button>
-                                        </Link>
+                                        <button type="button" className="href__button">Đọc tiếp <MdOutlineTrendingFlat /></button>
                                     </div>
                                 </Link>
                             </div>
@@ -74,9 +72,7 @@ const News = () => {
                                         Trên thực tế hiện nay có thể tìm thấy món ăn này ở bất cứ quốc gia nào mà bạn đặt chân đến
                                     </p>
                                     <div className="new__button">
-                                        <Link to="" className="href__button">
-                                            <button type="button">Đọc tiếp <MdOutlineTrendingFlat /></button>
-                                        </Link>
+                                        <button type="button" className="href__button">Đọc tiếp <MdOutlineTrendingFlat /></button>
                                     </div>
                                 </Link>
                             </div>
@@ -107,9 +103,7 @@ const News = () => {
                                         Trên thực tế hiện nay có thể tìm thấy món ăn này ở bất cứ quốc gia nào mà bạn đặt chân đến
                                     </p>
                                     <div className="new__button">
-                                        <Link to="" className="href__button">
-                                            <button type="button">Đọc tiếp <MdOutlineTrendingFlat /></button>
-                                        </Link>
+                                        <button type="button" className="href__button">Đọc tiếp <MdOutlineTrendingFlat /></button>
                                     </div>
                                 </Link>
                             </div>

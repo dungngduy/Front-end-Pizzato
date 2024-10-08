@@ -33,7 +33,7 @@ const Feedback = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-6" data-aos="fade-left">
+                        <div className="col-xl-6" data-aos="zoom-in">
                             <div className="feedback__image">
                                 <img src="/assets/images/feedback.jpg" alt="Feedback" />
                             </div>
@@ -67,7 +67,7 @@ const Feedback = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-6" data-aos="fade-left">
+                        <div className="col-xl-6" data-aos="zoom-in">
                             <div className="feedback__image">
                                 <img src="/assets/images/feedback.jpg" alt="Feedback" />
                             </div>
@@ -101,7 +101,7 @@ const Feedback = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-xl-6" data-aos="fade-left">
+                        <div className="col-xl-6" data-aos="zoom-in">
                             <div className="feedback__image">
                                 <img src="/assets/images/feedback.jpg" alt="Feedback" />
                             </div>

@@ -1,10 +1,11 @@
 import { memo, useState } from "react";
+import ReactDOM from "react-dom";
 import { 
     AiOutlineSearch,
     AiOutlineUser,
     AiOutlineShoppingCart
 } from 'react-icons/ai';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTER } from "utils/router";
 
 const HeaderMenu = () => {
@@ -20,7 +21,7 @@ const HeaderMenu = () => {
         },
         {
             name: "Thực đơn",
-            path: "",
+            path: ROUTER.USER.CATEGORY,
             isShowSubMenu: false,
             child: [
                 {
@@ -62,6 +63,14 @@ const HeaderMenu = () => {
         setSearchVisible(false);
     };
 
+    // Hàm reoload trang
+    const history = useNavigate();
+
+    const handlePageChange = (url) => {
+        history(url);
+        window.location.reload();
+    };
+
     return (
         <div>
             <div className="header__menu__wrapper">
@@ -81,13 +90,13 @@ const HeaderMenu = () => {
                                         Menus.map((menu, index) => {
                                             return (
                                                 <li key={index} className={index === 0 ? "active" : ""}>
-                                                    <Link to={menu.path}>{menu.name}</Link>
+                                                    <Link to={menu.path} onClick={() => handlePageChange(menu.path)}>{menu.name}</Link>
                                                     {
                                                         menu.child && (
                                                             <ul className="header__menu__dropdown">
                                                                 {menu.child.map((childItem, childKey) => (
                                                                     <li key={`${index}-${childKey}`}>
-                                                                        <Link to={childItem.path}>{childItem.name}</Link>
+                                                                        <Link to={childItem.path} onClick={() => handlePageChange(childItem.path)}>{childItem.name}</Link>
                                                                     </li>
                                                                 ))}
                                                             </ul>
@@ -112,16 +121,17 @@ const HeaderMenu = () => {
             </div>
 
             {/* Popup tìm kiếm */}
-            {isSearchVisible && (
+            {isSearchVisible && ReactDOM.createPortal(
                 <div>
                     <div className="overlay active" onClick={closePopup}></div>
-                    <div className="search-popup active">
+                    <div className="search-popup active" data-aos="fade-up">
                         <div className="popup-content">
                             <input type="text" placeholder="Tìm kiếm món ăn tại đây..." />
                             <button onClick={closePopup}>Tìm kiếm</button>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body // Render ra ngoài DOM của component hiện tại
             )}
         </div>
     );

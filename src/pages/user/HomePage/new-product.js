@@ -47,14 +47,14 @@ const NewProduct = () => {
             </div>
             <div className="col-xl-6">
                 <div className="new__product__image">
-                    <div className="col-xl-12 new__product__image-top" data-aos="fade-left">
+                    <div className="col-xl-12 new__product__image-top" data-aos="zoom-in">
                         <img src="/assets/images/new-products/new-pro-1.jpg" alt="New-pro-1" />
                     </div>
                     <div className="col-xl-12 new__product__image-bottom">
-                        <div className="col-xl-6 new__product__image-bottom-left" data-aos="fade-left">
+                        <div className="col-xl-6 new__product__image-bottom-left" data-aos="zoom-in">
                             <img src="/assets/images/new-products/new-pro-2.jpeg" alt="New-pro-2" />
                         </div>
-                        <div className="col-xl-6 new__product__image-bottom-right" data-aos="fade-left">
+                        <div className="col-xl-6 new__product__image-bottom-right" data-aos="zoom-in">
                             <img src="/assets/images/new-products/new-pro-3.webp" alt="New-pro-3" />
                         </div>
                     </div>

@@ -12,12 +12,12 @@ const FooterCopyright = () => {
         <div className="footer__copyright">
             <div className="container">
                 <div className="row footer__copyright">
-                    <div className="col-xl-6 footer__copyright__text" data-aos="fade-right">
+                    <div className="col-xl-6 footer__copyright__text">
                         <ul>
                             <li>Copyright © 2024. All rights reserved</li>
                         </ul>
                     </div>
-                    <div className="col-xl-6" data-aos="fade-left">
+                    <div className="col-xl-6">
                         <div className="footer__copyright__icons">
                             <ul>
                                 <li>

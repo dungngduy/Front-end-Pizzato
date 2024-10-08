@@ -25,9 +25,9 @@ const responsive = {
 const Category = () => {
     return (
         <div className="row categories__container">
-            <div className="col-xl-12" data-aos="fade-up">
-                <h4 className="categories__title">Danh mục</h4>
-                <h2 className="categories__description">Chọn thực đơn món ăn</h2>
+            <div className="col-xl-12">
+                <h4 className="categories__title" data-aos="fade-up">Danh mục</h4>
+                <h2 className="categories__description" data-aos="fade-up">Chọn thực đơn món ăn</h2>
                 <CarouselMulti 
                     responsive={responsive}
                     autoPlaySpeed={3000}
@@ -36,31 +36,31 @@ const Category = () => {
                     arrows={false}
                     className="categories__list"
                 >
-                    <div className="categories__item">
+                    <div className="categories__item" data-aos="zoom-in">
                         <Link to="">
                             <img src="/assets/images/categories/category-1.jpeg" alt="Danh mục 1" />
                             <p>Danh mục 1</p>
                         </Link>
                     </div>
-                    <div className="categories__item">
+                    <div className="categories__item" data-aos="zoom-in">
                         <Link to="">
                             <img src="/assets/images/categories/category-2.jpg" alt="Danh mục 2" />
                             <p>Danh mục 2</p>
                         </Link>
                     </div>
-                    <div className="categories__item">
+                    <div className="categories__item" data-aos="zoom-in">
                         <Link to="">
                             <img src="/assets/images/categories/category-3.jpg" alt="Danh mục 3" />
                             <p>Danh mục 3</p>
                         </Link>
                     </div>
-                    <div className="categories__item">
+                    <div className="categories__item" data-aos="zoom-in">
                         <Link to="">
                             <img src="/assets/images/categories/category-4.jpeg" alt="Danh mục 4" />
                             <p>Danh mục 4</p>
                         </Link>
                     </div>
-                    <div className="categories__item">
+                    <div className="categories__item" data-aos="zoom-in">
                         <Link to="">
                             <img src="/assets/images/categories/category-5.jpg" alt="Danh mục 5" />
                             <p>Danh mục 5</p>

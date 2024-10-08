@@ -15,6 +15,7 @@
     "react-multi-carousel": "^2.8.5",
     "react-router-dom": "^6.26.2",
     "react-scripts": "^5.0.1",
+    "react-stickynode": "^4.1.1",
     "sass": "^1.79.3",
     "web-vitals": "^2.1.4"
   },
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/react-sticky": "^6.0.6",
     "stylelint": "^16.9.0",
     "stylelint-scss": "^6.7.0"
   }

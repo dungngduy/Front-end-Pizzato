@@ -10,7 +10,7 @@ const ChooseFood = () => {
         <div className="row choose__food">
             <div className="col-xl-6 left__choose__food__box">
                 <div className="choose__food__image" data-aos="fade-up">
-                    <img src="/assets/images/pizza-choose.jpeg" alt="Choose food" />
+                    <img src="/assets/images/pizza-choose.jpeg" alt="Choose food" data-aos="zoom-in"/>
                     <div className="choose__food__content" data-aos="fade-right">
                         <p>
                             HHT - Pizza là món ăn đặc trưng của nền ẩm thực nước Ý,

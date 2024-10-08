@@ -32,7 +32,7 @@ const tabList = [
 const contentList = {
     tab1: (
         <div className="row tab__content">
-            <div className="col-xl-4" data-aos="fade-right">
+            <div className="col-xl-4" data-aos="zoom-in">
                 <div className="menu__item__main">
                     <img src="/assets/images/menu-items/pizza-1.png" alt="Pizza-1" />
                 </div>
@@ -139,7 +139,7 @@ const contentList = {
     ),
     tab2: (
         <div className="row tab__content">
-            <div className="col-xl-4" data-aos="fade-right">
+            <div className="col-xl-4" data-aos="zoom-in">
                 <div className="menu__item__main">
                     <img src="/assets/images/menu-items/pizza-2.png" alt="Pizza-2" />
                 </div>
@@ -246,7 +246,7 @@ const contentList = {
     ),
     tab3: (
         <div className="row tab__content">
-            <div className="col-xl-4" data-aos="fade-right">
+            <div className="col-xl-4" data-aos="zoom-in">
                 <div className="menu__item__main">
                     <img src="/assets/images/menu-items/pizza-3.png" alt="Pizza-3" />
                 </div>
@@ -353,7 +353,7 @@ const contentList = {
     ),
     tab4: (
         <div className="row tab__content">
-            <div className="col-xl-4" data-aos="fade-right">
+            <div className="col-xl-4" data-aos="zoom-in">
                 <div className="menu__item__main">
                     <img src="/assets/images/menu-items/pizza-4.png" alt="Pizza-4" />
                 </div>
@@ -460,7 +460,7 @@ const contentList = {
     ),
     tab5: (
         <div className="row tab__content">
-            <div className="col-xl-4" data-aos="fade-right">
+            <div className="col-xl-4" data-aos="zoom-in">
                 <div className="menu__item__main">
                     <img src="/assets/images/menu-items/pizza-5.png" alt="Pizza-5" />
                 </div>
@@ -567,7 +567,7 @@ const contentList = {
     ),
     tab6: (
         <div className="row tab__content">
-            <div className="col-xl-4" data-aos="fade-right">
+            <div className="col-xl-4" data-aos="zoom-in">
                 <div className="menu__item__main">
                     <img src="/assets/images/menu-items/pizza-6.png" alt="Pizza-6" />
                 </div>

@@ -135,6 +135,17 @@
     }
 }
 
+.sticky-active {
+    z-index: 999;
+    position: relative;
+
+    .sticky-inner-wrapper {
+        background-color: map-get($map: $theme-colors, $key: "white");
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+
 .search__container {
     display: flex;
     justify-content: center;
@@ -183,16 +194,14 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
     opacity: 0;
-    visibility: hidden;
     transition: opacity 0.3s ease-in;
 }
 
 .overlay.active {
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.5);
     visibility: visible;
 }
 
@@ -200,13 +209,13 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.7);
+    transform: translate(-50%, -50%) scale(0.7) !important;
     width: 60%;
     max-width: 600px;
     background-color: map-get($map: $theme-colors, $key: "white");
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    z-index: 9999;
     border-radius: 8px;
     opacity: 0;
     visibility: hidden;
@@ -218,7 +227,7 @@
 .search-popup.active {
     opacity: 1;
     visibility: visible;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1) !important;
 }
 
 .popup-content {
@@ -970,25 +979,23 @@
                     }
     
                     .new__button {
-                        .href__button {
-                            button {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                column-gap: 10px;
-                                border: 1px solid map-get($map: $theme-colors, $key: "main") !important;
-                                color: map-get($map: $theme-colors, $key: "main") !important;
-                                background-color: map-get($map: $theme-colors, $key: "white") !important;
-                                padding: 10px 20px !important;
-                                font-size: 16px;
-                                border-radius: 8px;
-                                cursor: pointer;
-    
-                                &:hover {
-                                    background-color: map-get($map: $theme-colors, $key: "main") !important;
-                                    color: map-get($map: $theme-colors, $key: "white") !important;
-                                    transition: map-get($map: $theme-transitions, $key: "main");
-                                }
+                        button {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            column-gap: 10px;
+                            border: 1px solid map-get($map: $theme-colors, $key: "main") !important;
+                            color: map-get($map: $theme-colors, $key: "main") !important;
+                            background-color: map-get($map: $theme-colors, $key: "white") !important;
+                            padding: 10px 20px !important;
+                            font-size: 16px;
+                            border-radius: 8px;
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: map-get($map: $theme-colors, $key: "main") !important;
+                                color: map-get($map: $theme-colors, $key: "white") !important;
+                                transition: map-get($map: $theme-transitions, $key: "main");
                             }
                         }
                     }

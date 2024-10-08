@@ -3,7 +3,7 @@ import { Carousel } from 'antd';
 
 const Banner = () => {
     return (
-        <nav className="carousel">
+        <nav className="carousel" data-aos="fade-up">
             <Carousel autoplay>
                 <div className="carousel__item">
                     <img src="/assets/images/banners/banner-1.webp" alt="Banner-1" />
