@@ -7,7 +7,8 @@
     background-position: center;
     background-repeat: no-repeat;
     color: map-get($map: $theme-colors, $key: "white");
-    height: 400px;
+    height: 350px;
+    margin-bottom: 100px;
 }
 
 .overlay__banner__category {
@@ -55,11 +56,136 @@
     }
 }
 
-.list__product {
-    margin: 100px 0;
+.segmented__category {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.sort__by {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.list-view {
+    margin-top: 20px;
 
     .product__item {
-        height: 350px;
+        margin-bottom: 30px;
+
+        a {
+            display: flex;
+            align-items: flex-start;
+            text-decoration: none;
+            column-gap: 30px;
+            color: map-get($map: $theme-colors, $key: "black");
+
+            .product__item__image {
+                width: 100%;
+                height: 200px;
+    
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 8px;
+                }
+            }
+
+            .product__item__info {
+                .product__item__category-name {
+                    margin-bottom: 15px;
+
+                    span {
+                        background-color: #ede3ea;
+                        padding: 5px 15px;
+                        border-radius: 30px;
+                        font-size: 12px;
+
+                        &:hover {
+                            background-color: map-get($map: $theme-colors, $key: "main");
+                            color: map-get($map: $theme-colors, $key: "white");
+                            transition: map-get($map: $theme-transitions, $key: "other");
+                        }
+                    }
+                }
+
+                .product__item__name {
+                    h2 {        
+                        &:hover {
+                            color: map-get($map: $theme-colors, $key: "main");
+                            transition: map-get($map: $theme-transitions, $key: "other");
+                        }
+                    }
+        
+                    p {
+                        margin: 8px 0;
+                        color: map-get($map: $theme-colors, $key: "description");
+                        @each $key, $value in map-get($theme-webkits, description) {
+                            #{$key}: #{$value};
+                        }
+                    }
+                }
+            }
+
+            .product__item__rating-and-price {
+                margin-top: 20px;
+        
+                .product__item__price {
+                    p {
+                        font-weight: 600;
+                        
+                        br {
+                            display: none;
+                        }
+        
+                        del {
+                            font-style: italic;
+                            font-weight: 400;
+                            margin-right: 10px;
+                        }
+        
+                        span {
+                            color: #ff0000;
+                            font-size: 16px;
+                        }
+                    }
+        
+                }
+        
+                .product__item__rating {
+                    margin-top: 5px;
+
+                    .rating__count {
+                        margin-left: 5px;
+                        color: map-get($map: $theme-colors, $key: "description");
+                        font-style: italic;
+                    }
+
+                    .ant-rate-star {
+                        span {
+                            svg {
+                                font-size: 16px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.kanban-view {
+    margin-top: 20px;
+
+    .product__item {
+        height: 360px;
+        margin-left: 8px;
+        margin-right: 8px;
+        margin-bottom: 50px;
         
         a {
             text-decoration: none;
@@ -81,9 +207,12 @@
 
     .product__item__info {
         .product__item__name {
-            text-align: center;
-
             h2 {
+                @each $key, $value in map-get($theme-webkits, title) {
+                    #{$key}: #{$value};
+                }
+                text-align: center;
+
                 &:hover {
                     color: map-get($map: $theme-colors, $key: "main");
                     transition: map-get($map: $theme-transitions, $key: "other");
@@ -92,6 +221,10 @@
 
             p {
                 margin: 5px 0;
+                color: map-get($map: $theme-colors, $key: "description");
+                @each $key, $value in map-get($theme-webkits, description) {
+                    #{$key}: #{$value};
+                }
             }
         }
     }
@@ -113,7 +246,7 @@
 
                 span {
                     color: #ff0000;
-                    font-size: 18px;
+                    font-size: 16px;
                 }
             }
 

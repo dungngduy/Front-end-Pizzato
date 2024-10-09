@@ -558,16 +558,6 @@
                     font-weight: 600;
                     margin-bottom: 10px;
                 }
-
-                p {
-                    display: -webkit-box;
-                    -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 2;
-                    line-clamp: 2;
-                    -webkit-line-clamp: var(--webkit-line-clamp);
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
             }
         }
     }
@@ -636,9 +626,9 @@
 
                 p {
                     color: map-get($map: $theme-colors, $key: "black");
-                    white-space: nowrap;        
-                    overflow: hidden;           
-                    text-overflow: ellipsis;    
+                    @each $key, $value in map-get($theme-webkits, title) {
+                        #{$key}: #{$value};
+                    }
                     width: 200px;
                 }
 
@@ -922,7 +912,7 @@
                     }
     
                     p {
-                        color: #999999;
+                        color: map-get($map: $theme-colors, $key: "description");
                         font-style: italic;
                     }
                 }
@@ -939,7 +929,7 @@
                     }
     
                     p {
-                        color: #999999;
+                        color: map-get($map: $theme-colors, $key: "description");
                         font-style: italic;
                     }
                 }
@@ -953,13 +943,9 @@
                     h2 {
                         font-weight: 600;
                         margin-bottom: 10px;
-                        display: -webkit-box;
-                        -webkit-box-orient: vertical;
-                        box-orient: vertical;
-                        -webkit-line-clamp: 2;
-                        line-clamp: 2;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                        @each $key, $value in map-get($theme-webkits, title) {
+                            #{$key}: #{$value};
+                        }
         
                         &:hover {
                             color: map-get($map: $theme-colors, $key: "main");
@@ -969,13 +955,10 @@
     
                     p {
                         margin-bottom: 20px;
-                        display: -webkit-box;
-                        -webkit-box-orient: vertical;
-                        box-orient: vertical;
-                        -webkit-line-clamp: 3;
-                        line-clamp: 3;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                        color: map-get($map: $theme-colors, $key: "description");
+                        @each $key, $value in map-get($theme-webkits, description) {
+                            #{$key}: #{$value};
+                        }
                     }
     
                     .new__button {

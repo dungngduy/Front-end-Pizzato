@@ -5,7 +5,7 @@ import {
     AiOutlineUser,
     AiOutlineShoppingCart
 } from 'react-icons/ai';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ROUTER } from "utils/router";
 
 const HeaderMenu = () => {
@@ -63,14 +63,6 @@ const HeaderMenu = () => {
         setSearchVisible(false);
     };
 
-    // Hàm reoload trang
-    const history = useNavigate();
-
-    const handlePageChange = (url) => {
-        history(url);
-        window.location.reload();
-    };
-
     return (
         <div>
             <div className="header__menu__wrapper">
@@ -90,13 +82,13 @@ const HeaderMenu = () => {
                                         Menus.map((menu, index) => {
                                             return (
                                                 <li key={index} className={index === 0 ? "active" : ""}>
-                                                    <Link to={menu.path} onClick={() => handlePageChange(menu.path)}>{menu.name}</Link>
+                                                    <Link to={menu.path}>{menu.name}</Link>
                                                     {
                                                         menu.child && (
                                                             <ul className="header__menu__dropdown">
                                                                 {menu.child.map((childItem, childKey) => (
                                                                     <li key={`${index}-${childKey}`}>
-                                                                        <Link to={childItem.path} onClick={() => handlePageChange(childItem.path)}>{childItem.name}</Link>
+                                                                        <Link to={childItem.path}>{childItem.name}</Link>
                                                                     </li>
                                                                 ))}
                                                             </ul>
