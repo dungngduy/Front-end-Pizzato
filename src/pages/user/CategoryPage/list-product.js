@@ -1,7 +1,10 @@
 import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Rate, Segmented, Select } from 'antd';
-import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
+import { Rate, Segmented, Select, Input, Checkbox, Slider, Tag, Pagination } from 'antd';
+import { AppstoreOutlined, BarsOutlined, ArrowRightOutlined } from '@ant-design/icons';
+
+const { Search } = Input;
+const onSearch = (value, _e, info) => console.log(info?.source, value);
 
 const ListProduct = () => {
     const [viewMode, setViewMode] = useState('Kanban');
@@ -29,9 +32,14 @@ const ListProduct = () => {
         },
     ];
 
+    const [inputValue, setInputValue] = useState([20, 50]);
+    const onChange = (newValue) => {
+        setInputValue(newValue);
+    };
+
     return (
         <div className="container">
-            <div className="row">
+            <div className="row category__container">
                 <div className="col-xl-9">
                     <div className="row">
                         <div className="col-xl-6 sort__by">
@@ -72,8 +80,8 @@ const ListProduct = () => {
                         </div>
                     </div>
                     <div className={`list__product ${viewMode === 'List' ? 'list-view' : 'kanban-view'}`}>
-                        <div className="row">
-                            <div className={`col-xl-${viewMode === 'Kanban' ? '4' : '12'}`}>
+                        <div className={`${viewMode === 'Kanban' ? 'row-grid-4' : 'row'}`}>
+                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
                                     <Link to={""}>
                                         <div className="product__item__image">
@@ -114,7 +122,7 @@ const ListProduct = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className={`col-xl-${viewMode === 'Kanban' ? '4' : '12'}`}>
+                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
                                     <Link to={""}>
                                         <div className="product__item__image">
@@ -155,7 +163,7 @@ const ListProduct = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className={`col-xl-${viewMode === 'Kanban' ? '4' : '12'}`}>
+                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
                                     <Link to={""}>
                                         <div className="product__item__image">
@@ -196,7 +204,7 @@ const ListProduct = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className={`col-xl-${viewMode === 'Kanban' ? '4' : '12'}`}>
+                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
                                     <Link to={""}>
                                         <div className="product__item__image">
@@ -237,7 +245,7 @@ const ListProduct = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className={`col-xl-${viewMode === 'Kanban' ? '4' : '12'}`}>
+                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
                                     <Link to={""}>
                                         <div className="product__item__image">
@@ -278,7 +286,7 @@ const ListProduct = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className={`col-xl-${viewMode === 'Kanban' ? '4' : '12'}`}>
+                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
                                     <Link to={""}>
                                         <div className="product__item__image">
@@ -318,6 +326,126 @@ const ListProduct = () => {
                                         </div>
                                     </Link>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="pagination">
+                            <Pagination defaultCurrent={1} total={50} />
+                        </div>
+                    </div>
+                </div>
+                <div className="col-xl-3">
+                    <div className="category__sidebar">
+                        <div className="category__sidebar__search">
+                            <Search placeholder="Tìm kiếm món ăn" onSearch={onSearch} enterButton />
+                        </div>
+                        <div className="category__sidebar__list">
+                            <h2>Danh mục</h2>
+                            <div className="category__sidebar__list__item">
+                                <div className="list__checked">
+                                    <Checkbox><span className="list__checked__name">Pizza 1</span></Checkbox>
+                                </div>
+                                <div className="list__checked">
+                                    <Checkbox><span className="list__checked__name">Pizza 2</span></Checkbox>
+                                </div>
+                                <div className="list__checked">
+                                    <Checkbox><span className="list__checked__name">Pizza 3</span></Checkbox>
+                                </div>
+                                <div className="list__checked">
+                                    <Checkbox><span className="list__checked__name">Pizza 4</span></Checkbox>
+                                </div>
+                                <div className="list__checked">
+                                    <Checkbox><span className="list__checked__name">Pizza 5</span></Checkbox>
+                                </div>
+                                <div className="list__checked">
+                                    <Checkbox><span className="list__checked__name">Pizza 6</span></Checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="category__sidebar__hot-product" style={{ backgroundImage: `url("/assets/images/products/product-1.jpg")` }}>
+                            <div className="overlay__hot-product">
+                                <div className="content__hot-product">
+                                    <div className="content__hot-product__title">
+                                        <h2>Pizza Mozzarella siêu ngon</h2>
+                                        <p>120.000đ - 150.000đ</p>
+                                    </div>
+                                    <div className="content__hot-product__link">
+                                        <Link to={""}>Xem chi tiết <ArrowRightOutlined /></Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="category__sidebar__filter-price">
+                            <h2>Lọc theo giá</h2>
+                            <form action="#" method="post">
+                                <Slider
+                                    range
+                                    defaultValue={[20, 50]}
+                                    value={inputValue}
+                                    onChange={onChange}
+                                />
+                                <p>Giá: <strong>{inputValue[0]}.000đ - {inputValue[1]}.000đ</strong></p>
+                                <button type="submit">Lọc</button>
+                            </form>
+                        </div>
+                        <div className="category__sidebar__lastest-product">
+                            <h2>Món ăn đánh giá cao</h2>
+                            <div className="category__sidebar__lastest-product__item">
+                                <Link to={""}>
+                                    <div className="lastest-product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product 1" />
+                                    </div>
+                                    <div className="lastest-product__item__info">
+                                        <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
+                                        <Rate allowHalf disabled defaultValue={4.5} />
+                                        <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="category__sidebar__lastest-product__item">
+                                <Link to={""}>
+                                    <div className="lastest-product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product 1" />
+                                    </div>
+                                    <div className="lastest-product__item__info">
+                                        <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
+                                        <Rate allowHalf disabled defaultValue={4.5} />
+                                        <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="category__sidebar__lastest-product__item">
+                                <Link to={""}>
+                                    <div className="lastest-product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product 1" />
+                                    </div>
+                                    <div className="lastest-product__item__info">
+                                        <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
+                                        <Rate allowHalf disabled defaultValue={4.5} />
+                                        <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="category__sidebar__lastest-product__item">
+                                <Link to={""}>
+                                    <div className="lastest-product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product 1" />
+                                    </div>
+                                    <div className="lastest-product__item__info">
+                                        <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
+                                        <Rate allowHalf disabled defaultValue={4.5} />
+                                        <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="category__sidebar__product-tags">
+                            <h2>Tags</h2>
+                            <div className="category__sidebar__product-tags__list">
+                                <Tag color="#BC9A6C">Tag 1</Tag>
+                                <Tag color="#BC9A6C">Tag 2</Tag>
+                                <Tag color="#BC9A6C">Tag 3</Tag>
+                                <Tag color="#BC9A6C">Tag 4</Tag>
+                                <Tag color="#BC9A6C">Tag 5</Tag>
                             </div>
                         </div>
                     </div>
