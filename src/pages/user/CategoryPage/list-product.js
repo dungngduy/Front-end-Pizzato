@@ -2,6 +2,7 @@ import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Rate, Segmented, Select, Input, Checkbox, Slider, Tag, Pagination } from 'antd';
 import { AppstoreOutlined, BarsOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { BsFillShareFill, BsSuitHeart, BsHandbag } from "react-icons/bs";
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -83,10 +84,17 @@ const ListProduct = () => {
                         <div className={`${viewMode === 'Kanban' ? 'row-grid-4' : 'row'}`}>
                             <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
+                                    <div className="product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
+                                        {viewMode === 'Kanban' && (
+                                            <div className="product__item__icons">
+                                            <BsFillShareFill />
+                                            <BsHandbag />
+                                            <BsSuitHeart />
+                                            </div>
+                                        )}
+                                    </div>
                                     <Link to={""}>
-                                        <div className="product__item__image">
-                                            <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        </div>
                                         <div className="product__item__info">
                                             {viewMode === 'List' && (
                                                 <div className={`${viewMode === 'List'}`}>
@@ -124,10 +132,17 @@ const ListProduct = () => {
                             </div>
                             <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
+                                    <div className="product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
+                                        {viewMode === 'Kanban' && (
+                                            <div className="product__item__icons">
+                                            <BsFillShareFill />
+                                            <BsHandbag />
+                                            <BsSuitHeart />
+                                            </div>
+                                        )}
+                                    </div>
                                     <Link to={""}>
-                                        <div className="product__item__image">
-                                            <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        </div>
                                         <div className="product__item__info">
                                             {viewMode === 'List' && (
                                                 <div className={`${viewMode === 'List'}`}>
@@ -165,10 +180,17 @@ const ListProduct = () => {
                             </div>
                             <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
+                                    <div className="product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
+                                        {viewMode === 'Kanban' && (
+                                            <div className="product__item__icons">
+                                            <BsFillShareFill />
+                                            <BsHandbag />
+                                            <BsSuitHeart />
+                                            </div>
+                                        )}
+                                    </div>
                                     <Link to={""}>
-                                        <div className="product__item__image">
-                                            <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        </div>
                                         <div className="product__item__info">
                                             {viewMode === 'List' && (
                                                 <div className={`${viewMode === 'List'}`}>
@@ -206,10 +228,17 @@ const ListProduct = () => {
                             </div>
                             <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
+                                    <div className="product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
+                                        {viewMode === 'Kanban' && (
+                                            <div className="product__item__icons">
+                                            <BsFillShareFill />
+                                            <BsHandbag />
+                                            <BsSuitHeart />
+                                            </div>
+                                        )}
+                                    </div>
                                     <Link to={""}>
-                                        <div className="product__item__image">
-                                            <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        </div>
                                         <div className="product__item__info">
                                             {viewMode === 'List' && (
                                                 <div className={`${viewMode === 'List'}`}>
@@ -247,10 +276,17 @@ const ListProduct = () => {
                             </div>
                             <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
+                                    <div className="product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
+                                        {viewMode === 'Kanban' && (
+                                            <div className="product__item__icons">
+                                            <BsFillShareFill />
+                                            <BsHandbag />
+                                            <BsSuitHeart />
+                                            </div>
+                                        )}
+                                    </div>
                                     <Link to={""}>
-                                        <div className="product__item__image">
-                                            <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        </div>
                                         <div className="product__item__info">
                                             {viewMode === 'List' && (
                                                 <div className={`${viewMode === 'List'}`}>
@@ -288,10 +324,17 @@ const ListProduct = () => {
                             </div>
                             <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                 <div className="product__item">
+                                    <div className="product__item__image">
+                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
+                                        {viewMode === 'Kanban' && (
+                                            <div className="product__item__icons">
+                                            <BsFillShareFill />
+                                            <BsHandbag />
+                                            <BsSuitHeart />
+                                            </div>
+                                        )}
+                                    </div>
                                     <Link to={""}>
-                                        <div className="product__item__image">
-                                            <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        </div>
                                         <div className="product__item__info">
                                             {viewMode === 'List' && (
                                                 <div className={`${viewMode === 'List'}`}>
@@ -388,7 +431,7 @@ const ListProduct = () => {
                             </form>
                         </div>
                         <div className="category__sidebar__lastest-product">
-                            <h2>Món ăn đánh giá cao</h2>
+                            <h2>Đánh giá cao nhất</h2>
                             <div className="category__sidebar__lastest-product__item">
                                 <Link to={""}>
                                     <div className="lastest-product__item__image">

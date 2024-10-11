@@ -1,0 +1,56 @@
+@use "sass:map";
+@import "_theme.scss";
+
+.breadcrumb__component {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: map-get($map: $theme-colors, $key: "white");
+    height: 350px;
+}
+
+.overlay__breadcrumb__component {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.breadcrumb__component__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        font-size: 32px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+    
+    .breadcrumb {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .ant-breadcrumb li {
+            color: map-get($map: $theme-colors, $key: "white");
+            font-size: 16px;
+            font-weight: 600;
+        }
+    
+        .ant-breadcrumb li span a{
+            color: map-get($map: $theme-colors, $key: "white");
+        }
+
+        .focus__link {
+            color: map-get($map: $theme-colors, $key: "main") !important;
+        }
+    }
+}

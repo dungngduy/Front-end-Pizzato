@@ -13,7 +13,9 @@ const FooterContainer = () => {
                                 Giới thiệu chung
                             </h2>
                             <p className="footer__description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Konfugiendis blabla
+                                Chúng tôi mang đến những chiếc pizza ngon từ nguyên liệu tươi nhất,
+                                phục vụ với thực đơn phong phú và dịch vụ tận tâm. Hãy ghé thăm để
+                                thưởng thức hương vị tuyệt vời!
                             </p>
                             <div className="footer__time">
                                 <Link to={"/"}><AiOutlineFieldTime /></Link>
