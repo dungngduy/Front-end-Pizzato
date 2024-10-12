@@ -32,7 +32,7 @@ const DetailProduct = () => {
               </div>
             </div>
             {/* Main Product Image */}
-            <div className="">
+            <div>
               <img className="w-[520px] h-[590px] rounded-lg" src={selectedImage} alt="Main Product" />
             </div>
           </div>
@@ -114,7 +114,7 @@ const DetailProduct = () => {
         </div>
 
         {/*Chọn mô tả sản phẩm hoặc review sản phẩm*/}
-        <div>
+        <div data-aos="zoom-in">
           <div className="flex space-x-8 pt-20 text-[17px]">
             <button
               className={`border-b-2 px-4 py-2 ${activeTab === 'description' ? 'border-yellow-500 text-yellow-500' : 'border-transparent text-gray-600'}`}
@@ -138,15 +138,15 @@ const DetailProduct = () => {
 
           <div className="mt-4 text-gray-600 text-[17px]">
             {activeTab === 'description' && (
-              <div className='flex flex-col gap-10 '>
-                <p>
+              <div className='flex flex-col gap-10'>
+                <p data-aos="zoom-in">
                   Nam tristique porta ligula, vel viverra sem eleifend nec. Nulla sed purus augue, eu euismod tellus.
                   Nam mattis eros nec mi sagittis sagittis. Vestibulum suscipit cursus bibendum. Integer at justo eget
                   sem auctor auctor eget vitae arcu. Nam tempor malesuada porttitor. Nulla quis dignissim ipsum. Aliquam
                   pulvinar iaculis justo, sit amet interdum sem hendrerit vitae. Vivamus vel erat tortor. Nulla facilisi.
                   In nulla quam, lacinia eu aliquam ac, aliquam in nisl.
                 </p>
-                <p>
+                <p data-aos="zoom-in">
                   Suspendisse cursus sodales placerat. Morbi eu lacinia ex. Curabitur blandit justo urna, id porttitor est
                   dignissim nec. Pellentesque scelerisque hendrerit posuere. Sed at dolor quis nisi rutrum accumsan et sagittis massa.
                   Aliquam aliquam accumsan lectus quis auctor. Curabitur rutrum massa at volutpat placerat. Duis sagittis vehicula
@@ -156,13 +156,13 @@ const DetailProduct = () => {
               </div>
             )}
             {activeTab === 'reviews' && (
-              <div className='flex flex-col gap-10 '>
-                <p>Đánh giá</p>
+              <div className='flex flex-col gap-10'>
+                <p data-aos="zoom-in">Đánh giá</p>
               </div>
             )}
             {activeTab === 'comments' && (
-              <div className='flex flex-col gap-10 '>
-                <p>Bình luận</p>
+              <div className='flex flex-col gap-10'>
+                <p data-aos="zoom-in">Bình luận</p>
               </div>
             )}
           </div>

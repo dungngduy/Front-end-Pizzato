@@ -11,8 +11,8 @@ const SimilarProducts = () => {
 
   return (
     <div className="container mx-auto py-4 pb-[90px]">
-      <h2 className="text-2xl font-bold mb-10">Sản Phẩm Tương Tự</h2>
-      <div className="grid grid-cols-4 gap-10">
+      <h2 className="text-2xl font-bold mb-10" data-aos="fade-up">Sản Phẩm Tương Tự</h2>
+      <div className="grid grid-cols-4 gap-10" data-aos="fade-up">
         {products.map((product) => (
           <div key={product.id} className="relative group">
             {/* Product Image */}
@@ -20,20 +20,20 @@ const SimilarProducts = () => {
 
             {/* Overlay with Icons */}
             <div className=" absolute inset-x-px inset-y-px top-2 bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300 flex justify-center items-center gap-3 opacity-0 group-hover:opacity-100">
-                        <button className="bg-white p-2 rounded-full shadow-md hover:bg-yellow-400 transition">
-                            <FaHeart className="text-gray-600" />
-                        </button>
-                        <button className="bg-white p-2 rounded-full shadow-md hover:bg-yellow-400 transition">
-                            <FaExchangeAlt className="text-gray-600" />
-                        </button>
+              <button className="bg-white p-2 rounded-full shadow-md hover:bg-yellow-400 transition">
+                <FaHeart className="text-gray-600" />
+              </button>
+              <button className="bg-white p-2 rounded-full shadow-md hover:bg-yellow-400 transition">
+                <FaExchangeAlt className="text-gray-600" />
+              </button>
             </div>
             {/* Product Info */}
             <div className="mt-4 px-4">
               <h3 className="text-l font-bold">{product.name}</h3>
-                <div className='flex gap-2'>
+              <div className='flex gap-2'>
                 <div className="text-yellow-600 text-x ">${product.price.toFixed(2)}</div>
                 <div>{product.oldPrice && (<div className="text-gray-500 line-through text-x">${product.oldPrice.toFixed(2)}</div>)}</div>
-                </div>
+              </div>
             </div>
           </div>
         ))}
