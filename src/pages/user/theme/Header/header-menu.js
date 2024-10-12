@@ -5,10 +5,12 @@ import {
     AiOutlineUser,
     AiOutlineShoppingCart
 } from 'react-icons/ai';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ROUTER } from "utils/router";
 
 const HeaderMenu = () => {
+    const location = useLocation();
+
     // Menu
     const [Menus] = useState([
         {
@@ -17,7 +19,7 @@ const HeaderMenu = () => {
         },
         {
             name: "Giới thiệu",
-            path: ROUTER.USER.HOME,
+            path: ROUTER.USER.ABOUT,
         },
         {
             name: "Thực đơn",
@@ -44,11 +46,11 @@ const HeaderMenu = () => {
         },
         {
             name: "Bài viết",
-            path: ROUTER.USER.HOME,
+            path: ROUTER.USER.BLOG,
         },
         {
             name: "Liên hệ",
-            path: ROUTER.USER.HOME,
+            path: ROUTER.USER.CONTACT,
         }
     ]);
 
@@ -61,14 +63,6 @@ const HeaderMenu = () => {
 
     const closePopup = () => {
         setSearchVisible(false);
-    };
-
-    // Hàm reoload trang
-    const history = useNavigate();
-
-    const handlePageChange = (url) => {
-        history(url);
-        window.location.reload();
     };
 
     return (
@@ -88,15 +82,17 @@ const HeaderMenu = () => {
                                 <ul>
                                     {
                                         Menus.map((menu, index) => {
+                                            const isActive = location.pathname === menu.path;
+
                                             return (
-                                                <li key={index} className={index === 0 ? "active" : ""}>
-                                                    <Link to={menu.path} onClick={() => handlePageChange(menu.path)}>{menu.name}</Link>
+                                                <li key={index} className={isActive ? "active" : ""}>
+                                                    <Link to={menu.path}>{menu.name}</Link>
                                                     {
                                                         menu.child && (
                                                             <ul className="header__menu__dropdown">
                                                                 {menu.child.map((childItem, childKey) => (
                                                                     <li key={`${index}-${childKey}`}>
-                                                                        <Link to={childItem.path} onClick={() => handlePageChange(childItem.path)}>{childItem.name}</Link>
+                                                                        <Link to={childItem.path}>{childItem.name}</Link>
                                                                     </li>
                                                                 ))}
                                                             </ul>

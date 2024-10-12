@@ -3,16 +3,16 @@ import { FaFacebookF, FaTwitter, FaTelegramPlane, FaPinterestP } from 'react-ico
 const DetailProduct = () => {
   const [selectedImage, setSelectedImage] = useState("/assets/images/pizza-choose.jpeg");
   const [activeTab, setActiveTab] = useState("description");
-// select ảnh 
+
   const handleImageClick = (imageSrc) => {
     setSelectedImage(imageSrc);
   };
 
   return (
     <div>
-      <div className="container mx-auto p-2 py-[85px] w-full" style={{ width: '1440px' }}>
+      <div className="container mx-auto p-2 py-[85px] w-full" style={{ width: '1200px' }}>
         {/* Grid Container */}
-        <div className="flex gap-10 w-full px-[70px]" style={{ width: '1440px' }}>
+        <div className="flex gap-10 w-full" style={{ width: '1200px' }}>
           <div className="flex gap-5">
             {/* Image Gallery */}
             <div className="flex">
@@ -20,12 +20,12 @@ const DetailProduct = () => {
                 {/* Thumbnail Images */}
                 <div className="flex flex-col gap-6">
                   {["/assets/images/categories/category-4.jpeg", "/assets/images/products/product-1.jpg", "/assets/images/products/product-1.jpg", "/assets/images/products/product-1.jpg"].map((src, index) => (
-                    <img 
-                      key={index} 
-                      className="w-[130px] h-[125px] rounded-md cursor-pointer" 
-                      src={src} 
-                      alt={`Product ${index + 1}`} 
-                      onClick={() => handleImageClick(src)} 
+                    <img
+                      key={index}
+                      className="w-[130px] h-[125px] rounded-md cursor-pointer"
+                      src={src}
+                      alt={`Product ${index + 1}`}
+                      onClick={() => handleImageClick(src)}
                     />
                   ))}
                 </div>
@@ -48,7 +48,7 @@ const DetailProduct = () => {
 
               {/* Product Description */}
               <p className="text-gray-600 text-[17px]" style={{ width: '500px' }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque diam pellentesque bibendum non dui volutpat fringilla bibendum. Urna, urna, vitae feugiat pretium donec id elementum. Ultrices mattis sed vitae mus risus. Lacus nisi, et ac dapibus sit eu velit in consequat.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque diam pellentesque bibendum non dui volutpat fringilla bibendum. Urna, urna, vitae feugiat pretium donec id elementum. Ultrices mattis sed vitae mus risus. Lacus nisi, et ac dapibus sit eu velit in consequat.
               </p>
 
               <div className="mt-14 border-t border-gray-300" style={{ width: '480px' }}></div>
@@ -62,10 +62,10 @@ const DetailProduct = () => {
                 <span className="text-gray-600">5.0 Rating</span>
                 <span className="text-gray-500">| 22 Reviews</span>
               </div>
-                  {/**/}
-                <div>
-                  <p className='text-gray-600 text-[17px]'>Dictum/cursus/Risus</p>
-                </div>
+              {/**/}
+              <div>
+                <p className='text-gray-600 text-[17px]'>Dictum/cursus/Risus</p>
+              </div>
               {/* Quantity Selector and Add to Cart */}
               <div className="flex items-center space-x-4">
                 <div className="flex items-center border border-gray-300">
@@ -74,11 +74,12 @@ const DetailProduct = () => {
                     className="w-12 text-center outline-none"
                     type="number"
                     defaultValue="1"
+                    min="1"
                   />
                   <button className="px-2">+</button>
                 </div>
                 <button className="bg-yellow-500 text-white px-6 py-2 rounded-md">
-                  Add to Cart
+                  Thêm vào giỏ hàng
                 </button>
               </div>
               <div className="mt-20 border-t border-gray-300" style={{ width: '480px' }}></div>
@@ -119,24 +120,50 @@ const DetailProduct = () => {
               className={`border-b-2 px-4 py-2 ${activeTab === 'description' ? 'border-yellow-500 text-yellow-500' : 'border-transparent text-gray-600'}`}
               onClick={() => setActiveTab('description')}
             >
-              Description
+              Mô tả
             </button>
             <button
               className={`border-b-2 px-4 py-2 ${activeTab === 'reviews' ? 'border-yellow-500 text-yellow-500' : 'border-transparent text-gray-600'}`}
               onClick={() => setActiveTab('reviews')}
             >
-              Reviews
+              Đánh giá
+            </button>
+            <button
+              className={`border-b-2 px-4 py-2 ${activeTab === 'comments' ? 'border-yellow-500 text-yellow-500' : 'border-transparent text-gray-600'}`}
+              onClick={() => setActiveTab('comments')}
+            >
+              Bình luận
             </button>
           </div>
 
           <div className="mt-4 text-gray-600 text-[17px]">
-            {activeTab === 'description' ? (
+            {activeTab === 'description' && (
               <div className='flex flex-col gap-10 '>
-                      <p>Nam tristique porta ligula, vel viverra sem eleifend nec. Nulla sed purus augue, eu euismod tellus. Nam mattis eros nec mi sagittis sagittis. Vestibulum suscipit cursus bibendum. Integer at justo eget sem auctor auctor eget vitae arcu. Nam tempor malesuada porttitor. Nulla quis dignissim ipsum. Aliquam pulvinar iaculis justo, sit amet interdum sem hendrerit vitae. Vivamus vel erat tortor. Nulla facilisi. In nulla quam, lacinia eu aliquam ac, aliquam in nisl.</p>
-                     <p>Suspendisse cursus sodales placerat. Morbi eu lacinia ex. Curabitur blandit justo urna, id porttitor est dignissim nec. Pellentesque scelerisque hendrerit posuere. Sed at dolor quis nisi rutrum accumsan et sagittis massa. Aliquam aliquam accumsan lectus quis auctor. Curabitur rutrum massa at volutpat placerat. Duis sagittis vehicula fermentum. Integer eu vulputate justo. Aenean pretium odio vel tempor sodales. Suspendisse eu fringilla leo, non aliquet sem.</p>
+                <p>
+                  Nam tristique porta ligula, vel viverra sem eleifend nec. Nulla sed purus augue, eu euismod tellus.
+                  Nam mattis eros nec mi sagittis sagittis. Vestibulum suscipit cursus bibendum. Integer at justo eget
+                  sem auctor auctor eget vitae arcu. Nam tempor malesuada porttitor. Nulla quis dignissim ipsum. Aliquam
+                  pulvinar iaculis justo, sit amet interdum sem hendrerit vitae. Vivamus vel erat tortor. Nulla facilisi.
+                  In nulla quam, lacinia eu aliquam ac, aliquam in nisl.
+                </p>
+                <p>
+                  Suspendisse cursus sodales placerat. Morbi eu lacinia ex. Curabitur blandit justo urna, id porttitor est
+                  dignissim nec. Pellentesque scelerisque hendrerit posuere. Sed at dolor quis nisi rutrum accumsan et sagittis massa.
+                  Aliquam aliquam accumsan lectus quis auctor. Curabitur rutrum massa at volutpat placerat. Duis sagittis vehicula
+                  fermentum. Integer eu vulputate justo. Aenean pretium odio vel tempor sodales. Suspendisse eu fringilla leo, non
+                  aliquet sem.
+                </p>
               </div>
-            ) : (
-              <p>Here are the reviews for this product...</p>
+            )}
+            {activeTab === 'reviews' && (
+              <div className='flex flex-col gap-10 '>
+                <p>Đánh giá</p>
+              </div>
+            )}
+            {activeTab === 'comments' && (
+              <div className='flex flex-col gap-10 '>
+                <p>Bình luận</p>
+              </div>
             )}
           </div>
         </div>

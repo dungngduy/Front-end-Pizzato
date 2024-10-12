@@ -1,8 +1,11 @@
 export const ROUTER = {
     USER: {
         HOME: '/',
-        PROFILE: '/profile',
+        ABOUT: '/about',
         CATEGORY: '/category',
+        BLOG: '/blog',
+        CONTACT: '/contact',
+        PROFILE: '/profile',
         DETAIL: '/detail',
     },
 }

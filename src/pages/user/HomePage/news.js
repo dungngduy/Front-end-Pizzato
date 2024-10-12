@@ -9,15 +9,15 @@ import { PiUser } from "react-icons/pi";
 const News = () => {
     return (
         <div className="news__box">
-            <div className="row">
-                <div className="title__new">
-                    <h2 data-aos="fade-up"><strong>Tin tức</strong> nổi bật</h2>
-                    <p data-aos="fade-up">
-                        Theo dõi diễn biến các sự kiện đáng chú ý trên toàn cầu,
-                        cập nhật liên tục <br /> để bạn luôn nắm bắt thông tin một cách nhanh chóng và chính xác
-                    </p>
-                </div>
-                <div className="col-xl-4" data-aos="fade-up">
+            <div className="title__new">
+                <h2 data-aos="fade-up"><strong>Tin tức</strong> nổi bật</h2>
+                <p data-aos="fade-up">
+                    Theo dõi diễn biến các sự kiện đáng chú ý trên toàn cầu,
+                    cập nhật liên tục <br /> để bạn luôn nắm bắt thông tin một cách nhanh chóng và chính xác
+                </p>
+            </div>
+            <div className="row-grid-4">
+                <div className="g-xl-4" data-aos="fade-up">
                     <div className="new__item">
                         <div className="news__image">
                             <img src="/assets/images/news.jpg" alt="News" />
@@ -48,7 +48,7 @@ const News = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-xl-4" data-aos="fade-up">
+                <div className="g-xl-4" data-aos="fade-up">
                     <div className="new__item">
                         <div className="news__image">
                             <img src="/assets/images/news.jpg" alt="News" />
@@ -79,7 +79,7 @@ const News = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-xl-4" data-aos="fade-up">
+                <div className="g-xl-4" data-aos="fade-up">
                     <div className="new__item">
                         <div className="news__image">
                             <img src="/assets/images/news.jpg" alt="News" />

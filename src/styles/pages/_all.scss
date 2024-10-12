@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1200px !important;
     width: 100%;
     padding: 0 15px;
     margin: 0 auto;
@@ -24,6 +24,18 @@ body {
 .row {
     display: flex;
     flex-wrap: wrap;
+}
+
+.row-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.row-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .col-6 {
@@ -37,9 +49,17 @@ body {
         max-width: 25%;
     }
 
+    .g-xl-3 {
+        grid-column: span 1;
+    }
+
     .col-xl-4 {
         flex: 0 0 33.33%;
         max-width: 33.33%;
+    }
+
+    .g-xl-4 {
+        grid-column: span 1;
     }
 
     .col-xl-6 {
@@ -53,8 +73,9 @@ body {
     }
 
     .col-xl-9 {
-        flex: 0 0 75%;
-        max-width: 75%;
+        flex: 0 0 calc(75% - 20px);
+        max-width: calc(75% - 20px);
+        margin-right: 20px;
     }
 
     .col-xl-12 {

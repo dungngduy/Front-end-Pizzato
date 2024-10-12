@@ -1,34 +1,19 @@
+import Breadcrumb from 'components/breadcrumb';
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
-import { Breadcrumb } from 'antd';
-import { ROUTER } from "utils/router";
+import { ROUTER } from 'utils/router';
 
 const BannerDetail = () => {
+    const breadcrumbItems = [
+        { title: 'Trang chủ', url: ROUTER.USER.HOME },
+        { title: 'Chi tiết món ăn', url: ROUTER.USER.DETAIL, className: 'focus__link' },
+    ];
+    
     return (
-        <div className="banner__category" style={{ backgroundImage: "url('/assets/images/banners/banner-category.jpg')" }}>
-            <div className="overlay__banner__category">
-                <div className="container banner__category__container">
-                    <div className="row">
-                        <div className="col-xl-12">
-                            <h2>Danh sách món ăn</h2>
-                            <div className="breadcrumb">
-                                <Breadcrumb
-                                    separator=">"
-                                    items={[
-                                        {
-                                            title: <Link to={ROUTER.USER.HOME}>Trang chủ</Link>,
-                                        },
-                                        {
-                                            title: <Link to={ROUTER.USER.DETAIL} className='focus__link'>CHI TIẾT</Link>,
-                                        },
-                                    ]}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Breadcrumb
+            backgroundImage="/assets/images/banners/banner-category.jpg"
+            title="Yummy Chicken Chup"
+            items={breadcrumbItems}
+        />
     );
 };
 

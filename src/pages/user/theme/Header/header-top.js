@@ -14,7 +14,7 @@ const HeaderTop = () => {
         <div className="header__top">
             <div className="container">
                 <div className="row">
-                    <div className="col-6 header__top__left" data-aos="fade-right">
+                    <div className="col-6 header__top__left">
                         <ul>
                             <li>
                                 <AiOutlineMail /> pizzato@gmail.com
@@ -24,7 +24,7 @@ const HeaderTop = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="col-6 header__top__right" data-aos="fade-left">
+                    <div className="col-6 header__top__right">
                         <ul>
                             <li>
                                 <Link to={""}><AiOutlineFacebook /></Link>
