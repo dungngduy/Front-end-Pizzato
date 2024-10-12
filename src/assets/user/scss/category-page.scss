@@ -1,0 +1,132 @@
+@use "sass:map";
+@import "styles/pages/_theme.scss";
+
+.banner__category {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: map-get($map: $theme-colors, $key: "white");
+    height: 400px;
+}
+
+.overlay__banner__category {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6); /* Lớp overlay để làm tối ảnh nền */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.banner__category__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        font-size: 32px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+    
+    .breadcrumb {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .ant-breadcrumb li {
+            color: map-get($map: $theme-colors, $key: "white");
+            font-size: 16px;
+            font-weight: 600;
+        }
+    
+        .ant-breadcrumb li span a{
+            color: map-get($map: $theme-colors, $key: "white");
+        }
+
+        .focus__link {
+            color: map-get($map: $theme-colors, $key: "main") !important;
+        }
+    }
+}
+
+.list__product {
+    margin: 100px 0;
+
+    .product__item {
+        height: 350px;
+        
+        a {
+            text-decoration: none;
+            color: map-get($map: $theme-colors, $key: "black");
+        }
+
+        .product__item__image {
+            width: 100%;
+            height: 200px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+        }
+    }
+
+    .product__item__info {
+        .product__item__name {
+            text-align: center;
+
+            h2 {
+                &:hover {
+                    color: map-get($map: $theme-colors, $key: "main");
+                    transition: map-get($map: $theme-transitions, $key: "other");
+                }
+            }
+
+            p {
+                margin: 5px 0;
+            }
+        }
+    }
+
+    .product__item__rating-and-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+
+        .product__item__price {
+            p {
+                font-weight: 600;
+
+                del {
+                    font-style: italic;
+                    font-weight: 400;
+                }
+
+                span {
+                    color: #ff0000;
+                    font-size: 18px;
+                }
+            }
+
+        }
+
+        .product__item__rating {
+            .ant-rate-star {
+                span {
+                    svg {
+                        font-size: 16px !important;
+                    }
+                }
+            }
+        }
+    }
+}
