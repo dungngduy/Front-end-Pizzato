@@ -225,16 +225,16 @@
             visibility: hidden;
 
             svg {
-                width: 40px;
-                height: 40px;
+                width: 35px;
+                height: 35px;
                 padding: 10px;
                 border-radius: 5px;
-                background-color: map-get($map: $theme-colors, $key: "main");
-                color: map-get($map: $theme-colors, $key: "white");
+                background-color: map-get($map: $theme-colors, $key: "white");
+                color: map-get($map: $theme-colors, $key: "main");
 
                 &:hover {
-                    background-color: map-get($map: $theme-colors, $key: "white");
-                    color: map-get($map: $theme-colors, $key: "main");
+                    background-color: map-get($map: $theme-colors, $key: "main");
+                    color: map-get($map: $theme-colors, $key: "white");
                     transition: map-get($map: $theme-transitions, $key: "other");
                 }
             }
