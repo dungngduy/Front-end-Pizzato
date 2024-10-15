@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 import { FaFacebookF, FaTwitter, FaTelegramPlane, FaPinterestP } from 'react-icons/fa';
 const DetailProduct = () => {
-  const [selectedImage, setSelectedImage] = useState("/assets/images/pizza-choose.jpeg");
+  const [selectedImage, setSelectedImage] = useState("/assets/images/main.png");
   const [activeTab, setActiveTab] = useState("description");
 
   const handleImageClick = (imageSrc) => {
@@ -19,7 +19,7 @@ const DetailProduct = () => {
               <div className="space-y-4">
                 {/* Thumbnail Images */}
                 <div className="flex flex-col gap-6">
-                  {["/assets/images/categories/category-4.jpeg", "/assets/images/products/product-1.jpg", "/assets/images/products/product-1.jpg", "/assets/images/products/product-1.jpg"].map((src, index) => (
+                  {["/assets/images/menu-items/pizza-1.png", "/assets/images/menu-items/pizza-2.png", "/assets/images/menu-items/pizza-3.png", "/assets/images/menu-items/pizza-4.png"].map((src, index) => (
                     <img
                       key={index}
                       className="w-[130px] h-[125px] rounded-md cursor-pointer"
