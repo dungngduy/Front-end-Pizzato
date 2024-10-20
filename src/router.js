@@ -5,6 +5,7 @@ import MasterLayout from './pages/user/theme/MasterLayout';
 import ProfilePage from './pages/user/ProfilePage';
 import CategoryPage from 'pages/user/CategoryPage';
 import DetailPage from './pages/user/DetailPage';
+import CheckoutPage from 'pages/user/CheckoutPage';
 
 const renderUserRouter = () => {
     const userRouter = [
@@ -23,6 +24,10 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.DETAIL,
             component: <DetailPage />,
+        },
+        {
+            path: ROUTER.USER.CHECKOUT,
+            component: <CheckoutPage />,
         },
     ]
 

@@ -1,0 +1,177 @@
+@use "sass:map";
+@import "styles/pages/_theme.scss";
+
+.checkout-box__container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.delivery__box {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.delivery__address__title {
+    p {
+        margin-bottom: 5px;
+    }
+}
+
+.delivery__address__content {
+    input {
+        width: 500px;
+        margin-bottom: 5px;
+        outline: none;
+        border: none;
+        background-color: map-get($map: $theme-colors, $key: "white");
+    }
+}
+
+.checkout__box__right__content__item {
+    margin-bottom: 15px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.checkout__box__right__content__item__image {
+    position: relative;
+
+    .count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: map-get($map: $theme-colors, $key: "main");
+        color: map-get($map: $theme-colors, $key: "white");
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+    }
+}
+
+.info__price {
+    p {
+        font-style: italic;
+    }
+}
+
+.total__price {
+    .price__total {
+        p {
+            font-style: italic;
+        }
+    }
+}
+
+.total {
+    p {
+        font-size: 20px;
+    }
+
+    .price {
+        p {
+            font-style: italic;
+        }
+    }
+}
+
+.button__checkout {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    button {
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0);
+            transition: background-color 0.3s ease;
+        }
+
+        &:hover::before {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+}
+
+.popup-address__overlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6); /* Lớp overlay để làm tối ảnh nền */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.form__content {
+    width: 800px;
+    background-color: map-get($map: $theme-colors, $key: "white");
+    padding: 20px;
+    border-radius: 8px;
+
+    .input {
+        .input__field {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            height: 40px;
+            border: 1px solid map-get($map: $theme-colors, $key: "border");
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .textarea__field {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid map-get($map: $theme-colors, $key: "border");
+        }
+
+        input {
+            width: 100%;
+            height: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0 10px;
+        }
+
+        textarea {
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            resize: none;
+            padding: 10px;
+        }
+    }
+
+    .select__group {
+        margin-bottom: 20px;
+    }
+
+    .ant-select-selector {
+        border: 1px solid map-get($map: $theme-colors, $key: "border") !important;
+
+        &:focus {
+            box-shadow: none !important;
+            border: none !important;
+        }
+    }
+}

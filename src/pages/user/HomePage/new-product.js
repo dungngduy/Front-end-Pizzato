@@ -3,6 +3,12 @@ import { Checkbox } from "antd";
 import { Link } from "react-router-dom";
 
 const NewProduct = () => {
+    // const url = "http://127.0.0.1:8000/api/products";
+
+    // fetch(url)
+    //     .then((response) => response.json())
+    //     .then((data) => console.log(data));
+
     return (
         <div className="row new__product__container">
             <div className="col-xl-6">
