@@ -6,6 +6,7 @@ import ProfilePage from './pages/user/ProfilePage';
 import CategoryPage from 'pages/user/CategoryPage';
 import DetailPage from './pages/user/DetailPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
+import CartPage from 'pages/user/CartPage';
 
 const renderUserRouter = () => {
     const userRouter = [
@@ -24,6 +25,10 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.DETAIL,
             component: <DetailPage />,
+        },
+        {
+            path: ROUTER.USER.CART,
+            component: <CartPage />,
         },
         {
             path: ROUTER.USER.CHECKOUT,
