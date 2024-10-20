@@ -4,9 +4,9 @@ import { memo } from 'react';
 const SimilarProducts = () => {
   const products = [
     { id: 1, name: 'Fresh Lime', price: 38, oldPrice: 45, img: '/assets/images/menu-items/pizza-1.png'},
-    { id: 2, name: 'Chocolate Muffin', price: 28, img: '/assets/images/menu-items/pizza-2.png' },
-    { id: 3, name: 'Burger', price: 21, img: '/assets/images/menu-items/pizza-3.png' },
-    { id: 4, name: 'Fresh Lime', price: 38, oldPrice: 45, img: '/assets/images/menu-items/pizza-4.png' },
+    { id: 2, name: 'Chocolate Muffin', price: 28, img: '/assets/images/menu-items/pizza-1.png' },
+    { id: 3, name: 'Burger', price: 21, img: '/assets/images/menu-items/pizza-1.png' },
+    { id: 4, name: 'Fresh Lime', price: 38, oldPrice: 45, img: '/assets/images/menu-items/pizza-1.png' },
   ];
 
   return (
@@ -16,10 +16,10 @@ const SimilarProducts = () => {
         {products.map((product) => (
           <div key={product.id} className="relative group">
             {/* Product Image */}
-            <img className="object-cover rounded-md" src={product.img} width={180} height={180} alt={product.name} />
+            <img className="object-cover rounded-md" src={product.img} width={170} height={170} alt={product.name} />
 
             {/* Overlay with Icons */}
-            <div className="absolute inset-x-px inset-y-px top-2 bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300 flex justify-center items-center gap-3 opacity-0 group-hover:opacity-100">
+            <div className="absolute mx-12 inset-y-px top-1 bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300 flex justify-center items-center gap-3 opacity-0 group-hover:opacity-100">
               <button className="bg-white p-2 rounded-full shadow-md hover:bg-yellow-400 transition">
                 <FaHeart className="text-gray-600" />
               </button>

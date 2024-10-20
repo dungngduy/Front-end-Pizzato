@@ -1,18 +1,41 @@
 import { memo, useState } from 'react';
 import { FaFacebookF, FaTwitter, FaTelegramPlane, FaPinterestP } from 'react-icons/fa';
+
 const DetailProduct = () => {
   const [selectedImage, setSelectedImage] = useState("/assets/images/main.png");
   const [activeTab, setActiveTab] = useState("description");
+  const [quantity, setQuantity] = useState(1);
 
   const handleImageClick = (imageSrc) => {
     setSelectedImage(imageSrc);
   };
 
+  const handleQuantityChange = (value) => {
+    if (value > 0) {
+      setQuantity(value);
+    }
+  };
+  ///
+  const [selectedCrust, setSelectedCrust] = useState('Đế Dày Bột Tươi');
+  const [selectedBorder, setSelectedBorder] = useState('Viền phô mai 9');
+  const [selectedSize, setSelectedSize] = useState('Cỡ 9 inch');
+
+  const handleCrustChange = (event) => {
+    setSelectedCrust(event.target.value);
+  };
+
+  const handleBorderChange = (event) => {
+    setSelectedBorder(event.target.value);
+  };
+
+  const handleSizeChange = (event) => {
+    setSelectedSize(event.target.value);
+  };
   return (
     <div>
-      <div className="container mx-auto p-2 py-[85px] w-full" style={{ width: '1200px' }}>
+      <div className="container mx-auto p-2 py-[85px] w-[1200px]">
         {/* Grid Container */}
-        <div className="flex gap-10 w-full" style={{ width: '1200px' }}>
+        <div className="flex gap-10 w-full">
           <div className="flex gap-5">
             {/* Image Gallery */}
             <div className="flex">
@@ -22,9 +45,9 @@ const DetailProduct = () => {
                   {["/assets/images/menu-items/pizza-1.png", "/assets/images/menu-items/pizza-2.png", "/assets/images/menu-items/pizza-3.png", "/assets/images/menu-items/pizza-4.png"].map((src, index) => (
                     <img
                       key={index}
-                      className="w-[130px] h-[125px] rounded-md cursor-pointer"
+                      className="w-[130px] h-[125px] rounded-md cursor-pointer hover:opacity-80 transition duration-300"
                       src={src}
-                      alt={`Product ${index + 1}`}
+                      alt={`Pizza ${index + 1}`}
                       onClick={() => handleImageClick(src)}
                     />
                   ))}
@@ -38,7 +61,7 @@ const DetailProduct = () => {
           </div>
 
           {/* Product Information */}
-          <div style={{ width: '670px' }}>
+          <div className="w-[670px]">
             <div className="space-y-4">
               {/* Stock Status */}
               <span className="bg-yellow-400 text-white px-2 py-1 rounded">In stock</span>
@@ -47,11 +70,11 @@ const DetailProduct = () => {
               <h1 className="text-4xl font-bold">Yummy Chicken Chup</h1>
 
               {/* Product Description */}
-              <p className="text-gray-600 text-[17px]" style={{ width: '500px' }}>
+              <p className="text-gray-600 text-[17px] w-[500px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque diam pellentesque bibendum non dui volutpat fringilla bibendum. Urna, urna, vitae feugiat pretium donec id elementum. Ultrices mattis sed vitae mus risus. Lacus nisi, et ac dapibus sit eu velit in consequat.
               </p>
 
-              <div className="mt-14 border-t border-gray-300" style={{ width: '480px' }}></div>
+              <div className="mt-14 border-t border-gray-300 w-[480px]"></div>
 
               {/* Product Price */}
               <div className="text-2xl font-semibold text-gray-900">54.00$</div>
@@ -62,38 +85,150 @@ const DetailProduct = () => {
                 <span className="text-gray-600">5.0 Rating</span>
                 <span className="text-gray-500">| 22 Reviews</span>
               </div>
-              {/**/}
               <div>
-                <p className='text-gray-600 text-[17px]'>Dictum/cursus/Risus</p>
+                {/* biến thể */}
+                {/* Chọn Đế Bánh */}
+                <div>
+                  <span className="font-bold">Chọn Đế Bánh</span>
+                  <div className="flex gap-4 py-3">
+                    <label className="flex items-center gap-2 text-gray-600 text-[15px]">
+                      <input
+                        type="radio"
+                        name="pizza-crust"
+                        value="Đế Dày Bột Tươi"
+                        checked={selectedCrust === 'Đế Dày Bột Tươi'}
+                        onChange={handleCrustChange}
+                        className="form-radio h-4 w-4 text-blue-600"
+                      />
+                      <span>Đế Dày Bột Tươi</span>
+                      <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
+                    </label>
+
+                    <label className="flex items-center gap-2 text-gray-600 text-[15px]">
+                      <input
+                        type="radio"
+                        name="pizza-crust"
+                        value="Đế Vừa Bột Tươi"
+                        checked={selectedCrust === 'Đế Vừa Bột Tươi'}
+                        onChange={handleCrustChange}
+                        className="form-radio h-4 w-4 text-blue-600"
+                      />
+                      <span>Đế Vừa Bột Tươi</span>
+                      <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
+                    </label>
+
+                    <label className="flex items-center gap-2 text-gray-600 text-[15px]">
+                      <input
+                        type="radio"
+                        name="pizza-crust"
+                        value="Đế Mỏng Giòn"
+                        checked={selectedCrust === 'Đế Mỏng Giòn'}
+                        onChange={handleCrustChange}
+                        className="form-radio h-4 w-4 text-blue-600"
+                      />
+                      <span>Đế Mỏng Giòn</span>
+                      <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
+                    </label>
+                  </div>
+                </div>
+
+                {/* Tùy Chọn Viền */}
+                <div>
+                  <span className="font-bold">Tùy Chọn Viền</span>
+                  <div className="flex gap-4 py-3">
+                    <label className="flex items-center gap-2 text-gray-600 text-[15px]">
+                      <input
+                        type="radio"
+                        name="pizza-border"
+                        value="Viền phô mai 9"
+                        checked={selectedBorder === 'Viền phô mai 9'}
+                        onChange={handleBorderChange}
+                        className="form-radio h-4 w-4 text-blue-600"
+                      />
+                      <span>Viền phô mai 9</span>
+                      <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
+                    </label>
+
+                    <label className="flex items-center gap-2 text-gray-600 text-[15px]">
+                      <input
+                        type="radio"
+                        name="pizza-border"
+                        value="Viền xúc xích"
+                        checked={selectedBorder === 'Viền xúc xích'}
+                        onChange={handleBorderChange}
+                        className="form-radio h-4 w-4 text-blue-600"
+                      />
+                      <span>Viền xúc xích</span>
+                      <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
+                    </label>
+                  </div>
+                </div>
+
+                {/* Chọn Cỡ Bánh */}
+                <div>
+                  <span className="font-bold">Chọn Cỡ Bánh</span>
+                  <div className="flex gap-4 py-3">
+                    <label className="flex items-center gap-2 text-gray-600 text-[15px]">
+                      <input
+                        type="radio"
+                        name="pizza-size"
+                        value="Cỡ 9 inch"
+                        checked={selectedSize === 'Cỡ 9 inch'}
+                        onChange={handleSizeChange}
+                        className="form-radio h-4 w-4 text-blue-600"
+                      />
+                      <span>Cỡ 9 inch</span>
+                      <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
+                    </label>
+
+                    <label className="flex items-center gap-2 text-gray-600 text-[15px]">
+                      <input
+                        type="radio"
+                        name="pizza-size"
+                        value="Cỡ 12 inch"
+                        checked={selectedSize === 'Cỡ 12 inch'}
+                        onChange={handleSizeChange}
+                        className="form-radio h-4 w-4 text-blue-600"
+                      />
+                      <span>Cỡ 12 inch</span>
+                      <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
+                    </label>
+                  </div>
+                </div>
               </div>
+              {/* biến thể */}
               {/* Quantity Selector and Add to Cart */}
               <div className="flex items-center space-x-4">
                 <div className="flex items-center border border-gray-300">
-                  <button className="px-2">-</button>
+                  <button onClick={() => handleQuantityChange(quantity - 1)} className="px-2">-</button>
                   <input
                     className="w-12 text-center outline-none"
                     type="number"
-                    defaultValue="1"
+                    value={quantity}
                     min="1"
+                    onChange={(e) => handleQuantityChange(parseInt(e.target.value))}
                   />
-                  <button className="px-2">+</button>
+                  <button onClick={() => handleQuantityChange(quantity + 1)} className="px-2">+</button>
                 </div>
-                <button className="bg-yellow-500 text-white px-6 py-2 rounded-md">
+                <button className="bg-[#BC9A6C] text-white px-6 py-2 rounded-md hover:bg-[#a47d53] transition duration-300">
                   Thêm vào giỏ hàng
                 </button>
               </div>
-              <div className="mt-20 border-t border-gray-300" style={{ width: '480px' }}></div>
+
+              <div className="mt-20 border-t border-gray-300 w-[480px]"></div>
+
               {/* Wishlist and Compare */}
               <div className="flex space-x-4 text-gray-600">
                 <button className="flex items-center">
                   <span>♡</span>
-                  <span className="ml-2 text-[17px] ">Add to Wishlist</span>
+                  <span className="ml-2 text-[17px]">Add to Wishlist</span>
                 </button>
                 <button className="flex items-center">
                   <span>⇔</span>
                   <span className="ml-2 text-[17px]">Compare</span>
                 </button>
               </div>
+
               {/* Category and Tags */}
               <div className="text-gray-600 space-y-2">
                 <p>Category: <span className="font-semibold text-[17px]">Pizza</span></p>
@@ -103,13 +238,14 @@ const DetailProduct = () => {
               {/* Social Media Share */}
               <div className="flex space-x-4 mt-6">
                 <span className='font-semibold text-[17px] text-gray-600'>Share:</span>
-                <FaFacebookF className="cursor-pointer" />
-                <FaTwitter className="cursor-pointer" />
-                <FaTelegramPlane className="cursor-pointer" />
-                <FaPinterestP className="cursor-pointer" />
+                <FaFacebookF className="cursor-pointer hover:text-blue-600 transition duration-300" />
+                <FaTwitter className="cursor-pointer hover:text-blue-400 transition duration-300" />
+                <FaTelegramPlane className="cursor-pointer hover:text-blue-500 transition duration-300" />
+                <FaPinterestP className="cursor-pointer hover:text-red-500 transition duration-300" />
               </div>
             </div>
-            <div className="mt-10 border-t border-gray-300" style={{ width: '480px' }}></div>
+
+            <div className="mt-10 border-t border-gray-300 w-[480px]"></div>
           </div>
         </div>
 
@@ -140,18 +276,10 @@ const DetailProduct = () => {
             {activeTab === 'description' && (
               <div className='flex flex-col gap-10'>
                 <p data-aos="zoom-in">
-                  Nam tristique porta ligula, vel viverra sem eleifend nec. Nulla sed purus augue, eu euismod tellus.
-                  Nam mattis eros nec mi sagittis sagittis. Vestibulum suscipit cursus bibendum. Integer at justo eget
-                  sem auctor auctor eget vitae arcu. Nam tempor malesuada porttitor. Nulla quis dignissim ipsum. Aliquam
-                  pulvinar iaculis justo, sit amet interdum sem hendrerit vitae. Vivamus vel erat tortor. Nulla facilisi.
-                  In nulla quam, lacinia eu aliquam ac, aliquam in nisl.
+                  Nam tristique porta ligula, vel viverra sem eleifend nec. Nulla sed purus augue, eu euismod tellus. Nam mattis eros nec mi sagittis sagittis.
                 </p>
                 <p data-aos="zoom-in">
-                  Suspendisse cursus sodales placerat. Morbi eu lacinia ex. Curabitur blandit justo urna, id porttitor est
-                  dignissim nec. Pellentesque scelerisque hendrerit posuere. Sed at dolor quis nisi rutrum accumsan et sagittis massa.
-                  Aliquam aliquam accumsan lectus quis auctor. Curabitur rutrum massa at volutpat placerat. Duis sagittis vehicula
-                  fermentum. Integer eu vulputate justo. Aenean pretium odio vel tempor sodales. Suspendisse eu fringilla leo, non
-                  aliquet sem.
+                  Suspendisse cursus sodales placerat. Morbi eu lacinia ex. Curabitur blandit justo urna, id porttitor est dignissim nec.
                 </p>
               </div>
             )}
