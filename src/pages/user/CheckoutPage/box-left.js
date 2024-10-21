@@ -6,12 +6,14 @@ import FormAddress from "./form-address";
 const CheckoutBoxLeft = () => {
     const [isPopupAddressVisible, setIsPopupAddressVisible] = useState(false);
 
+    const [selectedPayment, setSelectedPayment] = useState("radio-card-1");
+
     const togglePopupAddress = () => {
         setIsPopupAddressVisible(!isPopupAddressVisible);
     }
 
     return (
-        <div className="checkout__box__left px-10" style={{ width: '800px' }}>
+        <div className="checkout__box__left pe-10" style={{ width: '800px' }}>
             <div className="delivery__box border border-[#f0f0f0]-100">
                 <div className="delivery__box__title bg-[#f0f0f0] p-3 flex justify-between">
                     <div className="delivery__box__title__icon">
@@ -61,43 +63,83 @@ const CheckoutBoxLeft = () => {
                     </label>
                 </div>
             </div>
-            <div className="check__box__left__payment mt-10">
+            <div className="payment__method mt-10">
                 <h2 className="text-xl font-bold mb-3">Hình thức thanh toán</h2>
-                <div className="payment-options border border-[#f0f0f0]-100">
-                    <label className="flex justify-between border-b border-[#f0f0f0]-100 px-3 py-3">
-                        <div className="payment-options__label">
-                            <input type="radio" name="payment" value="cod" className="mr-1" defaultChecked />
-                            Thanh toán khi giao hàng
-                        </div>
-                        <div className="payment-options__price">
-                            <p className="font-bold"></p>
-                        </div>
-                    </label>
-                    <label className="flex justify-between border-b border-[#f0f0f0]-100 px-3 py-3">
-                        <div className="payment-options__label">
-                            <input type="radio" name="payment" value="paypal" className="mr-1" />
-                            Thanh toán Paypal
-                        </div>
-                        <div className="payment-options__price w-[24px] h-[24px]">
-                            <img src="/assets/images/payment/paypal.jpg" alt="" />
-                        </div>
-                    </label>
-                    <label className="flex justify-between border-b border-[#f0f0f0]-100 px-3 py-3">
-                        <div className="payment-options__label">
-                            <input type="radio" name="payment" value="momo" className="mr-1" />
-                            Thanh toán Momo
-                        </div>
-                        <div className="payment-options__price w-[24px] h-[24px]">
-                            <img src="/assets/images/payment/momo.webp" alt="" />
+                <div className="flex flex-wrap">
+                    <label htmlFor="radio-card-1" className="radio-card w-1/3">
+                        <input
+                            type="radio"
+                            name="radio-card"
+                            id="radio-card-1"
+                            checked={selectedPayment === "radio-card-1"}
+                            onChange={() => setSelectedPayment("radio-card-1")}
+                        />
+                        <div className="card-content-wrapper">
+                            <span className="check-icon"></span>
+                            <div className="card-content">
+                                <img
+                                    className="w-[180px] h-[60px] mt-[10px]"
+                                    src="/assets/images/payment/paypal.png"
+                                    alt=""
+                                />
+                            </div>
                         </div>
                     </label>
-                    <label className="flex justify-between border-b border-[#f0f0f0]-100 px-3 py-3">
-                        <div className="payment-options__label">
-                            <input type="radio" name="payment" value="vnpay" className="mr-1" />
-                            Thanh toán VNPay
+                    <label htmlFor="radio-card-2" className="radio-card w-1/3">
+                        <input
+                            type="radio"
+                            name="radio-card"
+                            id="radio-card-2"
+                            checked={selectedPayment === "radio-card-2"}
+                            onChange={() => setSelectedPayment("radio-card-2")}
+                        />
+                        <div className="card-content-wrapper">
+                            <span className="check-icon"></span>
+                            <div className="card-content">
+                                <img
+                                    className="w-[180px] h-[60px] mt-[10px]"
+                                    src="/assets/images/payment/google-pay.png"
+                                    alt=""
+                                />
+                            </div>
                         </div>
-                        <div className="payment-options__price w-[24px] h-[24px]">
-                            <img src="/assets/images/payment/vnpay.png" alt="" />
+                    </label>
+                    <label htmlFor="radio-card-3" className="radio-card w-1/3">
+                        <input
+                            type="radio"
+                            name="radio-card"
+                            id="radio-card-3"
+                            checked={selectedPayment === "radio-card-3"}
+                            onChange={() => setSelectedPayment("radio-card-3")}
+                        />
+                        <div className="card-content-wrapper">
+                            <span className="check-icon"></span>
+                            <div className="card-content">
+                                <img
+                                    className="w-[180px] h-[60px] mt-[10px]"
+                                    src="/assets/images/payment/vnpay.png"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                    </label>
+                    <label htmlFor="radio-card-4" className="radio-card w-1/3">
+                        <input
+                            type="radio"
+                            name="radio-card"
+                            id="radio-card-4"
+                            checked={selectedPayment === "radio-card-4"}
+                            onChange={() => setSelectedPayment("radio-card-4")}
+                        />
+                        <div className="card-content-wrapper">
+                            <span className="check-icon"></span>
+                            <div className="card-content">
+                                <img
+                                    className="w-[180px] h-[60px] mt-[10px]"
+                                    src="/assets/images/payment/visa.png"
+                                    alt=""
+                                />
+                            </div>
                         </div>
                     </label>
                 </div>

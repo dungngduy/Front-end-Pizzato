@@ -101,7 +101,7 @@ const Address = ({ onClose }) => {
                     <div className="input">
                         <Select
                             showSearch
-                            style={{ width: 200 }}
+                            style={{ width: 200, height: 38.4 }}
                             placeholder="Tỉnh/Thành phố"
                             optionFilterProp="label"
                             value={selectedProvince}
@@ -113,7 +113,7 @@ const Address = ({ onClose }) => {
                     <div className="input">
                         <Select
                             showSearch
-                            style={{ width: 200 }}
+                            style={{ width: 200, height: 38.4 }}
                             placeholder="Quận/Huyện"
                             optionFilterProp="label"
                             value={selectedDistrict}
@@ -126,7 +126,7 @@ const Address = ({ onClose }) => {
                     <div className="input">
                         <Select
                             showSearch
-                            style={{ width: 200 }}
+                            style={{ width: 200, height: 38.4 }}
                             placeholder="Phường/Xã"
                             optionFilterProp="label"
                             options={wards}

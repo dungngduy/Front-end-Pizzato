@@ -10,7 +10,7 @@ const BannerCheckout = () => {
 
     return (
         <Breadcrumb
-            backgroundImage="/assets/images/banners/banner-category.jpg"
+            backgroundImage="/assets/images/breadcrumbs/breadcrumb-4.jpg"
             title="Thanh toán"
             items={breadcrumbItems}
         />

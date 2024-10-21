@@ -10,7 +10,7 @@ const BannerDetail = () => {
     
     return (
         <Breadcrumb
-            backgroundImage="/assets/images/banners/banner-category.jpg"
+            backgroundImage="/assets/images/breadcrumbs/breadcrumb-1.jpg"
             title="Yummy Chicken Chup"
             items={breadcrumbItems}
         />

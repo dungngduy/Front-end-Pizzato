@@ -10,7 +10,7 @@ const BannerCategory = () => {
     
     return (
         <Breadcrumb
-            backgroundImage="/assets/images/banners/banner-category.jpg"
+            backgroundImage="/assets/images/breadcrumbs/breadcrumb-3.jpg"
             title="Danh sách món ăn"
             items={breadcrumbItems}
         />
