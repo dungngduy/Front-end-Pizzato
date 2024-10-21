@@ -10,7 +10,7 @@ const BannerCart = () => {
     
     return (
         <Breadcrumb
-            backgroundImage="/assets/images/banners/banner-category.jpg"
+            backgroundImage="/assets/images/breadcrumbs/breadcrumb-2.webp"
             title="Yummy Chicken Chup"
             items={breadcrumbItems}
         />
