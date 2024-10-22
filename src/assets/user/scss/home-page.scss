@@ -163,7 +163,7 @@
             cursor: pointer;
             font-size: 20px;
 
-            span {
+            .cart__count {
                 position: absolute;
                 background-color: map-get($map: $theme-colors, $key: "main");
                 color: map-get($map: $theme-colors, $key: "white");
@@ -179,7 +179,7 @@
             }
         }
 
-        li:hover {
+        li:hover > .icon__search__container {
             color: map-get($map: $theme-colors, $key: "main");
             transition: map-get($map: $theme-transitions, $key: "other");
         }
@@ -350,7 +350,7 @@
 }
 
 .cover .text .text-2 {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -540,6 +540,72 @@ a {
     }
 }
 
+.popup__cart {
+    position: absolute;
+    pointer-events: auto;
+    list-style: none;
+    display: block !important;
+    width: 260px;
+    top: 30px;
+    right: 0px;
+    background-color: map-get($map: $theme-colors, $key: "white");
+    border: 1px solid map-get($map: $theme-colors, $key: "white");
+    border-radius: 8px;
+    padding: 10px 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.popup__cart__content {
+    overflow-y: auto;
+    width: 100%;
+    height: 150px;
+}
+
+.popup__cart__item {
+    margin-bottom: 10px;
+
+    a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 10px;
+
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+    
+        .popup__cart__item__details {
+            flex-grow: 1;
+    
+            p {
+                @each $key, $value in map-get($theme-webkits, sub-title) {
+                    #{$key}: #{$value};
+                }
+            }
+        }
+    }
+}
+
+.popup__cart__btn {
+    border: 1px solid map-get($map: $theme-colors, $key: "main");
+    color: map-get($map: $theme-colors, $key: "main");
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 5px 0;
+}
+
+.popup__checkout__btn {
+    border: 1px solid map-get($map: $theme-colors, $key: "main");
+    background-color: map-get($map: $theme-colors, $key: "main");
+    color: map-get($map: $theme-colors, $key: "white");
+    text-align: center;
+    font-size: 16px;
+    padding: 5px 0;
+}
+
 .carousel {
     width: 100%;
     height: 600px;
@@ -572,7 +638,7 @@ a {
 
     .new__product__description {
         margin: 20px 0;
-        font-size: 20px;
+        font-size: 18px;
 
         strong {
             color: map-get($map: $theme-colors, $key: "main");
@@ -622,12 +688,13 @@ a {
     }
 
     h4 {
-        font-style: italic;
+        font-weight: 600;
+        margin-bottom: 10px;
     }
 
     h2 {
-        font-weight: 600;
-        margin-bottom: 10px;
+        font-size: 18px;
+        font-style: italic;
 
         strong {
             color: map-get($map: $theme-colors, $key: "main");
@@ -785,27 +852,32 @@ a {
             color: map-get($map: $theme-colors, $key: "main");
 
             p {
+                font-size: 16px;
                 margin-bottom: 10px;
             }
 
             h4 {
                 font-style: italic;
+                font-weight: 600;
             }
         }
     }
 
     .right__choose__food__box {
         h4 {
+            font-size: 16px;
             font-style: italic;
             margin-bottom: 10px;
         }
 
         h2 {
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 20px;
         }
 
         .outside__text {
+            font-size: 16px;
             margin-bottom: 20px;
         }
 
@@ -830,8 +902,9 @@ a {
 
             .resson__choose__text {
                 h2 {
+                    font-size: 18px;
                     font-weight: 600;
-                    margin-bottom: 10px;
+                    margin-bottom: 5px;
                 }
             }
         }
@@ -840,6 +913,7 @@ a {
 
 .menu__container {
     .our__menu {
+        font-size: 18px;
         text-align: center;
         font-style: italic;
 
@@ -890,7 +964,7 @@ a {
             .menu__item__content {
                 h3 {
                     color: map-get($map: $theme-colors, $key: "black");
-                    font-size: 20px;
+                    font-size: 18px;
                     margin-bottom: 10px;
                     transition: map-get($map: $theme-transitions, $key: "other");
 
@@ -1007,16 +1081,19 @@ a {
                     width: 100%;
                     background-color: map-get($map: $theme-colors, $key: "main");
                     text-align: center;
-                    padding: 10px 0;
+                    padding: 5px 0;
                     font-size: 16px;
 
                     h3 {
                         color: map-get($map: $theme-colors, $key: "white");
+                        font-weight: 600;
+                        font-size: 18px;
                     }
 
                     p {
                         color: map-get($map: $theme-colors, $key: "white");
                         font-style: italic;
+                        font-size: 16px;
                     }
                 }
             }
@@ -1106,6 +1183,7 @@ a {
                 }
 
                 h4 {
+                    font-weight: 600;
                     color: map-get($map: $theme-colors, $key: "white");
                     font-size: 16px;
                 }
@@ -1141,6 +1219,7 @@ a {
 
         h2 {
             font-style: italic;
+            font-size: 18px;
 
             strong {
                 color: map-get($map: $theme-colors, $key: "main");
@@ -1148,6 +1227,7 @@ a {
         }
 
         p {
+            font-size: 16px;
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -1180,11 +1260,13 @@ a {
                     column-gap: 5px;
 
                     svg {
+                        font-size: 14px;
                         color: map-get($map: $theme-colors, $key: "main");
                         font-size: 16px;
                     }
 
                     p {
+                        font-size: 14px;
                         color: map-get($map: $theme-colors, $key: "description");
                         font-style: italic;
                     }
@@ -1197,11 +1279,13 @@ a {
                     column-gap: 5px;
 
                     svg {
+                        font-size: 14px;
                         color: map-get($map: $theme-colors, $key: "main");
                         font-size: 16px;
                     }
 
                     p {
+                        font-size: 14px;
                         color: map-get($map: $theme-colors, $key: "description");
                         font-style: italic;
                     }
@@ -1215,6 +1299,7 @@ a {
 
                     h2 {
                         font-weight: 600;
+                        font-size: 18px;
                         margin-bottom: 10px;
                         @each $key, $value in map-get($theme-webkits, title) {
                             #{$key}: #{$value};
@@ -1228,6 +1313,7 @@ a {
 
                     p {
                         margin-bottom: 20px;
+                        font-size: 16px;
                         color: map-get($map: $theme-colors, $key: "description");
                         @each $key, $value in map-get($theme-webkits, description) {
                             #{$key}: #{$value};
@@ -1414,7 +1500,6 @@ a {
 
 .recent__post__date {
     opacity: 0.6;
-    font-weight: 200;
 }
 
 .footer__copyright {
@@ -1427,11 +1512,12 @@ a {
 
     ul {
         display: flex;
+        justify-content: center;
         align-items: center;
         list-style: none;
 
         li {
-            font-size: 20px;
+            font-size: 18px;
             display: flex;
             align-items: center;
             flex: 0 0 auto;

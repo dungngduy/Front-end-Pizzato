@@ -21,7 +21,7 @@ const FooterContainer = () => {
                                 <Link to={"/"}><AiOutlineFieldTime /></Link>
                                 <div className="footer__hours">
                                     <h4>Giờ mở cửa:</h4>
-                                    <p>Từ Thứ 2 - Chủ nhật <br />(08:00 - 22:00)</p>
+                                    <p>Từ Thứ 2 - Thứ 7 <br />(08:00 - 22:00)</p>
                                 </div>
                             </div>
                         </div>

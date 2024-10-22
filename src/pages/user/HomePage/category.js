@@ -26,8 +26,8 @@ const Category = () => {
     return (
         <div className="row categories__container">
             <div className="col-xl-12">
-                <h4 className="categories__title" data-aos="fade-up">Danh mục</h4>
-                <h2 className="categories__description" data-aos="fade-up">Chọn thực đơn món ăn</h2>
+                <h2 className="categories__title" data-aos="fade-up">Danh mục</h2>
+                <h4 className="categories__description" data-aos="fade-up">Chọn thực đơn món ăn</h4>
                 <CarouselMulti 
                     responsive={responsive}
                     autoPlaySpeed={3000}
