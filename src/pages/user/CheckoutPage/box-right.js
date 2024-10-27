@@ -9,8 +9,8 @@ const CheckoutBoxRight = () => {
                 <h2 className="text-xl font-bold text-[24px] border-b-2 border-[#000000]-400 py-3">Đơn hàng <em className="font-normal text-[16px]">(1 sản phẩm)</em></h2>
                 <div className="checkout__box__right__content py-5 border-b-2 border-[#000000]-400">
                     <div className="checkout__box__right__content__item flex gap-3">
-                        <div className="checkout__box__right__content__item__image w-[80px] h-[80px]">
-                            <img src="/assets/images/products/product-1.jpg" alt="product" />
+                        <div className="checkout__box__right__content__item__image w-[80px] h-[65px]">
+                            <img src="/assets/images/products/product-1.jpg" alt="product" className="w-full h-full" />
                             <div className="count">
                                 <p>10</p>
                             </div>
@@ -27,8 +27,8 @@ const CheckoutBoxRight = () => {
                         </div>
                     </div>
                     <div className="checkout__box__right__content__item flex gap-3">
-                        <div className="checkout__box__right__content__item__image w-[80px] h-[80px]">
-                            <img src="/assets/images/products/product-1.jpg" alt="product" />
+                        <div className="checkout__box__right__content__item__image w-[80px] h-[65px]">
+                            <img src="/assets/images/products/product-1.jpg" alt="product" className="w-full h-full" />
                             <div className="count">
                                 <p>10</p>
                             </div>
@@ -47,11 +47,11 @@ const CheckoutBoxRight = () => {
                 </div>
                 <div className="total__price flex justify-between py-3 border-b-2 border-[#000000]-400">
                     <div className="title__total">
-                        <p className="text-[#676767]">Tạm tính</p>
+                        <p className="text-[#676767] mb-2">Tạm tính</p>
                         <p className="text-[#676767]">Phí vận chuyển</p>
                     </div>
                     <div className="price__total">
-                        <p className="text-[#f00000] font-bold">360.000đ</p>
+                        <p className="text-[#f00000] font-bold mb-2">360.000đ</p>
                         <p className="text-[#f00000] font-bold">40.000đ</p>
                     </div>
                 </div>
