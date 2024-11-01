@@ -1,11 +1,9 @@
 import { memo } from "react";
-import "assets/user/scss/checkout.scss";
-import OrderTracking from "./tracking";
-
-const Tracking = () => {
+import Tracking from "./tracking";
+const OrderTracking = () => {
     return (
-        <OrderTracking/>
+        <Tracking />
     );
-}
+};
 
-export default memo(Tracking);
+export default memo(OrderTracking);

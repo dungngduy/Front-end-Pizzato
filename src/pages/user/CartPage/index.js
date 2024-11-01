@@ -10,8 +10,8 @@ const CartPage = () => {
             <BannerCart />
             {/* Cart */}
             <Cart />
-            {/*check out*/}
-            <Checkout/>
+            {/* check out
+            <Checkout/> */}
         </main>
     );
 };

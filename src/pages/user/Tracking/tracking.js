@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const OrderTracking = () => {
+const Tracking = () => {
   const [searchText, setSearchText] = useState("");
   const [filterDate, setFilterDate] = useState("");
 
@@ -100,4 +100,4 @@ const OrderTracking = () => {
   );
 };
 
-export default OrderTracking;
+export default Tracking;

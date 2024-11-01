@@ -8,5 +8,6 @@ export const ROUTER = {
         PROFILE: '/profile',
         DETAIL: '/detail',
         CART : '/cart',
+        TRACKING : '/tracking',
     },
 }

@@ -6,7 +6,7 @@ import ProfilePage from './pages/user/ProfilePage';
 import CategoryPage from 'pages/user/CategoryPage';
 import DetailPage from './pages/user/DetailPage';
 import CartPage from 'pages/user/CartPage';
-
+import TrackingOrder from 'pages/user/Tracking';
 const renderUserRouter = () => {
     const userRouter = [
         {
@@ -28,6 +28,10 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.CART,
             component: <CartPage />,
+        },
+        {
+            path: ROUTER.USER.TRACKING,
+            component: <TrackingOrder />,
         },
     ]
 
