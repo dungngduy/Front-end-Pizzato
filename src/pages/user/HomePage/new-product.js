@@ -53,7 +53,7 @@ const NewProduct = () => {
                                 </div>
                             </div>
                             <div className="new__product__button" data-aos="fade-right">
-                                <Link to={"/"}><button type="button">Đọc thêm</button></Link>
+                                <Link to={`/detail/${item.id}`}><button type="button">Đọc thêm</button></Link>
                             </div>
                         </div>
                     )
