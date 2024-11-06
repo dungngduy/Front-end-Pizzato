@@ -38,7 +38,7 @@ const ChooseFood = () => {
                         <div className="resson__choose__text">
                             <h2>Chất lượng cao</h2>
                             <p>
-                                Pizza của chúng tôi được làm từ nguyên liệu tươi ngon nhất, hương vị tuyệt vời
+                                Pizza được làm từ nguyên liệu tươi ngon nhất, hương vị tuyệt vời
                                 trong từng miếng. Kết hợp hoàn hảo với phô mai thơm ngon và các loại nhân đa dạng,
                                 mang đến trải nghiệm ẩm thực tuyệt vời.
                             </p>

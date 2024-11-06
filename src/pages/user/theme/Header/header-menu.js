@@ -1,9 +1,11 @@
+import Login from "pages/user/LoginPage/login/login";
 import { memo, useState } from "react";
 import ReactDOM from "react-dom";
-import { 
+import {
     AiOutlineSearch,
     AiOutlineUser,
-    AiOutlineShoppingCart
+    AiOutlineShoppingCart,
+    AiOutlineClose
 } from 'react-icons/ai';
 import { Link, useLocation } from "react-router-dom";
 import { ROUTER } from "utils/router";
@@ -54,15 +56,33 @@ const HeaderMenu = () => {
         }
     ]);
 
-    // Popup tìm kiếm món ăn
     const [isSearchVisible, setSearchVisible] = useState(false);
+    const [isLoginVisible, setLoginVisible] = useState(false);
+    const [isCartVisible, setCartVisible] = useState(false);
 
+    // Toggle popup tìm kiếm món ăn
     const toggleSearchPopup = () => {
         setSearchVisible(!isSearchVisible);
     };
 
-    const closePopup = () => {
+    const closeSearchPopup = () => {
         setSearchVisible(false);
+    };
+
+    const toggleLoginPopup = () => {
+        setLoginVisible(!isLoginVisible);
+    };
+
+    const closeLoginPopup = () => {
+        setLoginVisible(false);
+    };
+
+    const toggleCartPopup = () => {
+        setCartVisible(!isCartVisible);
+    };
+
+    const closeCartPopup = () => {
+        setCartVisible(false);
     };
 
     return (
@@ -107,9 +127,66 @@ const HeaderMenu = () => {
                         </div>
                         <div className="col-xl-3 col-lg-3 search__container">
                             <ul>
-                                <li onClick={toggleSearchPopup}><AiOutlineSearch /></li>
-                                <li><AiOutlineUser /></li>
-                                <li><AiOutlineShoppingCart /> <span>10</span></li>
+                                <li onClick={toggleSearchPopup}><AiOutlineSearch className="icon__search__container" /></li>
+                                <li onClick={toggleLoginPopup}><AiOutlineUser className="icon__search__container" /></li>
+                                <li onClick={toggleCartPopup}>
+                                    <AiOutlineShoppingCart className="icon__search__container" />
+                                    <span className="cart__count">10</span>
+                                    {isCartVisible && (
+                                        <ul className="popup__cart" data-aos="fade-up">
+                                            <div className="flex justify-between items-center">
+                                                <h2 className="font-bold text-[20px]">Giỏ hàng của tôi</h2>
+                                                <span onClick={closeCartPopup}><AiOutlineClose /></span>
+                                            </div>
+                                            <div className="popup__cart__content">
+                                                <li className="popup__cart__item">
+                                                    <Link to={""}>
+                                                        <img src="/assets/images/products/product-1.jpg" alt="Product" />
+                                                        <div className="popup__cart__item__details">
+                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">Tên sản phẩm</p>
+                                                            <span className="text-[12px]">Giá: $100</span>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                                <li className="popup__cart__item">
+                                                    <Link to={""}>
+                                                        <img src="/assets/images/products/product-1.jpg" alt="Product" />
+                                                        <div className="popup__cart__item__details">
+                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">Tên sản phẩm</p>
+                                                            <span className="text-[12px]">Giá: $100</span>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                                <li className="popup__cart__item">
+                                                    <Link to={""}>
+                                                        <img src="/assets/images/products/product-1.jpg" alt="Product" />
+                                                        <div className="popup__cart__item__details">
+                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">Tên sản phẩm</p>
+                                                            <span className="text-[12px]">Giá: $100</span>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                                <li className="popup__cart__item">
+                                                    <Link to={""}>
+                                                        <img src="/assets/images/products/product-1.jpg" alt="Product" />
+                                                        <div className="popup__cart__item__details">
+                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">Tên sản phẩm</p>
+                                                            <span className="text-[12px]">Giá: $100</span>
+                                                        </div>
+                                                    </Link>
+                                                </li>
+                                            </div>
+                                            <div className="flex justify-between items-center mt-2">
+                                                <h3 className="font-bold">Tổng tiền:</h3>
+                                                <span>$200</span>
+                                            </div>
+                                            <div className="w-full flex flex-col mt-4">
+                                                <Link to="" className="popup__cart__btn">Xem chi tiết</Link>
+                                                <Link to="" className="popup__checkout__btn">Thanh toán</Link>
+                                            </div>
+                                        </ul>
+                                    )}
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -119,15 +196,26 @@ const HeaderMenu = () => {
             {/* Popup tìm kiếm */}
             {isSearchVisible && ReactDOM.createPortal(
                 <div>
-                    <div className="overlay active" onClick={closePopup}></div>
-                    <div className="search-popup active" data-aos="fade-up">
-                        <div className="popup-content">
-                            <input type="text" placeholder="Tìm kiếm món ăn tại đây..." />
-                            <button onClick={closePopup}>Tìm kiếm</button>
-                        </div>
+                    <div className="overlay active" onClick={closeSearchPopup}></div>
+                    <div className="search-popup active" data-aos="fade-down">
+                        <form action="#">
+                            <div className="popup-content">
+                                <input type="text" placeholder="Tìm kiếm món ăn tại đây..." />
+                                <button type="submit">Tìm kiếm</button>
+                            </div>
+                        </form>
                     </div>
                 </div>,
-                document.body // Render ra ngoài DOM của component hiện tại
+                document.body
+            )}
+
+            {/* Popup đăng nhập */}
+            {isLoginVisible && ReactDOM.createPortal(
+                <div>
+                    <div className="overlay active" onClick={closeLoginPopup}></div>
+                    <Login />
+                </div>,
+                document.body
             )}
         </div>
     );

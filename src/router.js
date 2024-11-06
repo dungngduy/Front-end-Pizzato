@@ -5,6 +5,7 @@ import MasterLayout from './pages/user/theme/MasterLayout';
 import ProfilePage from './pages/user/ProfilePage';
 import CategoryPage from 'pages/user/CategoryPage';
 import DetailPage from './pages/user/DetailPage';
+import CheckoutPage from 'pages/user/CheckoutPage';
 import CartPage from 'pages/user/CartPage';
 import TrackingOrder from 'pages/user/Tracking';
 const renderUserRouter = () => {
@@ -32,6 +33,10 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.TRACKING,
             component: <TrackingOrder />,
+        },
+        {
+            path: ROUTER.USER.CHECKOUT,
+            component: <CheckoutPage />,
         },
     ]
 

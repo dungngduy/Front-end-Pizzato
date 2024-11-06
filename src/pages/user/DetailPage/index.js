@@ -3,6 +3,7 @@ import "assets/user/scss/category-page.scss";
 import BannerDetail from "./banner-detail";
 import DetailProduct from "./detail-product";
 import SimilarProducts from "./simliar-product"
+
 const DetailPage = () => {
     return (
         <main>

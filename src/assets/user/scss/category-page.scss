@@ -83,7 +83,7 @@
         column-gap: 30px;
 
         .product__item__image {
-            width: 100%;
+            width: 280px;
             height: 200px;
 
             img {
@@ -122,10 +122,13 @@
                             color: map-get($map: $theme-colors, $key: "main");
                             transition: map-get($map: $theme-transitions, $key: "other");
                         }
+                        font-size: 18px;
+                        font-weight: 600;
                     }
         
                     p {
                         margin: 8px 0;
+                        font-size: 16px;
                         color: map-get($map: $theme-colors, $key: "description");
                         @each $key, $value in map-get($theme-webkits, description) {
                             #{$key}: #{$value};
@@ -135,7 +138,7 @@
             }
 
             .product__item__rating-and-price {
-                margin-top: 20px;
+                margin-top: 10px;
         
                 .product__item__price {
                     p {
@@ -166,6 +169,7 @@
                         margin-left: 5px;
                         color: map-get($map: $theme-colors, $key: "description");
                         font-style: italic;
+                        font-size: 12px;
                     }
 
                     .ant-rate-star {
@@ -247,7 +251,9 @@
                 @each $key, $value in map-get($theme-webkits, title) {
                     #{$key}: #{$value};
                 }
+                font-size: 18px;
                 text-align: center;
+                font-weight: 600;
 
                 &:hover {
                     color: map-get($map: $theme-colors, $key: "main");
@@ -256,6 +262,7 @@
             }
 
             p {
+                font-size: 16px;
                 margin: 5px 0;
                 color: map-get($map: $theme-colors, $key: "description");
                 @each $key, $value in map-get($theme-webkits, description) {
@@ -276,13 +283,13 @@
                 font-weight: 600;
 
                 del {
+                    font-size: 14px;
                     font-style: italic;
                     font-weight: 400;
                 }
 
                 span {
                     color: #ff0000;
-                    font-size: 16px;
                 }
             }
 
@@ -292,7 +299,7 @@
             .ant-rate-star {
                 span {
                     svg {
-                        font-size: 16px !important;
+                        font-size: 14px !important;
                     }
                 }
             }
@@ -327,6 +334,8 @@
         
         h2 {
             margin: 10px 0;
+            font-weight: 600;
+            font-size: 20px;
         }
 
         .category__sidebar__list__item {
@@ -368,6 +377,7 @@
 
     .content__hot-product__title {
         h2 {
+            font-size: 18px;
             margin-bottom: 10px;
         }
 
@@ -396,6 +406,8 @@
 
     h2 {
         margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: 600;
     }
 
     form {
@@ -426,6 +438,8 @@
 
     h2 {
         margin: 10px 0;
+        font-size: 20px;
+        font-weight: 600;
     }
 
     .category__sidebar__lastest-product__item a {
@@ -450,12 +464,12 @@
 
         .lastest-product__item__info {
             .lastest-product__item__name {
+                font-size: 16px;
                 color: map-get($map: $theme-colors, $key: "black");
+                margin-bottom: 5px;
             }
 
             .ant-rate-star {
-                margin-bottom: 5px;
-
                 &:not(:last-child) {
                     margin-inline-end: 0 !important;
                 }
@@ -470,6 +484,8 @@
             }
 
             .lastest-product__item__price {
+                font-size: 12px;
+                font-weight: 600;
                 font-style: italic;
                 color: #ff0000;
             }
@@ -479,6 +495,8 @@
 
 .category__sidebar__product-tags {
     h2 {
+        font-size: 20px;
+        font-weight: 600;
         margin-bottom: 10px;
     }
 

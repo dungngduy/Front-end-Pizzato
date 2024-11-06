@@ -3,6 +3,7 @@ $theme-colors: (
     "white": #fff,
     "black": #000,
     "description": #676767,
+    "border": #cccccc,
 );
 
 $theme-transitions: (
@@ -21,6 +22,12 @@ $theme-webkits: (
         display: -webkit-box,
         -webkit-box-orient: vertical,
         -webkit-line-clamp: 3,
+        overflow: hidden,
+    ),
+    "sub-title": (
+        display: -webkit-box,
+        -webkit-box-orient: vertical,
+        -webkit-line-clamp: 1,
         overflow: hidden,
     ),
 );

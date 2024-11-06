@@ -1,8 +1,10 @@
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Rate, Segmented, Select, Input, Checkbox, Slider, Tag, Pagination } from 'antd';
 import { AppstoreOutlined, BarsOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { BsFillShareFill, BsSuitHeart, BsHandbag } from "react-icons/bs";
+import { formatCurrencyVND } from 'utils/format';
+import AxiosInstance from 'utils/apiServers';
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -10,10 +12,10 @@ const onSearch = (value, _e, info) => console.log(info?.source, value);
 const ListProduct = () => {
     const [viewMode, setViewMode] = useState('Kanban');
 
-    const options=[
+    const options = [
         {
-          value: '1',
-          label: 'Mới nhất',
+            value: '1',
+            label: 'Mới nhất',
         },
         {
             value: '2',
@@ -33,10 +35,22 @@ const ListProduct = () => {
         },
     ];
 
-    const [inputValue, setInputValue] = useState([20, 50]);
+    const [inputValue, setInputValue] = useState([2000000, 50000000]);
     const onChange = (newValue) => {
         setInputValue(newValue);
     };
+
+    const [menus, setMenus] = useState([]);
+
+    useEffect(() => {
+        AxiosInstance.get('/menus')
+            .then(res => {
+                setMenus(res.data.menus);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, []);
 
     return (
         <div className="container">
@@ -73,7 +87,7 @@ const ListProduct = () => {
                                         {
                                             value: 'List',
                                             icon: <BarsOutlined />,
-                                        },                                      
+                                        },
                                     ]}
                                     onChange={setViewMode}
                                 />
@@ -82,294 +96,55 @@ const ListProduct = () => {
                     </div>
                     <div className={`list__product ${viewMode === 'List' ? 'list-view' : 'kanban-view'}`}>
                         <div className={`${viewMode === 'Kanban' ? 'row-grid-4' : 'row'}`}>
-                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
-                                <div className="product__item">
-                                    <div className="product__item__image">
-                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        {viewMode === 'Kanban' && (
-                                            <div className="product__item__icons">
-                                            <BsFillShareFill />
-                                            <BsHandbag />
-                                            <BsSuitHeart />
+                            {
+                                menus.map((menu, index) => (
+                                    <div key={index} className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
+                                        <div className="product__item">
+                                            <div className="product__item__image">
+                                                <img src={menu.thumb_image} alt={menu.thumb_image} />
+                                                {viewMode === 'Kanban' && (
+                                                    <div className="product__item__icons">
+                                                        <BsFillShareFill />
+                                                        <BsHandbag />
+                                                        <BsSuitHeart />
+                                                    </div>
+                                                )}
                                             </div>
-                                        )}
-                                    </div>
-                                    <Link to={""}>
-                                        <div className="product__item__info">
-                                            {viewMode === 'List' && (
-                                                <div className={`${viewMode === 'List'}`}>
-                                                    <p className="product__item__category-name">
-                                                        <span>Danh mục 1</span>
-                                                    </p>
-                                                </div>
-                                            )}
-                                            <div className="product__item__name">
-                                                <h2>Pizza Beef BBQ nhafbcd jkbadfjkabw jbwfjaibe</h2>
-                                                <p className="product__item__description">
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                </p>
-                                            </div>
-                                            <div className="product__item__rating-and-price">
-                                                <div className="product__item__price">
-                                                    <p>
-                                                        <del>400.000đ - 500.000đ</del><br />
-                                                        <span>150.000đ - 200.000đ</span>
-                                                    </p>
-                                                </div>
-                                                <div className="product__item__rating">
-                                                    <Rate allowHalf disabled defaultValue={4.5} />
+                                            <Link to={`/detail/${menu.id}`}>
+                                                <div className="product__item__info">
                                                     {viewMode === 'List' && (
-                                                        <span className="rating__count">(10 đánh giá)</span>
-                                                    )}   
+                                                        <div className={`${viewMode === 'List'}`}>
+                                                            <p className="product__item__category-name">
+                                                                <span>{menu.category_name}</span>
+                                                            </p>
+                                                        </div>
+                                                    )}
+                                                    <div className="product__item__name">
+                                                        <h2>{menu.name}</h2>
+                                                        <p className="product__item__description">
+                                                            {menu.short_description}
+                                                        </p>
+                                                    </div>
+                                                    <div className="product__item__rating-and-price">
+                                                        <div className="product__item__price">
+                                                            <p>
+                                                                <del>{formatCurrencyVND(menu.price)}</del><br />
+                                                                <span>{formatCurrencyVND(menu.offer_price)}</span>
+                                                            </p>
+                                                        </div>
+                                                        <div className="product__item__rating">
+                                                            <Rate allowHalf disabled defaultValue={4.5} />
+                                                            {viewMode === 'List' && (
+                                                                <span className="rating__count">(10 đánh giá)</span>
+                                                            )}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </Link>
                                         </div>
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
-                                <div className="product__item">
-                                    <div className="product__item__image">
-                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        {viewMode === 'Kanban' && (
-                                            <div className="product__item__icons">
-                                            <BsFillShareFill />
-                                            <BsHandbag />
-                                            <BsSuitHeart />
-                                            </div>
-                                        )}
                                     </div>
-                                    <Link to={""}>
-                                        <div className="product__item__info">
-                                            {viewMode === 'List' && (
-                                                <div className={`${viewMode === 'List'}`}>
-                                                    <p className="product__item__category-name">
-                                                        <span>Danh mục 1</span>
-                                                    </p>
-                                                </div>
-                                            )}
-                                            <div className="product__item__name">
-                                                <h2>Pizza Beef BBQ nhafbcd jkbadfjkabw jbwfjaibe</h2>
-                                                <p className="product__item__description">
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                </p>
-                                            </div>
-                                            <div className="product__item__rating-and-price">
-                                                <div className="product__item__price">
-                                                    <p>
-                                                        <del>400.000đ - 500.000đ</del><br />
-                                                        <span>150.000đ - 200.000đ</span>
-                                                    </p>
-                                                </div>
-                                                <div className="product__item__rating">
-                                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                                    {viewMode === 'List' && (
-                                                        <span className="rating__count">(10 đánh giá)</span>
-                                                    )}   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
-                                <div className="product__item">
-                                    <div className="product__item__image">
-                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        {viewMode === 'Kanban' && (
-                                            <div className="product__item__icons">
-                                            <BsFillShareFill />
-                                            <BsHandbag />
-                                            <BsSuitHeart />
-                                            </div>
-                                        )}
-                                    </div>
-                                    <Link to={""}>
-                                        <div className="product__item__info">
-                                            {viewMode === 'List' && (
-                                                <div className={`${viewMode === 'List'}`}>
-                                                    <p className="product__item__category-name">
-                                                        <span>Danh mục 1</span>
-                                                    </p>
-                                                </div>
-                                            )}
-                                            <div className="product__item__name">
-                                                <h2>Pizza Beef BBQ nhafbcd jkbadfjkabw jbwfjaibe</h2>
-                                                <p className="product__item__description">
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                </p>
-                                            </div>
-                                            <div className="product__item__rating-and-price">
-                                                <div className="product__item__price">
-                                                    <p>
-                                                        <del>400.000đ - 500.000đ</del><br />
-                                                        <span>150.000đ - 200.000đ</span>
-                                                    </p>
-                                                </div>
-                                                <div className="product__item__rating">
-                                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                                    {viewMode === 'List' && (
-                                                        <span className="rating__count">(10 đánh giá)</span>
-                                                    )}   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
-                                <div className="product__item">
-                                    <div className="product__item__image">
-                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        {viewMode === 'Kanban' && (
-                                            <div className="product__item__icons">
-                                            <BsFillShareFill />
-                                            <BsHandbag />
-                                            <BsSuitHeart />
-                                            </div>
-                                        )}
-                                    </div>
-                                    <Link to={""}>
-                                        <div className="product__item__info">
-                                            {viewMode === 'List' && (
-                                                <div className={`${viewMode === 'List'}`}>
-                                                    <p className="product__item__category-name">
-                                                        <span>Danh mục 1</span>
-                                                    </p>
-                                                </div>
-                                            )}
-                                            <div className="product__item__name">
-                                                <h2>Pizza Beef BBQ nhafbcd jkbadfjkabw jbwfjaibe</h2>
-                                                <p className="product__item__description">
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                </p>
-                                            </div>
-                                            <div className="product__item__rating-and-price">
-                                                <div className="product__item__price">
-                                                    <p>
-                                                        <del>400.000đ - 500.000đ</del><br />
-                                                        <span>150.000đ - 200.000đ</span>
-                                                    </p>
-                                                </div>
-                                                <div className="product__item__rating">
-                                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                                    {viewMode === 'List' && (
-                                                        <span className="rating__count">(10 đánh giá)</span>
-                                                    )}   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
-                                <div className="product__item">
-                                    <div className="product__item__image">
-                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        {viewMode === 'Kanban' && (
-                                            <div className="product__item__icons">
-                                            <BsFillShareFill />
-                                            <BsHandbag />
-                                            <BsSuitHeart />
-                                            </div>
-                                        )}
-                                    </div>
-                                    <Link to={""}>
-                                        <div className="product__item__info">
-                                            {viewMode === 'List' && (
-                                                <div className={`${viewMode === 'List'}`}>
-                                                    <p className="product__item__category-name">
-                                                        <span>Danh mục 1</span>
-                                                    </p>
-                                                </div>
-                                            )}
-                                            <div className="product__item__name">
-                                                <h2>Pizza Beef BBQ nhafbcd jkbadfjkabw jbwfjaibe</h2>
-                                                <p className="product__item__description">
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                </p>
-                                            </div>
-                                            <div className="product__item__rating-and-price">
-                                                <div className="product__item__price">
-                                                    <p>
-                                                        <del>400.000đ - 500.000đ</del><br />
-                                                        <span>150.000đ - 200.000đ</span>
-                                                    </p>
-                                                </div>
-                                                <div className="product__item__rating">
-                                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                                    {viewMode === 'List' && (
-                                                        <span className="rating__count">(10 đánh giá)</span>
-                                                    )}   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
-                                <div className="product__item">
-                                    <div className="product__item__image">
-                                        <img src="/assets/images/products/product-1.jpg" alt="Product-1" />
-                                        {viewMode === 'Kanban' && (
-                                            <div className="product__item__icons">
-                                            <BsFillShareFill />
-                                            <BsHandbag />
-                                            <BsSuitHeart />
-                                            </div>
-                                        )}
-                                    </div>
-                                    <Link to={""}>
-                                        <div className="product__item__info">
-                                            {viewMode === 'List' && (
-                                                <div className={`${viewMode === 'List'}`}>
-                                                    <p className="product__item__category-name">
-                                                        <span>Danh mục 1</span>
-                                                    </p>
-                                                </div>
-                                            )}
-                                            <div className="product__item__name">
-                                                <h2>Pizza Beef BBQ nhafbcd jkbadfjkabw jbwfjaibe</h2>
-                                                <p className="product__item__description">
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                    Bò xay hầm sốt BBQ, Ngô ngọt Mỹ, Phomai Mozzarella
-                                                </p>
-                                            </div>
-                                            <div className="product__item__rating-and-price">
-                                                <div className="product__item__price">
-                                                    <p>
-                                                        <del>400.000đ - 500.000đ</del><br />
-                                                        <span>150.000đ - 200.000đ</span>
-                                                    </p>
-                                                </div>
-                                                <div className="product__item__rating">
-                                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                                    {viewMode === 'List' && (
-                                                        <span className="rating__count">(10 đánh giá)</span>
-                                                    )}   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
+                                ))
+                            }
                         </div>
                         <div className="pagination">
                             <Pagination defaultCurrent={1} total={50} />
@@ -422,11 +197,13 @@ const ListProduct = () => {
                             <form action="#" method="post">
                                 <Slider
                                     range
-                                    defaultValue={[20, 50]}
+                                    min={0}
+                                    max={100000000}
+                                    defaultValue={[2000000, 50000000]}
                                     value={inputValue}
                                     onChange={onChange}
                                 />
-                                <p>Giá: <strong>{inputValue[0]}.000đ - {inputValue[1]}.000đ</strong></p>
+                                <p>Giá: <strong>{formatCurrencyVND(inputValue[0])} - {formatCurrencyVND(inputValue[1])}</strong></p>
                                 <button type="submit">Lọc</button>
                             </form>
                         </div>
