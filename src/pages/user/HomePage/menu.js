@@ -35,7 +35,7 @@ const Menu = () => {
                                             {item.pizzas.map((pizza, index) => (
                                                 <div key={`pizza-${index}`} className="col-6 col-xl-6">
                                                     <div className="menu__item font-bold" data-aos="fade-left">
-                                                        <Link to={``}>
+                                                        <Link to={`/detail/${pizza.id}`}>
                                                             <div className="menu__item__image">
                                                                 <img src={pizza.thumb_image} alt={pizza.name} />
                                                             </div>

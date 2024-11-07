@@ -32,6 +32,11 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.TRACKING,
             component: <TrackingOrder />,
+
+        },
+        {
+            path: ROUTER.USER.CHECKOUT,
+            component: <CheckoutPage />,
         },
     ]
 
