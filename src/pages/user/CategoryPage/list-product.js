@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Rate, Segmented, Select, Input, Checkbox, Slider, Tag, Pagination } from 'antd';
 import { AppstoreOutlined, BarsOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { BsFillShareFill, BsSuitHeart, BsHandbag } from "react-icons/bs";
+import { formatCurrencyVND } from 'utils/format';
 
 const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
@@ -33,7 +34,7 @@ const ListProduct = () => {
         },
     ];
 
-    const [inputValue, setInputValue] = useState([20, 50]);
+    const [inputValue, setInputValue] = useState([2000000, 50000000]);
     const onChange = (newValue) => {
         setInputValue(newValue);
     };
@@ -422,11 +423,13 @@ const ListProduct = () => {
                             <form action="#" method="post">
                                 <Slider
                                     range
-                                    defaultValue={[20, 50]}
+                                    min={0}
+                                    max={100000000}
+                                    defaultValue={[2000000, 50000000]}
                                     value={inputValue}
                                     onChange={onChange}
                                 />
-                                <p>Giá: <strong>{inputValue[0]}.000đ - {inputValue[1]}.000đ</strong></p>
+                                <p>Giá: <strong>{formatCurrencyVND(inputValue[0])} - {formatCurrencyVND(inputValue[1])}</strong></p>
                                 <button type="submit">Lọc</button>
                             </form>
                         </div>

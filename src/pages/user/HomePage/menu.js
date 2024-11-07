@@ -1,681 +1,82 @@
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
-
-const tabList = [
-    {
-        key: 'tab1',
-        tab: 'Pizza Margarita',
-    },
-    {
-        key: 'tab2',
-        tab: 'Pizza Peperoni',
-    },
-    {
-        key: 'tab3',
-        tab: 'Pizza Vegetarian',
-    },
-    {
-        key: 'tab4',
-        tab: 'Pizza Mexican',
-    },
-    {
-        key: 'tab5',
-        tab: 'Pizza Calzone',
-    },
-    {
-        key: 'tab6',
-        tab: 'Pizza Chicken',
-    },
-];
-
-const contentList = {
-    tab1: (
-        <div className="row tab__content">
-            <div className="col-xl-4" data-aos="zoom-in">
-                <div className="menu__item__main">
-                    <img src="/assets/images/menu-items/pizza-1.png" alt="Pizza-1" />
-                </div>
-            </div>
-            <div className="col-xl-8">
-                <div className="row">
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    ),
-    tab2: (
-        <div className="row tab__content">
-            <div className="col-xl-4" data-aos="zoom-in">
-                <div className="menu__item__main">
-                    <img src="/assets/images/menu-items/pizza-2.png" alt="Pizza-2" />
-                </div>
-            </div>
-            <div className="col-xl-8">
-                <div className="row">
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    ),
-    tab3: (
-        <div className="row tab__content">
-            <div className="col-xl-4" data-aos="zoom-in">
-                <div className="menu__item__main">
-                    <img src="/assets/images/menu-items/pizza-3.png" alt="Pizza-3" />
-                </div>
-            </div>
-            <div className="col-xl-8">
-                <div className="row">
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    ),
-    tab4: (
-        <div className="row tab__content">
-            <div className="col-xl-4" data-aos="zoom-in">
-                <div className="menu__item__main">
-                    <img src="/assets/images/menu-items/pizza-4.png" alt="Pizza-4" />
-                </div>
-            </div>
-            <div className="col-xl-8">
-                <div className="row">
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    ),
-    tab5: (
-        <div className="row tab__content">
-            <div className="col-xl-4" data-aos="zoom-in">
-                <div className="menu__item__main">
-                    <img src="/assets/images/menu-items/pizza-5.png" alt="Pizza-5" />
-                </div>
-            </div>
-            <div className="col-xl-8">
-                <div className="row">
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    ),
-    tab6: (
-        <div className="row tab__content">
-            <div className="col-xl-4" data-aos="zoom-in">
-                <div className="menu__item__main">
-                    <img src="/assets/images/menu-items/pizza-6.png" alt="Pizza-6" />
-                </div>
-            </div>
-            <div className="col-xl-8">
-                <div className="row">
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-1.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="col-6 col-xl-6">
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="menu__item" data-aos="fade-left">
-                            <Link to={''}>
-                                <div className="menu__item__image">
-                                    <img src="/assets/images/menu-items/sub-pizza-2.jpg" alt="Sub-pizza-1" />
-                                </div>
-                                <div className="menu__item__content">
-                                    <h3>Pizza Margarita</h3>
-                                    <p>
-                                        HHT - Pizza là môn ăn đặc trưng của nên ứng thực nước Ý, nhưng thực tế, nó được cả thế giới
-                                        ½m chí, người dân ở nhiều nước khác còn ăn pizza nhiều hơn cả người Ý luôn! Vì sao bạn nên lựa chọn Pizzato?
-                                    </p>
-                                    <h4>Giá: 125.000đ</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    ),
-};
+import AxiosInstance from "utils/apiServers";
+import { formatCurrencyVND } from "utils/format";
 
 const Menu = () => {
-    const [activeTabKey1, setActiveTabKey1] = useState('tab1');
+    const [tabLists, setTabList] = useState([]);
+    const [contentList, setContentList] = useState({});
+    const [activeTabKey1, setActiveTabKey1] = useState("");
+
+    useEffect(() => {
+        AxiosInstance.get("/menu")
+            .then((res) => {
+                const categories = res.data.categories;
+
+                if (Array.isArray(categories) && categories.length > 0) {
+                    const tabs = categories.map((item) => ({
+                        key: `tab${item.category.id}`,
+                        tab: item.category.name
+                    }));
+                    setTabList(tabs);
+
+                    const content = categories.reduce((acc, item) => {
+                        if (Array.isArray(item.pizzas) && item.pizzas.length > 0) {
+                            acc[`tab${item.category.id}`] = (
+                                <div className="row tab__content">
+                                    <div className="col-xl-4" data-aos="zoom-in">
+                                        <div className="menu__item__main">
+                                            <img src={`/assets/images/menu-items/pizza-${item.category.id}.png`} alt={item.category.name} />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-8">
+                                        <div className="row">
+                                            {item.pizzas.map((pizza, index) => (
+                                                <div key={`pizza-${index}`} className="col-6 col-xl-6">
+                                                    <div className="menu__item font-bold" data-aos="fade-left">
+                                                        <Link to={``}>
+                                                            <div className="menu__item__image">
+                                                                <img src={pizza.thumb_image} alt={pizza.name} />
+                                                            </div>
+                                                            <div className="menu__item__content">
+                                                                <h3>{pizza.name}</h3>
+                                                                <p className="font-normal">{pizza.long_description}</p>
+                                                                <h4>Giá: {formatCurrencyVND(pizza.offer_price)}</h4>
+                                                            </div>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        } else {
+                            acc[`tab${item.category.id}`] = <div className="product__not__found">
+                                <img
+                                    src="/assets/images/no-product.png"
+                                    alt=""
+                                    className="w-[250px] h-[150px]"
+                                />
+                                <p className="font-bold text-[16px] text-center">Thực đơn đang được cập nhật...</p>
+                            </div>;
+                        }
+                        return acc;
+                    }, {});
+                    
+                    setContentList(content);
+                    setActiveTabKey1(tabs[0]?.key);
+                } else {
+                    console.log("No categories found or categories is not an array");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+    
+
     const onTab1Change = (key) => {
         setActiveTabKey1(key);
     };
@@ -692,7 +93,7 @@ const Menu = () => {
                     style={{
                         width: '100%',
                     }}
-                    tabList={tabList}
+                    tabList={tabLists}
                     activeTabKey={activeTabKey1}
                     onTabChange={onTab1Change}
                 >

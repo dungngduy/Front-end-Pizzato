@@ -16,10 +16,10 @@ const BreadcrumbComponent = (props) => {
                                     separator=">"
                                     items={props.items.map((item) => ({
                                     title: (
-                                        <Link to={item.url} className={item.className || ''}>
-                                        {item.title}
-                                        </Link>
-                                    )
+                                            <Link to={item.url} className={item.className || ''}>
+                                                {item.title}
+                                            </Link>
+                                        )
                                     }))}
                                 />
                             </div>
