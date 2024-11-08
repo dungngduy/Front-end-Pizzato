@@ -4,7 +4,7 @@ import BoxLeft from "./box-left";
 import "assets/user/scss/checkout.scss";
 import BoxRight from "./box-right";
 
-const Checkout = () => {
+const CheckoutPage = () => {
     return (
         <div>
             {/* Banner Checkout */}
@@ -21,4 +21,4 @@ const Checkout = () => {
     );
 }
 
-export default memo(Checkout);
+export default memo(CheckoutPage);
