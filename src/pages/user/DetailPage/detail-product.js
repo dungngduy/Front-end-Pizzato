@@ -71,9 +71,10 @@ const DetailProduct = () => {
                 console.log(err);
             });
     }, [id]);
-
     const handleAddToCart = () => {
+        const subId = `${product.id}-${selectedCrust}-${selectedBorder}-${selectedSize}`;
         const newItem = {
+            subId: subId,
             id: product.id,
             name: product.name,
             price: product.price,
@@ -82,11 +83,11 @@ const DetailProduct = () => {
             border: selectedBorder,
             size: selectedSize,
             image: product.thumb_image
+            
         };
 
         // Lấy giỏ hàng từ localStorage (nếu có) và thêm sản phẩm mới vào giỏ
         const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-
         const existItem = savedCart.findIndex((item) => 
             item.id === newItem.id &&
             item.crust === newItem.crust &&
