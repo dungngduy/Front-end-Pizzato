@@ -77,8 +77,13 @@ const LoginPage = () => {
         })
         .then((response) => {
             if (response.status === 200) {
+                const userWithAddress = {
+                    ...response.data.user,
+                    address: response.data.address,
+                };
+
                 // Lưu thông tin người dùng vào localStorage
-                localStorage.setItem('user', JSON.stringify(response.data.user));
+                localStorage.setItem('user', JSON.stringify(userWithAddress));
                 setSuccess(true);
                 setFormData({ email: '', password: '' });
             }
