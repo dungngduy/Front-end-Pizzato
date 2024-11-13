@@ -1,5 +1,6 @@
 import { memo, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Rate, Tag } from 'antd';
 import { FaFacebookF, FaTwitter, FaTelegramPlane, FaPinterestP } from 'react-icons/fa';
 import CarouselMulti from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -118,7 +119,7 @@ const DetailProduct = () => {
                             <div className="flex flex-col gap-5">
                                 {/* Main Product Image */}
                                 <div>
-                                    <img className="w-[520px] h-[590px] rounded-lg" src={selectedImage} alt="Main Product" />
+                                    <img className="w-[520px] h-[500px] rounded-lg" src={selectedImage} alt="Main Product" />
                                 </div>
                                 {/* Image Gallery */}
                                 <div className="w-[500px]">
@@ -168,14 +169,14 @@ const DetailProduct = () => {
 
                                     {/* Rating and Reviews */}
                                     <div className="flex items-center space-x-2">
-                                        <span className="text-yellow-400 text-[16px]">★★★★★</span>
-                                        <span className="text-gray-600">5.0 Rating</span>
-                                        <span className="text-gray-500">| 22 Reviews</span>
+                                        <Rate className="text-[16px]" allowHalf disabled defaultValue={4.5} />
+                                        <span className="text-gray-600">5.0 Đánh giá</span>
+                                        <span className="text-gray-500">| 22 Lượt xem</span>
                                     </div>
                                     <div>
                                         {/* biến thể */}
                                         {/* Chọn Đế Bánh */}
-                                        <div>
+                                        <div className="mb-2">
                                             <span className="font-bold">Chọn Đế Bánh</span>
                                             <div className="flex gap-4 py-3">
                                                 <label className="flex items-center gap-2 text-gray-600 text-[15px]">
@@ -188,7 +189,6 @@ const DetailProduct = () => {
                                                         className="form-radio h-4 w-4 text-blue-600"
                                                     />
                                                     <span>Đế Dày Bột Tươi</span>
-                                                    <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
                                                 </label>
 
                                                 <label className="flex items-center gap-2 text-gray-600 text-[15px]">
@@ -201,7 +201,6 @@ const DetailProduct = () => {
                                                         className="form-radio h-4 w-4 text-blue-600"
                                                     />
                                                     <span>Đế Vừa Bột Tươi</span>
-                                                    <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
                                                 </label>
 
                                                 <label className="flex items-center gap-2 text-gray-600 text-[15px]">
@@ -214,13 +213,12 @@ const DetailProduct = () => {
                                                         className="form-radio h-4 w-4 text-blue-600"
                                                     />
                                                     <span>Đế Mỏng Giòn</span>
-                                                    <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
                                                 </label>
                                             </div>
                                         </div>
 
                                         {/* Tùy Chọn Viền */}
-                                        <div>
+                                        <div className="mb-2">
                                             <span className="font-bold">Tùy Chọn Viền</span>
                                             <div className="flex gap-4 py-3">
                                                 <label className="flex items-center gap-2 text-gray-600 text-[15px]">
@@ -233,7 +231,6 @@ const DetailProduct = () => {
                                                         className="form-radio h-4 w-4 text-blue-600"
                                                     />
                                                     <span>Viền phô mai 9</span>
-                                                    <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
                                                 </label>
 
                                                 <label className="flex items-center gap-2 text-gray-600 text-[15px]">
@@ -246,7 +243,6 @@ const DetailProduct = () => {
                                                         className="form-radio h-4 w-4 text-blue-600"
                                                     />
                                                     <span>Viền xúc xích</span>
-                                                    <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
                                                 </label>
                                             </div>
                                         </div>
@@ -265,7 +261,6 @@ const DetailProduct = () => {
                                                         className="form-radio h-4 w-4 text-blue-600"
                                                     />
                                                     <span>Cỡ 9 inch</span>
-                                                    <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
                                                 </label>
 
                                                 <label className="flex items-center gap-2 text-gray-600 text-[15px]">
@@ -278,7 +273,6 @@ const DetailProduct = () => {
                                                         className="form-radio h-4 w-4 text-blue-600"
                                                     />
                                                     <span>Cỡ 12 inch</span>
-                                                    <img src="/assets/images/new-products/new-pro-1.jpg" alt="Pizza icon" className="h-7 w-7" />
                                                 </label>
                                             </div>
                                         </div>
@@ -308,23 +302,23 @@ const DetailProduct = () => {
                                     <div className="flex space-x-4 text-gray-600">
                                         <button className="flex items-center">
                                             <span>♡</span>
-                                            <span className="ml-2 text-[16px]">Add to Wishlist</span>
+                                            <span className="ml-2 text-[16px]">Thêm vào yêu thích</span>
                                         </button>
                                         <button className="flex items-center">
                                             <span>⇔</span>
-                                            <span className="ml-2 text-[16px]">Compare</span>
+                                            <span className="ml-2 text-[16px]">So sánh</span>
                                         </button>
                                     </div>
 
                                     {/* Category and Tags */}
                                     <div className="text-gray-600 space-y-2">
-                                        <p>Category: <span className="font-semibold text-[16px]">Pizza</span></p>
-                                        <p>Tag: <span className="font-semibold text-[16px]">Our Shop</span></p>
+                                        <p>Danh mục: <span className="font-semibold text-[16px]">{product.category.name}</span></p>
+                                        <p>Tag: <span className="font-semibold text-[16px]"><Tag color="#BC9A6C">Pizza</Tag></span></p>
                                     </div>
 
                                     {/* Social Media Share */}
                                     <div className="flex space-x-4 mt-6">
-                                        <span className='font-semibold text-[16px] text-gray-600'>Share:</span>
+                                        <span className='font-semibold text-[16px] text-gray-600'>Chia sẻ:</span>
                                         <FaFacebookF className="cursor-pointer hover:text-[#BC9A6C] transition duration-300" />
                                         <FaTwitter className="cursor-pointer hover:text-[#BC9A6C] transition duration-300" />
                                         <FaTelegramPlane className="cursor-pointer hover:text-[#BC9A6C] transition duration-300" />

@@ -20,7 +20,7 @@ const CheckoutPage = () => {
                             selectedPayment={selectedPayment}
                             setSelectedPayment={setSelectedPayment}
                         />
-                        <BoxRight shippingFee={shippingFee} />
+                        <BoxRight shippingFee={shippingFee} selectedPayment={selectedPayment} />
                     </div>
                 </form>
             </div>

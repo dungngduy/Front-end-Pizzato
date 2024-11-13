@@ -17,10 +17,11 @@ const LoginPage = () => {
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        password_confirmation: ''
     });
 
     const [error, setError] = useState(null);
+    const [loginError, setLoginError] = useState(null);
     const [success, setSuccess] = useState(false);
 
     const handleChange = (e) => {
@@ -40,24 +41,23 @@ const LoginPage = () => {
         data.append('name', formData.name);
         data.append('email', formData.email);
         data.append('password', formData.password);
-        data.append('confirmPassword', formData.confirmPassword);
+        data.append('password_confirmation', formData.password_confirmation);
 
         AxiosInstance.post('/register', data, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             },
         })
-        .then((response) => {
-            if (!response.ok) {
-                return setError(response.statusText);
+        .then((res) => {
+            if (res.status === 200) {
+                setSuccess(true);
+                setFormData({ name: '', email: '', password: '', password_confirmation: '' });
+            } else {
+                setError(res.data.errors);
             }
         })
-        .then((data) => {
-            setSuccess(true);
-            setFormData({ name: '', email: '', password: '', confirmPassword: '' });
-        })
-        .catch((err) => {
-            setError(err.message);
+        .catch((res) => {
+            setError(res.data.message);
         });
     };
 
@@ -75,22 +75,29 @@ const LoginPage = () => {
                 'Content-Type': 'multipart/form-data'
             },
         })
-        .then((response) => {
-            if (response.status === 200) {
+        .then((res) => {
+            if (res.status === 200) {
                 const userWithAddress = {
-                    ...response.data.user,
-                    address: response.data.address,
+                    ...res.data.user,
+                    address: res.data.address,
                 };
 
-                // Lưu thông tin người dùng vào localStorage
                 localStorage.setItem('user', JSON.stringify(userWithAddress));
                 setSuccess(true);
                 setFormData({ email: '', password: '' });
+            } else {
+                setLoginError(res.data.message);
             }
         })
-        .catch((err) => {
-            setError(err.response?.data?.message || 'Đã xảy ra lỗi khi đăng nhập.');
-        })
+        .catch((error) => {
+            if (error.response) {
+                if (error.response.status === 401) {
+                    setError(error.response.data.errors);
+                }
+            } else {
+                console.error('Error:', error.message);
+            }
+        });
     };
 
     return (
@@ -122,6 +129,7 @@ const LoginPage = () => {
                 <div className="form-content">
                     <div className="login-form">
                         <div className="title">Đăng nhập</div>
+                        {loginError && <div className="text-[#ff0000] mt-2">{loginError}</div>}
                         <form onSubmit={handleSubmitLogin}>
                             <div className="input-boxes">
                                 <div className="input-box">
@@ -158,26 +166,33 @@ const LoginPage = () => {
 
                     <div className="signup-form">
                         <div className="title">Đăng ký</div>
-                        {error && <p style={{ color: 'red' }}>{error}</p>}
-                        {success && <p style={{ color: 'green' }}>Đăng ký thành công!</p>}
+                        {success && <div className="text-[#28a745] mt-2" role="alert">Đăng ký thành công. Vui lòng đăng nhập!</div>}
                         <form onSubmit={handleSubmitRegister}>
                             <div className="input-boxes">
                                 <div className="input-box">
                                     <AiOutlineUser />
-                                    <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Tên đăng nhập" />
+                                    <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Tên đăng nhập" /> <br />
                                 </div>
+                                {error && <span className="text-[#ff0000]">{error.name}</span>}
+
                                 <div className="input-box">
                                     <AiOutlineMail />
-                                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+                                    <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Email" /> <br />
                                 </div>
+                                {error && <span className="text-[#ff0000]">{error.email}</span>}
+
                                 <div className="input-box">
                                     <AiOutlineLock />
-                                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Mật khẩu" />
+                                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Mật khẩu" /> <br />
                                 </div>
+                                {error && <span className="text-[#ff0000]">{error.password}</span>}
+
                                 <div className="input-box">
                                     <AiOutlineCheckCircle />
-                                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Xác nhận mật khẩu" />
+                                    <input type="password" name="password_confirmation" value={formData.password_confirmation} onChange={handleChange} placeholder="Xác nhận mật khẩu" /> <br />
                                 </div>
+                                {error && <span className="text-[#ff0000]">{error.confirmPassword}</span>}
+
                                 <div className="button input-box">
                                     <input type="submit" value="Đăng ký" />
                                 </div>

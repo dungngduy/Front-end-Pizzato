@@ -6,7 +6,7 @@ import ProfilePage from './pages/user/ProfilePage';
 import CategoryPage from 'pages/user/CategoryPage';
 import DetailPage from './pages/user/DetailPage';
 import CartPage from 'pages/user/CartPage';
-import OrderTracking from 'pages/user/Tracking';
+import OrderTracking from 'pages/user/TrackingPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
 const renderUserRouter = () => {
     const userRouter = [

@@ -20,7 +20,7 @@ const SimilarProducts = () => {
 
     return (
         <div className="container mx-auto py-4 pb-[90px]">
-            <h2 className="text-2xl font-bold mb-10" data-aos="fade-up">Sản Phẩm Tương Tự</h2>
+            <h2 className="text-2xl font-bold mb-10" data-aos="fade-up">Sản phẩm tương tự</h2>
             <div className="grid grid-cols-4 gap-10" data-aos="fade-up">
                 {isSimilarPizza.map((pizza) => (
                     <div key={pizza.id} className="relative group">

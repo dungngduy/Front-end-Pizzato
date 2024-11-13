@@ -2,13 +2,19 @@ import { memo, useState, useEffect } from "react";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 import FormAddress from "./form-address";
+import AddressSaved from "./address-saved";
 
 const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) => {
     const [isPopupAddressVisible, setIsPopupAddressVisible] = useState(false);
+    const [isPopupAddressSaved, setIsPopupAddressSaved] = useState(false);
     const [user, setUser] = useState(null);
 
     const togglePopupAddress = () => {
         setIsPopupAddressVisible(!isPopupAddressVisible);
+    }
+
+    const togglePopupAddressSaved = () => {
+        setIsPopupAddressSaved(!isPopupAddressSaved);
     }
 
     const handleInputChange = (e) => {
@@ -99,7 +105,7 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
                     <label htmlFor="radio-card-1" className="radio-card w-1/3">
                         <input
                             type="radio"
-                            name="radio-card"
+                            name="payment_method"
                             id="radio-card-1"
                             checked={selectedPayment === "radio-card-1"}
                             onChange={() => setSelectedPayment("radio-card-1")}
@@ -118,7 +124,7 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
                     <label htmlFor="radio-card-2" className="radio-card w-1/3">
                         <input
                             type="radio"
-                            name="radio-card"
+                            name="payment_method"
                             id="radio-card-2"
                             checked={selectedPayment === "radio-card-2"}
                             onChange={() => setSelectedPayment("radio-card-2")}
@@ -137,7 +143,7 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
                     <label htmlFor="vnpay" className="radio-card w-1/3">
                         <input
                             type="radio"
-                            name="vnpay"
+                            name="payment_method"
                             id="vnpay"
                             checked={selectedPayment === "vnpay"}
                             onChange={() => setSelectedPayment("vnpay")}
@@ -156,7 +162,7 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
                     <label htmlFor="radio-card-4" className="radio-card w-1/3">
                         <input
                             type="radio"
-                            name="radio-card"
+                            name="payment_method"
                             id="radio-card-4"
                             checked={selectedPayment === "radio-card-4"}
                             onChange={() => setSelectedPayment("radio-card-4")}
@@ -175,7 +181,11 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
                 </div>
             </div>
 
+            {/* Add new address */}
             {isPopupAddressVisible && <FormAddress onClose={togglePopupAddress} />}
+
+            {/* Address saved */}
+            {isPopupAddressSaved && <AddressSaved onClose={togglePopupAddressSaved} />}
         </div>
     );
 };
