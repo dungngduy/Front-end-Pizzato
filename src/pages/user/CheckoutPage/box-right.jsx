@@ -4,7 +4,7 @@ import { formatCurrencyVND } from "utils/format";
 // import { MdLocationOn } from "react-icons/md";
 // import { Link } from "react-router-dom";
 
-const CheckoutBoxRight = ({shippingFee, selectedPayment}) => {
+const CheckoutBoxRight = ({ shippingFee, selectedPayment }) => {
     const [cartItems, setCartItems] = useState([]);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -39,11 +39,9 @@ const CheckoutBoxRight = ({shippingFee, selectedPayment}) => {
         if (selectedPayment === "vnpay") {
             AxiosInstance.post('/checkout', orderData)
                 .then(res => {
-                    // const paymentUrl = res.data.paymentUrl;
-                    // // Redirect user to VNPAY payment page
-                    // window.location.href = paymentUrl;
-                    console.log(res.data.vnp_Url);
-                    
+                    const paymentUrl = res.data.vnp_Url;
+                    window.location.href = paymentUrl;
+
                 })
                 .catch(error => {
                     setError(error?.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán qua VNPAY.');
@@ -52,21 +50,21 @@ const CheckoutBoxRight = ({shippingFee, selectedPayment}) => {
                 .finally(() => {
                     setLoading(false);
                 });
+        } else {
+            AxiosInstance.post('/checkout', orderData)
+                .then(res => {
+                    console.log('Đơn hàng đã được lưu');
+                    // window.location.href = '/';
+
+                })
+                .catch(error => {
+                    setError(error?.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán.');
+                    console.error('Lỗi:', error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         }
-        // } else {
-        //     AxiosInstance.post('/checkout', orderData)
-        //         .then(res => {
-        //             console.log('Đơn hàng đã được lưu');
-        //             window.location.href = '/';
-        //         })
-        //         .catch(error => {
-        //             setError(error?.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán.');
-        //             console.error('Lỗi:', error);
-        //         })
-        //         .finally(() => {
-        //             setLoading(false);
-        //         });
-        // }
     };
 
     return (

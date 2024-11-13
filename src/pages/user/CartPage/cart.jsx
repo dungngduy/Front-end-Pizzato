@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { formatCurrencyVND } from "utils/format";
 import { Link } from "react-router-dom";
 
-function Cart() {
+const Cart = () => {
     const [cartItems, setCartItems] = useState([]);
     const [discountCode, setDiscountCode] = useState("");
     const shippingFee = 11000;
@@ -49,9 +49,7 @@ function Cart() {
                         <input type="checkbox" className="form-checkbox h-4 w-4 text-orange-500" />
                         <span className="ml-2 font-semibold text-lg">Chọn tất cả</span>
                     </div>
-                    {/* if else cart khi có sản phẩm và không có*/}
                     {cartItems.length === 0 ? (
-                        // Hiển thị thông báo nếu giỏ hàng trống
                         <p>Giỏ hàng của bạn đang trống</p>
                     ) : (
                         cartItems.map((item, index) => (
@@ -71,7 +69,7 @@ function Cart() {
                                     <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>
                                 </div>
                                 <div className="ml-8 flex-grow">
-                                    <div className="text-orange-500 font-bold text-lg">{formatCurrencyVND(totalPrice)}</div>
+                                    <div className="text-orange-500 font-bold text-lg">{formatCurrencyVND(item.price * item.quantity)}</div>
                                 </div>
                                 {/* Quantity Control */}
                                 <div className="flex items-center">

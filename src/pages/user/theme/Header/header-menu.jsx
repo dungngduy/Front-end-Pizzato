@@ -1,5 +1,5 @@
 import Login from "pages/user/LoginPage/login/login";
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import {
     AiOutlineSearch,
@@ -8,13 +8,17 @@ import {
     AiOutlineClose
 } from 'react-icons/ai';
 import { Link, useLocation } from "react-router-dom";
+import AxiosInstance from "utils/apiServers";
 import { ROUTER } from "utils/router";
 
 const HeaderMenu = () => {
     const location = useLocation();
+    const [isSearchVisible, setSearchVisible] = useState(false);
+    const [isLoginVisible, setLoginVisible] = useState(false);
+    const [isCartVisible, setCartVisible] = useState(false);
 
     // Menu
-    const [Menus] = useState([
+    const [Menus, setMenus] = useState([
         {
             name: "Trang chủ",
             path: ROUTER.USER.HOME,
@@ -27,24 +31,7 @@ const HeaderMenu = () => {
             name: "Thực đơn",
             path: ROUTER.USER.CATEGORY,
             isShowSubMenu: false,
-            child: [
-                {
-                    name: "Pasta",
-                    path: "",
-                },
-                {
-                    name: "Pizza",
-                    path: "",
-                },
-                {
-                    name: "Breakfast",
-                    path: "",
-                },
-                {
-                    name: "Desserts",
-                    path: "",
-                }
-            ]
+            child: []
         },
         {
             name: "Bài viết",
@@ -56,9 +43,27 @@ const HeaderMenu = () => {
         }
     ]);
 
-    const [isSearchVisible, setSearchVisible] = useState(false);
-    const [isLoginVisible, setLoginVisible] = useState(false);
-    const [isCartVisible, setCartVisible] = useState(false);
+    useEffect(() => {
+        AxiosInstance.get('/categories')
+            .then((res) => {
+                setMenus(preMenu => {
+                    const newMenus = [...preMenu];
+                    
+                    newMenus[2] = {
+                        ...newMenus[2],
+                        child: res.data.categories.map(category => ({
+                            name: category.name,
+                            path: `${ROUTER.USER.CATEGORY}/${category.id}`
+                        }))
+                    };
+    
+                    return newMenus;
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     // Toggle popup tìm kiếm món ăn
     const toggleSearchPopup = () => {
@@ -181,8 +186,8 @@ const HeaderMenu = () => {
                                                 <span>$200</span>
                                             </div>
                                             <div className="w-full flex flex-col mt-4">
-                                                <Link to="" className="popup__cart__btn">Xem chi tiết</Link>
-                                                <Link to="" className="popup__checkout__btn">Thanh toán</Link>
+                                                <Link to="/cart" className="popup__cart__btn">Xem chi tiết</Link>
+                                                <Link to="/checkout" className="popup__checkout__btn">Thanh toán</Link>
                                             </div>
                                         </ul>
                                     )}
