@@ -75,11 +75,6 @@ const BlogDetail = () => {
           <ul className="space-y-4 border-b-4">
             {[
               "Pizza mua 1 tặng 1",
-              "Sinh nhật rộn ràng",
-              "Pizza khuyến mãi thứ 6",
-              "Đặt bánh Pizza tiện lợi",
-              "Pizza khuyến mãi thứ 7",
-              "Pizza ship tận nhà Hà Nội",
             ].map((title, index) => (
               <li
                 key={index}
