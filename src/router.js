@@ -8,6 +8,8 @@ import DetailPage from './pages/user/DetailPage';
 import CartPage from 'pages/user/CartPage';
 import OrderTracking from 'pages/user/TrackingPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
+import BlogPage from 'pages/user/BlogPage';
+import BlogDetailPage from 'pages/user/BlogDetailPage';
 const renderUserRouter = () => {
     const userRouter = [
         {
@@ -39,6 +41,15 @@ const renderUserRouter = () => {
             path: ROUTER.USER.CHECKOUT,
             component: <CheckoutPage />,
         },
+        {
+            path: ROUTER.USER.BLOG,
+            component: <BlogPage />,
+        },
+        {
+            path: ROUTER.USER.BLOG,
+            component: <BlogDetailPage />,
+        }
+        
     ]
 
     return (
