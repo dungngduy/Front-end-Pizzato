@@ -10,6 +10,8 @@ import OrderTracking from 'pages/user/ProfilePage/TrackingPage';
 import InfoPage from 'pages/user/ProfilePage/InfoPage';
 import SettingPage from 'pages/user/ProfilePage/SettingPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
+import BlogPage from 'pages/user/BlogPage';
+import BlogDetailPage from 'pages/user/BlogDetailPage';
 const renderUserRouter = () => {
     const userRouter = [
         {
@@ -54,6 +56,15 @@ const renderUserRouter = () => {
             path: ROUTER.USER.CHECKOUT,
             element: <CheckoutPage />,
         },
+        {
+            path: ROUTER.USER.BLOG,
+            component: <BlogPage />,
+        },
+        {
+            path: ROUTER.USER.BLOG,
+            component: <BlogDetailPage />,
+        }
+        
     ]
 
     return (
