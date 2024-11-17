@@ -1,5 +1,5 @@
 import Login from "pages/user/LoginPage/login/login";
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
 import {
     AiOutlineSearch,
@@ -9,13 +9,17 @@ import {
 } from 'react-icons/ai';
 import { Link, useLocation } from "react-router-dom";
 import AxiosInstance from "utils/apiServers";
+import { formatCurrencyVND } from "utils/format";
 import { ROUTER } from "utils/router";
+import { CartContext } from "components/add-to-cart";
 
 const HeaderMenu = () => {
     const location = useLocation();
     const [isSearchVisible, setSearchVisible] = useState(false);
     const [isLoginVisible, setLoginVisible] = useState(false);
     const [isCartVisible, setCartVisible] = useState(false);
+    const [user, setUser] = useState(null);
+    const { cart } = useContext(CartContext);
 
     // Menu
     const [Menus, setMenus] = useState([
@@ -48,7 +52,7 @@ const HeaderMenu = () => {
             .then((res) => {
                 setMenus(preMenu => {
                     const newMenus = [...preMenu];
-                    
+
                     newMenus[2] = {
                         ...newMenus[2],
                         child: res.data.categories.map(category => ({
@@ -56,13 +60,21 @@ const HeaderMenu = () => {
                             path: `${ROUTER.USER.CATEGORY}/${category.id}`
                         }))
                     };
-    
+
                     return newMenus;
                 });
             })
             .catch((err) => {
                 console.log(err);
             });
+    }, []);
+
+    useEffect(() => {
+        // Kiểm tra localStorage
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser)); // Parse dữ liệu nếu cần
+        }
     }, []);
 
     // Toggle popup tìm kiếm món ăn
@@ -89,6 +101,10 @@ const HeaderMenu = () => {
     const closeCartPopup = () => {
         setCartVisible(false);
     };
+
+    const totalPrice = cart.reduce(
+        (total, item) => total + item.price * item.quantity, 0
+    );
 
     return (
         <div>
@@ -133,10 +149,25 @@ const HeaderMenu = () => {
                         <div className="col-xl-3 col-lg-3 search__container">
                             <ul>
                                 <li onClick={toggleSearchPopup}><AiOutlineSearch className="icon__search__container" /></li>
-                                <li onClick={toggleLoginPopup}><AiOutlineUser className="icon__search__container" /></li>
+                                {user ? (
+                                    <li>
+                                        <Link to="/profile/info">
+                                            <img
+                                                src={user.image}
+                                                alt="User Avatar"
+                                                className="w-[30px] h-[30px] rounded-full"
+                                            />
+                                        </Link>
+                                    </li>
+                                ) : (
+                                    <li onClick={toggleLoginPopup}>
+                                        <AiOutlineUser className="icon__search__container" />
+                                    </li>
+                                )}
                                 <li onClick={toggleCartPopup}>
                                     <AiOutlineShoppingCart className="icon__search__container" />
-                                    <span className="cart__count">10</span>
+                                    <span className="cart__count">{cart.length}</span>
+
                                     {isCartVisible && (
                                         <ul className="popup__cart" data-aos="fade-up">
                                             <div className="flex justify-between items-center">
@@ -144,46 +175,38 @@ const HeaderMenu = () => {
                                                 <span onClick={closeCartPopup}><AiOutlineClose /></span>
                                             </div>
                                             <div className="popup__cart__content">
-                                                <li className="popup__cart__item">
-                                                    <Link to={""}>
-                                                        <img src="/assets/images/products/product-1.jpg" alt="Product" />
-                                                        <div className="popup__cart__item__details">
-                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">Tên sản phẩm</p>
-                                                            <span className="text-[12px]">Giá: $100</span>
-                                                        </div>
-                                                    </Link>
-                                                </li>
-                                                <li className="popup__cart__item">
-                                                    <Link to={""}>
-                                                        <img src="/assets/images/products/product-1.jpg" alt="Product" />
-                                                        <div className="popup__cart__item__details">
-                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">Tên sản phẩm</p>
-                                                            <span className="text-[12px]">Giá: $100</span>
-                                                        </div>
-                                                    </Link>
-                                                </li>
-                                                <li className="popup__cart__item">
-                                                    <Link to={""}>
-                                                        <img src="/assets/images/products/product-1.jpg" alt="Product" />
-                                                        <div className="popup__cart__item__details">
-                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">Tên sản phẩm</p>
-                                                            <span className="text-[12px]">Giá: $100</span>
-                                                        </div>
-                                                    </Link>
-                                                </li>
-                                                <li className="popup__cart__item">
-                                                    <Link to={""}>
-                                                        <img src="/assets/images/products/product-1.jpg" alt="Product" />
-                                                        <div className="popup__cart__item__details">
-                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">Tên sản phẩm</p>
-                                                            <span className="text-[12px]">Giá: $100</span>
-                                                        </div>
-                                                    </Link>
-                                                </li>
+                                                {
+                                                    cart.length > 0 ? (
+                                                        cart.map((item, index) => {
+                                                            return (
+                                                                <li key={index} className="popup__cart__item">
+                                                                    <Link to="">
+                                                                        <img src={item.image} alt={item.name} />
+                                                                        <div className="popup__cart__item__details">
+                                                                            <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">
+                                                                                {item.name}
+                                                                            </p>
+                                                                            <span className="text-[12px]">
+                                                                                Giá: <strong className="text-[#ff0000]">{formatCurrencyVND(item.price)}</strong> | {item.quantity}
+                                                                            </span>
+                                                                        </div>
+                                                                    </Link>
+                                                                </li>
+                                                            );
+                                                        })
+                                                    ) : (
+                                                        <img
+                                                            className="w-[180px] h-[150px]"
+                                                            src="/assets/images/empty-cart.webp"
+                                                            alt=""
+                                                        />
+                                                    )
+                                                }
                                             </div>
+
                                             <div className="flex justify-between items-center mt-2">
                                                 <h3 className="font-bold">Tổng tiền:</h3>
-                                                <span>$200</span>
+                                                <span className="text-[#ff0000] font-bold">{formatCurrencyVND(totalPrice)}</span>
                                             </div>
                                             <div className="w-full flex flex-col mt-4">
                                                 <Link to="/cart" className="popup__cart__btn">Xem chi tiết</Link>

@@ -52,9 +52,8 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment }) => {
                 });
         } else {
             AxiosInstance.post('/checkout', orderData)
-                .then(res => {
-                    console.log('Đơn hàng đã được lưu');
-                    // window.location.href = '/';
+                .then(() => {
+                    window.location.href = '/';
 
                 })
                 .catch(error => {

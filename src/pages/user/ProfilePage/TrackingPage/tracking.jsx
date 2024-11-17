@@ -28,8 +28,8 @@ const Tracking = () => {
     ];
 
     return (
-        <div className="p-4 min-h-screen w-[1200px] mx-auto pt-10">
-            <h2 className="text-lg font-bold text-yellow-500 mb-4">
+        <div className="w-full mx-auto my-4 mb-4">
+            <h2 className="text-lg font-bold text-[#BC9A6C] mb-4">
                 Theo dõi trạng thái đơn hàng
             </h2>
 
@@ -50,7 +50,7 @@ const Tracking = () => {
                     onChange={(e) => setSearchText(e.target.value)}
                 />
                 <select className="p-2 border border-gray-300 rounded mr-2 w-1/4">
-                    <option>Khởi tạo</option>
+                    <option>-- Sắp xếp --</option>
                     <option>Mới nhất</option>
                     <option>Cũ nhất</option>
                 </select>
