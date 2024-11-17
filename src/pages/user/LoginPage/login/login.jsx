@@ -52,6 +52,7 @@ const LoginPage = () => {
             if (res.status === 200) {
                 setSuccess(true);
                 setFormData({ name: '', email: '', password: '', password_confirmation: '' });
+                window.location.href = '/';
             } else {
                 setError(res.data.errors);
             }
@@ -85,6 +86,7 @@ const LoginPage = () => {
                 localStorage.setItem('user', JSON.stringify(userWithAddress));
                 setSuccess(true);
                 setFormData({ email: '', password: '' });
+                window.location.href = '/';
             } else {
                 setLoginError(res.data.message);
             }

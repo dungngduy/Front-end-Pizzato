@@ -12,7 +12,8 @@ export const ROUTER = {
         DETAIL: '/detail/:id',
         CHECKOUT: '/checkout',
         CART : '/cart',
-        TRACKING : '/tracking',
-        
+        TRACKING: 'tracking',
+        INFO: 'info',
+        SETTINGS: 'settings',
     },
 }

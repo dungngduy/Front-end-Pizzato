@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ROUTER } from "./utils/router";
 import HomePage from './pages/user/HomePage';
 import MasterLayout from './pages/user/theme/MasterLayout';
@@ -6,7 +6,9 @@ import ProfilePage from './pages/user/ProfilePage';
 import CategoryPage from 'pages/user/CategoryPage';
 import DetailPage from './pages/user/DetailPage';
 import CartPage from 'pages/user/CartPage';
-import OrderTracking from 'pages/user/TrackingPage';
+import OrderTracking from 'pages/user/ProfilePage/TrackingPage';
+import InfoPage from 'pages/user/ProfilePage/InfoPage';
+import SettingPage from 'pages/user/ProfilePage/SettingPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
 import BlogPage from 'pages/user/BlogPage';
 import BlogDetailPage from 'pages/user/BlogDetailPage';
@@ -14,32 +16,45 @@ const renderUserRouter = () => {
     const userRouter = [
         {
             path: ROUTER.USER.HOME,
-            component: <HomePage />,
+            element: <HomePage />,
         },
         {
             path: ROUTER.USER.PROFILE,
-            component: <ProfilePage />,
+            element: <ProfilePage />,
+            children: [
+                {
+                    index: true,
+                    path: ROUTER.USER.INFO,
+                    element: <InfoPage />,
+
+                },
+                {
+                    path: ROUTER.USER.TRACKING,
+                    element: <OrderTracking />,
+
+                },
+                {
+                    path: ROUTER.USER.SETTINGS,
+                    element: <SettingPage />,
+
+                },
+            ]
         },
         {
             path: ROUTER.USER.CATEGORY,
-            component: <CategoryPage />,
+            element: <CategoryPage />,
         },
         {
             path: ROUTER.USER.DETAIL,
-            component: <DetailPage />,
+            element: <DetailPage />,
         },
         {
             path: ROUTER.USER.CART,
-            component: <CartPage />,
-        },
-        {
-            path: ROUTER.USER.TRACKING,
-            component: <OrderTracking />,
-
+            element: <CartPage />,
         },
         {
             path: ROUTER.USER.CHECKOUT,
-            component: <CheckoutPage />,
+            element: <CheckoutPage />,
         },
         {
             path: ROUTER.USER.BLOG,
@@ -55,15 +70,18 @@ const renderUserRouter = () => {
     return (
         <MasterLayout>
             <Routes>
-                {
-                    userRouter.map((item, index) => (
-                        <Route
-                            key={index}
-                            path={item.path}
-                            element={item.component}
-                        />
-                    ))
-                }
+                {userRouter.map((item, index) => (
+                    <Route key={index} path={item.path} element={item.element}>
+                        {item.children &&
+                            item.children.map((child, childIndex) => (
+                                <Route
+                                    key={childIndex}
+                                    path={child.path}
+                                    element={child.element}
+                                />
+                            ))}
+                    </Route>
+                ))}
             </Routes>
         </MasterLayout>
     )

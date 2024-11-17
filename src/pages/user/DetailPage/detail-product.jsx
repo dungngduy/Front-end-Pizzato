@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from 'react';
+import { memo, useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Rate, Tag } from 'antd';
 import { FaFacebookF, FaTwitter, FaTelegramPlane, FaPinterestP } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import CarouselMulti from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import 'assets/user/scss/detail-page.scss';
 import AxiosInstance from 'utils/apiServers';
+import { CartContext } from 'components/add-to-cart';
 import { formatCurrencyVND } from 'utils/format';
 
 const responsive = {
@@ -28,12 +29,12 @@ const responsive = {
 };
 
 const DetailProduct = () => {
+    const { addToCart } = useContext(CartContext);
     const [selectedImage, setSelectedImage] = useState("");
     const [activeTab, setActiveTab] = useState("description");
     const [quantity, setQuantity] = useState(1);
     const { id } = useParams();
     const [product, setProduct] = useState(null);
-    const [cart, setCart] = useState([]);
 
     const handleImageClick = (imageSrc) => {
         setSelectedImage(imageSrc);
@@ -72,9 +73,10 @@ const DetailProduct = () => {
                 console.log(err);
             });
     }, [id]);
+
     const handleAddToCart = () => {
         const subId = `${product.id}-${selectedCrust}-${selectedBorder}-${selectedSize}`;
-        const newItem = {
+        const newPizza = {
             subId: subId,
             id: product.id,
             name: product.name,
@@ -84,29 +86,11 @@ const DetailProduct = () => {
             border: selectedBorder,
             size: selectedSize,
             image: product.thumb_image
-            
         };
 
-        // Lấy giỏ hàng từ localStorage (nếu có) và thêm sản phẩm mới vào giỏ
-        const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existItem = savedCart.findIndex((item) => 
-            item.id === newItem.id &&
-            item.crust === newItem.crust &&
-            item.border === newItem.border &&
-            item.size === newItem.size
-        );
+        addToCart(newPizza);
 
-        if(existItem >= 0) {
-            savedCart[existItem].quantity += quantity;
-        } else {
-            savedCart.push(newItem);
-        }
-
-        // Lưu lại giỏ hàng vào localStorage
-        setCart([...cart, newItem]);
-        localStorage.setItem('cart', JSON.stringify(savedCart));
-
-        alert("Pizza added to cart!");
+        alert("Đã thêm thành công");
     };
 
     return (
