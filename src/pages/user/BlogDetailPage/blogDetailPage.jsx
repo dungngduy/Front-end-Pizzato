@@ -35,6 +35,35 @@ const BlogDetail = () => {
                 </span>
               </li>
             </ul>
+
+            <p className="text-gray-700 font-bold mb-2">Điều kiện áp dụng:</p>
+            <ul className="list-disc list-inside text-gray-700 ml-4 mb-4">
+              <li>Có sinh nhật trùng với ngày đặt bánh.</li>
+              <li>Đơn hàng tối thiểu từ 399k trở lên.</li>
+            </ul>
+            <p className="text-gray-700 mb-4">
+              Vui lòng cung cấp mã{" "}
+              <span className="text-red-500 font-bold">SN12</span> cho nhân
+              viên khi đặt bánh.
+            </p>
+            <p className="text-gray-700 mb-4">
+              <span className="font-bold">Lưu ý:</span> Không áp dụng đồng thời
+              các chương trình khuyến mãi khác.
+            </p>
+            <p className="text-gray-700 mb-6">
+              📞 Liên hệ tổng đài tư vấn:{" "}
+              <span className="text-red-600 font-bold">024.3688.7777</span>
+            </p>
+
+            <h2 className="text-xl font-bold text-gray-700 mb-2">
+              Pizza Express Vietnam hiện có 4 cơ sở tại Hà Nội:
+            </h2>
+            <ul className="list-disc list-inside text-gray-700">
+              <li>CS1: 107D3 Ngọc Khánh, Ba Đình, Hà Nội</li>
+              <li>CS2: 14 Ngõ 497 Nguyễn Trãi, Thanh Xuân, Hà Nội</li>
+              <li>CS3: 56 Ô Đồng Bát, Cầu Giấy, Hà Nội</li>
+              <li>CS4: 52 Kim Đồng, Hoàng Mai, Hà Nội</li>
+            </ul>
           </div>
         </div>
 
