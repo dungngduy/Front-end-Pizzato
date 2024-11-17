@@ -59,12 +59,6 @@ const BlogList = () => {
             <h2 className="text-xl font-bold text-gray-700 mb-2">
               Pizza Express Vietnam hiện có 4 cơ sở tại Hà Nội:
             </h2>
-            <ul className="list-disc list-inside text-gray-700">
-              <li>CS1: 107D3 Ngọc Khánh, Ba Đình, Hà Nội</li>
-              <li>CS2: 14 Ngõ 497 Nguyễn Trãi, Thanh Xuân, Hà Nội</li>
-              <li>CS3: 56 Ô Đồng Bát, Cầu Giấy, Hà Nội</li>
-              <li>CS4: 52 Kim Đồng, Hoàng Mai, Hà Nội</li>
-            </ul>
           </div>
         </div>
 
