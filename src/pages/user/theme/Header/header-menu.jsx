@@ -209,8 +209,14 @@ const HeaderMenu = () => {
                                                 <span className="text-[#ff0000] font-bold">{formatCurrencyVND(totalPrice)}</span>
                                             </div>
                                             <div className="w-full flex flex-col mt-4">
-                                                <Link to="/cart" className="popup__cart__btn">Xem chi tiết</Link>
-                                                <Link to="/checkout" className="popup__checkout__btn">Thanh toán</Link>
+                                                {user ? (
+                                                    <>
+                                                        <Link to="/cart" className="popup__cart__btn">Xem chi tiết</Link>
+                                                        <Link to="/checkout" className="popup__checkout__btn">Thanh toán</Link>
+                                                    </>
+                                                ) : (
+                                                    <p className="text-center text-red-500">Vui lòng đăng nhập để thực hiện thanh toán.</p>
+                                                )}
                                             </div>
                                         </ul>
                                     )}

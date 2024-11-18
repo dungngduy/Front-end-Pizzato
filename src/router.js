@@ -12,6 +12,8 @@ import SettingPage from 'pages/user/ProfilePage/SettingPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
 import BlogPage from 'pages/user/BlogPage';
 import BlogDetailPage from 'pages/user/BlogDetailPage';
+import ProtectedRoute from 'components/protected-route';
+
 const renderUserRouter = () => {
     const userRouter = [
         {
@@ -50,19 +52,19 @@ const renderUserRouter = () => {
         },
         {
             path: ROUTER.USER.CART,
-            element: <CartPage />,
+            element: <ProtectedRoute><CartPage /></ProtectedRoute>,
         },
         {
             path: ROUTER.USER.CHECKOUT,
-            element: <CheckoutPage />,
+            element: <ProtectedRoute><CheckoutPage /></ProtectedRoute>,
         },
         {
             path: ROUTER.USER.BLOG,
-            component: <BlogPage />,
+            element: <BlogPage />,
         },
         {
-            path: ROUTER.USER.BLOG,
-            component: <BlogDetailPage />,
+            path: ROUTER.USER.BLOGDETAIL,
+            element: <BlogDetailPage />,
         }
         
     ]

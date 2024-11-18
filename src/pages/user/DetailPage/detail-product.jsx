@@ -35,6 +35,7 @@ const DetailProduct = () => {
     const [quantity, setQuantity] = useState(1);
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const [galaries, setGalaries] = useState([]);
 
     const handleImageClick = (imageSrc) => {
         setSelectedImage(imageSrc);
@@ -68,6 +69,7 @@ const DetailProduct = () => {
                 const image = res.data.pizza.thumb_image;
                 setSelectedImage(image);
                 setProduct(res.data.pizza);
+                setGalaries(res.data.galaries);
             })
             .catch((err) => {
                 console.log(err);
@@ -112,20 +114,13 @@ const DetailProduct = () => {
                                         infinite={true}
                                     >
                                         {
-                                            [
-                                                "/assets/images/main.png",
-                                                "/assets/images/main.png",
-                                                "/assets/images/main.png",
-                                                "/assets/images/main.png",
-                                                "/assets/images/main.png",
-                                                "/assets/images/main.png",
-                                            ].map((src, index) => (
+                                            galaries.map((item, index) => (
                                                 <div key={index} className="gallery__item flex gap-5">
                                                     <img
                                                         className="w-[125px] h-[120px] rounded-lg cursor-pointer hover:opacity-80 transition duration-300"
-                                                        src={src}
+                                                        src={item.image}
                                                         alt={`Pizza ${index + 1}`}
-                                                        onClick={() => handleImageClick(src)}
+                                                        onClick={() => handleImageClick(item.image)}
                                                     />
                                                 </div>
                                             ))}
@@ -335,10 +330,7 @@ const DetailProduct = () => {
                         {activeTab === 'description' && (
                             <div className='flex flex-col gap-10'>
                                 <p data-aos="zoom-in">
-                                    Nam tristique porta ligula, vel viverra sem eleifend nec. Nulla sed purus augue, eu euismod tellus. Nam mattis eros nec mi sagittis sagittis.
-                                </p>
-                                <p data-aos="zoom-in">
-                                    Suspendisse cursus sodales placerat. Morbi eu lacinia ex. Curabitur blandit justo urna, id porttitor est dignissim nec.
+                                    {product?.long_description}
                                 </p>
                             </div>
                         )}
