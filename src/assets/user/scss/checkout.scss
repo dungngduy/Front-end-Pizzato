@@ -248,3 +248,13 @@ label.radio-card {
         }
     }
 }
+
+/* Ẩn thanh cuộn nhưng vẫn cho phép cuộn */
+.custom-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.custom-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

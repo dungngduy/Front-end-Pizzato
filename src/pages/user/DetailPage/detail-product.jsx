@@ -78,16 +78,18 @@ const DetailProduct = () => {
 
     const handleAddToCart = () => {
         const subId = `${product.id}-${selectedCrust}-${selectedBorder}-${selectedSize}`;
+        const user = JSON.parse(localStorage.getItem("user"));
         const newPizza = {
             subId: subId,
             id: product.id,
             name: product.name,
             price: product.price,
+            image: product.thumb_image,
             quantity: quantity,
             crust: selectedCrust,
             border: selectedBorder,
             size: selectedSize,
-            image: product.thumb_image
+            user_id: user?.id
         };
 
         addToCart(newPizza);
