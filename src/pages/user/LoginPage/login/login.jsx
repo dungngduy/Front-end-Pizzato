@@ -52,7 +52,6 @@ const LoginPage = () => {
             if (res.status === 200) {
                 setSuccess(true);
                 setFormData({ name: '', email: '', password: '', password_confirmation: '' });
-                window.location.href = '/';
             } else {
                 setError(res.data.errors);
             }

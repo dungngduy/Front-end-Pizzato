@@ -13,5 +13,7 @@ export const ROUTER = {
         TRACKING: 'tracking',
         INFO: 'info',
         SETTINGS: 'settings',
+        PAYMENTSUCCESS: '/payment-successed',
+        PAYMENTFAILED: '/payment-failed',
     },
 }

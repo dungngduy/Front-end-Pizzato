@@ -1,13 +1,15 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState } from "react";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 import FormAddress from "./form-address";
 import AddressSaved from "./address-saved";
+import { useAddress } from "components/address";
 
-const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) => {
+const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment }) => {
     const [isPopupAddressVisible, setIsPopupAddressVisible] = useState(false);
     const [isPopupAddressSaved, setIsPopupAddressSaved] = useState(false);
-    const [user, setUser] = useState(null);
+    const [selectedAddress, setSelectedAddress] = useState(null);
+    const { user } = useAddress();
 
     const togglePopupAddress = () => {
         setIsPopupAddressVisible(!isPopupAddressVisible);
@@ -17,16 +19,15 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
         setIsPopupAddressSaved(!isPopupAddressSaved);
     }
 
+    const handleSelectAddress = (address) => {
+        setSelectedAddress(address);
+        setIsPopupAddressSaved(false);
+    };
+
     const handleInputChange = (e) => {
         const value = parseInt(e.target.value, 10) || 0;
         setShippingFee(value);
     };
-
-    useEffect(() => {
-        // Lấy dữ liệu giỏ hàng từ localStorage hoặc từ một nguồn dữ liệu khác
-        const userData = JSON.parse(localStorage.getItem("user")) || [];
-        setUser(userData);
-    }, []);
 
     return (
         <div className="checkout__box__left pe-10" style={{ width: '800px' }}>
@@ -36,13 +37,19 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
                         <h3 className="flex gap-1 items-center text-xl font-bold"><MdLocationOn /> Địa chỉ giao hàng</h3>
                     </div>
                     <div className="delivery__box__title__edit">
-                        <Link onClick={togglePopupAddress}><p className="text-[#676767]">Thay đổi</p></Link>
+                        {
+                            user?.address && user.address.length > 0 ? (
+                                <Link onClick={togglePopupAddressSaved}><p className="text-[#676767]">Thay đổi</p></Link>
+                            ) : (
+                                <Link onClick={togglePopupAddress}><p className="text-[#676767]">Thêm địa chỉ</p></Link>
+                            )
+                        }
                     </div>
                 </div>
                 {
-                    user ? (
+                    selectedAddress ? (
                         <div className="delivery__address p-3">
-                            <p className="text-xl pb-3">{user.name}</p>
+                            <p className="text-xl pb-3">{selectedAddress.last_name} {selectedAddress.first_name}</p>
                             <div className="flex gap-20">
                                 <div className="delivery__address__title">
                                     <p className="text-[#676767]">Địa chỉ:</p>
@@ -50,10 +57,9 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
                                     <p className="text-[#676767]">Email:</p>
                                 </div>
                                 <div className="delivery__address__content">
-                                    {/* Khi lưu dữ liệu thì nên đổi là value */}
-                                    <input type="text" defaultValue={user.address.address} disabled /><br />
-                                    <input type="text" defaultValue={user.address.phone} disabled /><br />
-                                    <input type="email" defaultValue={user.email} disabled />
+                                    <input type="text" defaultValue={selectedAddress.address} disabled /><br />
+                                    <input type="text" defaultValue={selectedAddress.phone} disabled /><br />
+                                    <input type="email" defaultValue={selectedAddress.email} disabled />
                                 </div>
                             </div>
                         </div>
@@ -185,7 +191,7 @@ const CheckoutBoxLeft = ({setShippingFee, selectedPayment, setSelectedPayment}) 
             {isPopupAddressVisible && <FormAddress onClose={togglePopupAddress} />}
 
             {/* Address saved */}
-            {isPopupAddressSaved && <AddressSaved onClose={togglePopupAddressSaved} />}
+            {isPopupAddressSaved && <AddressSaved onClose={togglePopupAddressSaved} onSelectAddress={handleSelectAddress} />}
         </div>
     );
 };

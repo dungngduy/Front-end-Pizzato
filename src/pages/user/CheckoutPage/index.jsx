@@ -3,6 +3,7 @@ import BannerCheckout from "./banner-checkout";
 import BoxLeft from "./box-left";
 import "assets/user/scss/checkout.scss";
 import BoxRight from "./box-right";
+import { AddressProvider } from "components/address";
 
 const CheckoutPage = () => {
     const [shippingFee, setShippingFee] = useState(40000);
@@ -10,20 +11,22 @@ const CheckoutPage = () => {
 
     return (
         <div>
-            {/* Banner Checkout */}
-            <BannerCheckout />
-            <div className="container checkout-box__container">
-                <form action="" method="post">
-                    <div className="flex w-full">
-                        <BoxLeft
-                            setShippingFee={setShippingFee}
-                            selectedPayment={selectedPayment}
-                            setSelectedPayment={setSelectedPayment}
-                        />
-                        <BoxRight shippingFee={shippingFee} selectedPayment={selectedPayment} />
-                    </div>
-                </form>
-            </div>
+            <AddressProvider>
+                {/* Banner Checkout */}
+                <BannerCheckout />
+                <div className="container checkout-box__container">
+                    <form action="" method="post">
+                        <div className="flex w-full">
+                            <BoxLeft
+                                setShippingFee={setShippingFee}
+                                selectedPayment={selectedPayment}
+                                setSelectedPayment={setSelectedPayment}
+                            />
+                            <BoxRight shippingFee={shippingFee} selectedPayment={selectedPayment} />
+                        </div>
+                    </form>
+                </div>
+            </AddressProvider>
         </div>
     );
 }
