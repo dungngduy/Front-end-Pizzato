@@ -6,7 +6,6 @@ import { CartContext } from "components/add-to-cart";
 const Cart = () => {
     const { cart, updateCartItem, removeFromCart } = useContext(CartContext);
     const [discountCode, setDiscountCode] = useState("");
-    const shippingFee = 11000;
 
     const handleApplyDiscount = () => {
         alert(`Discount code applied: ${discountCode}`);
@@ -80,10 +79,10 @@ const Cart = () => {
                             <span>Tạm tính</span>
                             <span>{formatCurrencyVND(totalPrice)}</span>
                         </div>
-                        <div className="flex justify-between text-gray-600 mb-2">
+                         {/*<div className="flex justify-between text-gray-600 mb-2">
                             <span>Phí giao hàng</span>
                             <span>{formatCurrencyVND(shippingFee)}</span>
-                        </div>
+                        </div>*/}
 
                         {/* Discount Code */}
                         <div className="flex items-center mt-4 justify-between gap-2">
@@ -105,7 +104,7 @@ const Cart = () => {
                         {/* Total */}
                         <div className="flex justify-between mt-4 text-lg font-semibold text-gray-800">
                             <span>Tổng cộng</span>
-                            <span className="text-orange-500">{formatCurrencyVND(totalPrice + shippingFee)}</span>
+                            <span className="text-orange-500">{formatCurrencyVND(totalPrice)}</span>
                         </div>
                     </div>
 
