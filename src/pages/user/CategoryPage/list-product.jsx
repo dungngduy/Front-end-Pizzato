@@ -113,14 +113,16 @@ const ListProduct = () => {
                                     <div key={index} className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                         <div className="product__item">
                                             <div className="product__item__image">
-                                                <img src={menu.thumb_image} alt={menu.thumb_image} />
-                                                {viewMode === 'Kanban' && (
-                                                    <div className="product__item__icons">
-                                                        <BsFillShareFill />
-                                                        <BsHandbag />
-                                                        <BsSuitHeart />
-                                                    </div>
-                                                )}
+                                                <Link to={`/detail/${menu.id}`}>
+                                                    <img src={menu.thumb_image} alt={menu.thumb_image} />
+                                                    {viewMode === 'Kanban' && (
+                                                        <div className="product__item__icons">
+                                                            <BsFillShareFill />
+                                                            <BsHandbag />
+                                                            <BsSuitHeart />
+                                                        </div>
+                                                    )}
+                                                </Link>
                                             </div>
                                             <Link to={`/detail/${menu.id}`}>
                                                 <div className="product__item__info">

@@ -3,7 +3,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import FormAddress from "./form-address";
 import { Link } from "react-router-dom";
 
-const AddressSaved = ({ onClose, onSelectAddress }) => {
+const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
     const [isPopupAddressVisible, setIsPopupAddressVisible] = useState(false);
     const user = JSON.parse(localStorage.getItem("user"));
     const savedAddresses = user?.address || [];
@@ -35,8 +35,8 @@ const AddressSaved = ({ onClose, onSelectAddress }) => {
                             </Link>
                         </div>
                         <div className="space-y-4 max-h-[433px] overflow-y-auto custom-scrollbar">
-                            {savedAddresses.map((address) => (
-                                <div key={address.id} className="flex justify-between items-center p-4 border rounded-lg hover:bg-gray-50">
+                            {savedAddresses.map((address, index) => (
+                                <div key={index} className="flex justify-between items-center p-4 border rounded-lg hover:bg-gray-50">
                                     <div>
                                         <h4 className="text-lg font-semibold">{address.last_name} {address.first_name}</h4>
                                         <p>{address.address}</p>
@@ -58,7 +58,7 @@ const AddressSaved = ({ onClose, onSelectAddress }) => {
                 </div>
             </div>
 
-            {isPopupAddressVisible && <FormAddress onClose={togglePopupAddress} />}
+            {isPopupAddressVisible && <FormAddress onClose={togglePopupAddress} setSelectedAddress={setSelectedAddress} />}
         </div>
     );
 };

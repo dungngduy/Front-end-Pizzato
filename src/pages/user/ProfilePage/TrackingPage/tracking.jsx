@@ -1,31 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AxiosInstance from "utils/apiServers";
+import { formatCurrencyVND } from "utils/format";
 
 const Tracking = () => {
     const [searchText, setSearchText] = useState("");
     const [filterDate, setFilterDate] = useState("");
+    const [orderList, setOrderList] = useState([]);
 
-    const orderData = [
-        {
-            id: 1,
-            orderCode: "D0805H00036",
-            date: "30/12/2020 10:30",
-            productCount: 1,
-            total: "15,797 ₫",
-            paid: "15,797 ₫",
-            remaining: "0 ₫",
-            status: "Đã giao hàng",
-        },
-        {
-            id: 2,
-            orderCode: "D0805H00036",
-            date: "30/12/2020 10:30",
-            productCount: 1,
-            total: "15,797 ₫",
-            paid: "15,797 ₫",
-            remaining: "0 ₫",
-            status: "Đã giao hàng",
-        },
-    ];
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    useEffect(() => {
+        AxiosInstance.get(`/orders?user_id=${user.id}`)
+            .then((res) => {
+                setOrderList(res.data.orders);
+            })
+            .catch((err) => {
+                console.error("Error fetching orders:", err);
+            });
+    }, [user.id]);
 
     return (
         <div className="w-full mx-auto my-4 mb-4">
@@ -64,35 +56,66 @@ const Tracking = () => {
                 <table className="min-w-full bg-white">
                     <thead>
                         <tr className="bg-gray-50">
-                            <th className="px-2 py-3 text-left text-gray-600 w-12">STT</th>
-                            <th className="px-2 py-3 text-left text-gray-600 w-40">Mã hóa đơn</th>
+                            <th className="px-2 py-3 text-center text-gray-600 w-12">STT</th>
+                            <th className="px-2 py-3 text-center text-gray-600 w-40">Mã hóa đơn</th>
                             <th className="px-2 py-3 text-center text-gray-600 w-16">Số SP</th>
-                            <th className="px-2 py-3 text-right text-gray-600 w-32">Tổng tiền</th>
-                            <th className="px-2 py-3 text-right text-gray-600 w-32">Đã thanh toán</th>
-                            <th className="px-2 py-3 text-right text-gray-600 w-32">Còn thiếu</th>
+                            <th className="px-2 py-3 text-center text-gray-600 w-32">Tổng tiền</th>
                             <th className="px-4 py-3 text-center text-gray-600 w-40">Tình trạng</th>
-                            <th className="px-2 py-3 text-center text-gray-600 w-20">Chi tiết</th>
+                            <th className="px-2 py-3 text-center text-gray-600 w-20">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {orderData.map((order, index) => (
-                            <tr key={order.id} className="border-t">
-                                <td className="px-2 py-2 text-center">{index + 1}</td>
-                                <td className="px-2 py-2">{order.orderCode}</td>
-                                <td className="px-2 py-2 text-center">{order.productCount}</td>
-                                <td className="px-2 py-2 text-right text-red-500">{order.total}</td>
-                                <td className="px-2 py-2 text-right">{order.paid}</td>
-                                <td className="px-2 py-2 text-right">{order.remaining}</td>
-                                <td className="px-4 py-2 text-center">
-                                    <span className="px-2 py-1 text-xs text-white bg-green-500 rounded">
-                                        {order.status}
-                                    </span>
-                                </td>
-                                <td className="px-2 py-2 text-center text-blue-500 cursor-pointer">
-                                    Chi tiết
+                        {Array.isArray(orderList) && orderList.length > 0 ? (
+                            orderList.map((order, index) => (
+                                <tr key={order.id} className="border-t">
+                                    <td className="px-2 py-2 text-center">{index + 1}</td>
+                                    <td className="px-2 py-2 text-center">{order.invoice_id}</td>
+                                    <td className="px-2 py-2 text-center">{order.product_qty}</td>
+                                    <td className="px-2 py-2 text-center text-red-500">{formatCurrencyVND(order.grand_total)}</td>
+                                    <td className="px-4 py-2 text-center">
+                                        <span
+                                            className={`px-2 py-1 text-xs text-white rounded ${order.order_status === "pending"
+                                                    ? "bg-yellow-500"
+                                                    : order.order_status === "processed"
+                                                        ? "bg-blue-500"
+                                                        : order.order_status === "shipped"
+                                                            ? "bg-orange-500"
+                                                            : order.order_status === "delivered"
+                                                                ? "bg-green-500"
+                                                                : "bg-gray-500"
+                                                }`}
+                                        >
+                                            {
+                                                order.order_status === "pending"
+                                                    ? "Chưa xử lý"
+                                                    : order.order_status === "processed"
+                                                        ? "Đã xử lý"
+                                                        : order.order_status === "shipped"
+                                                            ? "Đang giao"
+                                                            : order.order_status === "delivered"
+                                                                ? "Đã giao"
+                                                                : "Không xác định"
+                                            }
+                                        </span>
+                                    </td>
+                                    <td className="w-[330px] flex items-center justify-start gap-2 px-2 py-2 text-center text-blue-500 cursor-pointer">
+                                        <button className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white hover:bg-white hover:text-[#BD9A6C] transition duration-500">Chi tiết</button>
+                                        <button className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white hover:bg-white hover:text-[#BD9A6C] transition duration-500">Hủy đơn hàng</button>
+                                        {
+                                            order.order_status === "delivered" && (
+                                                <button className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white hover:bg-white hover:text-[#BD9A6C] transition duration-500">Viết đánh giá</button>
+                                            )
+                                        }
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="6" className="py-4 text-center">
+                                    Không có đơn hàng
                                 </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>

@@ -3,7 +3,7 @@ import AxiosInstance from "utils/apiServers";
 import { formatCurrencyVND } from "utils/format";
 import { CartContext } from "components/add-to-cart";
 
-const CheckoutBoxRight = ({ shippingFee, selectedPayment }) => {
+const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => {
     const { cart, removeItemsAfterPayment } = useContext(CartContext);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -23,11 +23,12 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment }) => {
 
         const orderData = {
             user_id: user?.id,
-            address: user?.address.address,
+            address: selectedAddress.address,
+            sub_total: totalPrice + shippingFee,
             grand_total: totalPrice + shippingFee,
             product_qty: selectedItems.reduce((total, item) => total + item.quantity, 0),
             payment_method: selectedPayment,
-            address_id: user?.address.id,
+            address_id: selectedAddress.id,
             cartItems: selectedItems
         };
 
@@ -49,8 +50,8 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment }) => {
             } else {
                 AxiosInstance.post('/checkout', orderData)
                     .then(() => {
-                        removeItemsAfterPayment(selectedItems);
                         window.location.href = '/payment-successed';
+                        removeItemsAfterPayment(selectedItems);
                     })
                     .catch(error => {
                         setError(error?.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán.');
