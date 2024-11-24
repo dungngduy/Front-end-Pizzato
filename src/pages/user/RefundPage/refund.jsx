@@ -8,15 +8,12 @@ const Refund = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      {/* Nút mở form */}
       <button
         onClick={handleOpen}
         className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
       >
         Mở Form Yêu Cầu Hoàn Tiền
       </button>
-
-      {/* Popup Form */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50"

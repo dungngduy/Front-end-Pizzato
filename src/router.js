@@ -70,17 +70,17 @@ const renderUserRouter = () => {
             element: <BlogDetailPage />,
         },
         {
-<<<<<<< HEAD
+
             path: ROUTER.USER.REFUND,
             element: <RefundPage />,
-=======
+        },
+        {
             path: ROUTER.USER.PAYMENTSUCCESS,
             element: <PaymentSuccessPage />,
         },
         {
             path: ROUTER.USER.PAYMENTFAILED,
             element: <PaymentFailedPage />,
->>>>>>> 1e3ea2de9a4c008d1b5ede8d151043925d347b1f
         }
     ]
 
