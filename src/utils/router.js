@@ -13,5 +13,6 @@ export const ROUTER = {
         TRACKING: 'tracking',
         INFO: 'info',
         SETTINGS: 'settings',
+        REFUND : 'refund',
     },
 }

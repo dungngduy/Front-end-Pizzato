@@ -11,6 +11,7 @@ import InfoPage from 'pages/user/ProfilePage/InfoPage';
 import SettingPage from 'pages/user/ProfilePage/SettingPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
 import BlogPage from 'pages/user/BlogPage';
+import RefundPage from 'pages/user/RefundPage';
 import BlogDetailPage from 'pages/user/BlogDetailPage';
 import ProtectedRoute from 'components/protected-route';
 
@@ -65,6 +66,10 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.BLOGDETAIL,
             element: <BlogDetailPage />,
+        },
+        {
+            path: ROUTER.USER.REFUND,
+            element: <RefundPage />,
         }
         
     ]
