@@ -432,16 +432,25 @@ const DetailProduct = () => {
                       data-aos="zoom-in"
                       className="flex justify-between"
                     >
-                      <div>
-                        <div className="">{review.review}</div>
-                        <Rate
-                          className="text-[16px]"
-                          allowHalf
-                          disabled
-                          defaultValue={review.rating}
-                        />
-                        <div>{review.user.name}</div>
-                      </div>
+                    <div>
+                        <div className="flex gap-2">
+                             <label htmlFor="" className="text-[17px] text-gray-800 ">Nội dung: </label>
+                            <div className="break-words w-[1020px]">{review.review}</div>
+                        </div>
+                        <div>
+                            <label htmlFor="" className="text-[17px] text-gray-800">Đánh giá: </label>
+                            <Rate
+                            className="text-[16px]"
+                            allowHalf
+                            disabled
+                            defaultValue={review.rating}
+                            />
+                        </div>
+                        <div className="flex gap-2">
+                        <label htmlFor="" className="text-[17px] text-gray-800">Người dùng: </label>
+                            <div>{review.user.name}</div>
+                        </div>
+                    </div>
                     </div>
                   ))
                 ) : (
