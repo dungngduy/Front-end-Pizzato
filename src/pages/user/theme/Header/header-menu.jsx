@@ -153,7 +153,7 @@ const HeaderMenu = () => {
                                     <li>
                                         <Link to="/profile/info">
                                             <img
-                                                src={user.image}
+                                                src={user.image ? user.image : "https://t4.ftcdn.net/jpg/03/49/49/79/360_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"}
                                                 alt="User Avatar"
                                                 className="w-[30px] h-[30px] rounded-full"
                                             />
@@ -196,7 +196,7 @@ const HeaderMenu = () => {
                                                         })
                                                     ) : (
                                                         <img
-                                                            className="w-[180px] h-[150px]"
+                                                            className="w-[180px] h-[150px] mx-auto"
                                                             src="/assets/images/empty-cart.webp"
                                                             alt=""
                                                         />
@@ -209,14 +209,8 @@ const HeaderMenu = () => {
                                                 <span className="text-[#ff0000] font-bold">{formatCurrencyVND(totalPrice)}</span>
                                             </div>
                                             <div className="w-full flex flex-col mt-4">
-                                                {user ? (
-                                                    <>
-                                                        <Link to="/cart" className="popup__cart__btn">Xem chi tiết</Link>
-                                                        <Link to="/checkout" className="popup__checkout__btn">Thanh toán</Link>
-                                                    </>
-                                                ) : (
-                                                    <p className="text-center text-red-500">Vui lòng đăng nhập để thực hiện thanh toán.</p>
-                                                )}
+                                                <Link to="/cart" className="popup__cart__btn">Xem chi tiết</Link>
+                                                <Link to="/checkout" className="popup__checkout__btn">Thanh toán</Link>
                                             </div>
                                         </ul>
                                     )}

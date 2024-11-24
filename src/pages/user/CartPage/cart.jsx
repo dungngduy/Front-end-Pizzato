@@ -4,16 +4,15 @@ import { Link } from "react-router-dom";
 import { CartContext } from "components/add-to-cart";
 
 const Cart = () => {
-    const { cart, updateCartItem, removeFromCart } = useContext(CartContext);
+    const { cart, updateCartItem, removeFromCart, toggleItemSelection } = useContext(CartContext);
     const [discountCode, setDiscountCode] = useState("");
 
     const handleApplyDiscount = () => {
         alert(`Discount code applied: ${discountCode}`);
     };
 
-    const totalPrice = cart.reduce(
-        (total, item) => total + item.price * item.quantity, 0
-    );
+    const selectedItems = cart.filter(item => item.selected);
+    const totalPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
     return (
         <div className="flex justify-center py-16 w-[1200px] max-w-7xl mx-auto">
@@ -27,17 +26,28 @@ const Cart = () => {
                             alt=""
                         />
                     </div>
-
                 ) : (
                     <div className="col-span-2 border-r p-4">
                         <div className="flex items-center mb-2">
-                            <input type="checkbox" className="form-checkbox h-4 w-4 text-orange-500" />
+                            <input
+                                type="checkbox"
+                                className="form-checkbox h-4 w-4 text-orange-500"
+                                onChange={() => {
+                                    const allSelected = cart.every(item => item.selected);
+                                    cart.forEach(item => toggleItemSelection(item.subId, !allSelected));
+                                }}
+                            />
                             <span className="ml-2 font-semibold text-lg">Chọn tất cả</span>
                         </div>
 
                         {cart.map((item, index) => (
                             <div key={index} className="flex items-center border-t py-4 h-46 hover:bg-gray-50 transition duration-200">
-                                <input type="checkbox" className="form-checkbox h-4 w-4 text-orange-500" />
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox h-4 w-4 text-orange-500"
+                                    checked={item.selected || false}
+                                    onChange={() => toggleItemSelection(item.subId)}
+                                />
                                 <div className="ml-4 w-16 h-16 rounded">
                                     <img
                                         src={item.image}
@@ -79,7 +89,7 @@ const Cart = () => {
                             <span>Tạm tính</span>
                             <span>{formatCurrencyVND(totalPrice)}</span>
                         </div>
-                         {/*<div className="flex justify-between text-gray-600 mb-2">
+                        {/*<div className="flex justify-between text-gray-600 mb-2">
                             <span>Phí giao hàng</span>
                             <span>{formatCurrencyVND(shippingFee)}</span>
                         </div>*/}
@@ -109,9 +119,11 @@ const Cart = () => {
                     </div>
 
                     {/* Confirm Button */}
-                    <button className="mt-4 w-full py-2 bg-[#BC9A6C] text-white font-semibold rounded hover:bg-[#BC9A6C]-600 transition duration-200">
-                        <Link to="/checkout">Xác nhận đơn hàng</Link>
-                    </button>
+                    <Link to="/checkout">
+                        <button className="mt-4 w-full py-2 bg-[#BC9A6C] text-white font-semibold rounded hover:bg-[#BC9A6C]-600 transition duration-200">
+                            Xác nhận đơn hàng
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

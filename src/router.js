@@ -13,7 +13,9 @@ import CheckoutPage from 'pages/user/CheckoutPage';
 import BlogPage from 'pages/user/BlogPage';
 import RefundPage from 'pages/user/RefundPage';
 import BlogDetailPage from 'pages/user/BlogDetailPage';
-import ProtectedRoute from 'components/protected-route';
+import { UseProtectedRoute, UseProtectedRouteCheckout } from 'components/protected-route';
+import PaymentSuccessPage from 'pages/user/PaymentStatusPage/PaymentSuccessPage';
+import PaymentFailedPage from 'pages/user/PaymentStatusPage/PaymentFailedPage';
 
 const renderUserRouter = () => {
     const userRouter = [
@@ -23,7 +25,7 @@ const renderUserRouter = () => {
         },
         {
             path: ROUTER.USER.PROFILE,
-            element: <ProfilePage />,
+            element: <UseProtectedRoute><ProfilePage /></UseProtectedRoute>,
             children: [
                 {
                     index: true,
@@ -53,11 +55,11 @@ const renderUserRouter = () => {
         },
         {
             path: ROUTER.USER.CART,
-            element: <ProtectedRoute><CartPage /></ProtectedRoute>,
+            element: <UseProtectedRoute><CartPage /></UseProtectedRoute>,
         },
         {
             path: ROUTER.USER.CHECKOUT,
-            element: <ProtectedRoute><CheckoutPage /></ProtectedRoute>,
+            element: <UseProtectedRouteCheckout><CheckoutPage /></UseProtectedRouteCheckout>,
         },
         {
             path: ROUTER.USER.BLOG,
@@ -68,10 +70,18 @@ const renderUserRouter = () => {
             element: <BlogDetailPage />,
         },
         {
+<<<<<<< HEAD
             path: ROUTER.USER.REFUND,
             element: <RefundPage />,
+=======
+            path: ROUTER.USER.PAYMENTSUCCESS,
+            element: <PaymentSuccessPage />,
+        },
+        {
+            path: ROUTER.USER.PAYMENTFAILED,
+            element: <PaymentFailedPage />,
+>>>>>>> 1e3ea2de9a4c008d1b5ede8d151043925d347b1f
         }
-        
     ]
 
     return (
