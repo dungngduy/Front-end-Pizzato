@@ -3,6 +3,7 @@ export const ROUTER = {
         HOME: '/',
         ABOUT: '/about',
         CATEGORY: '/category',
+        INTRODUCE: '/introduce',
         BLOG: '/blog',
         BLOGDETAIL: '/blog/:id',
         CONTACT: '/contact',
@@ -16,5 +17,6 @@ export const ROUTER = {
         REFUND : 'refund',
         PAYMENTSUCCESS: '/payment-successed',
         PAYMENTFAILED: '/payment-failed',
+
     },
 }
