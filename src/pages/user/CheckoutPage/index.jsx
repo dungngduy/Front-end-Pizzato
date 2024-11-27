@@ -8,6 +8,7 @@ import { AddressProvider } from "components/address";
 const CheckoutPage = () => {
     const [shippingFee, setShippingFee] = useState(40000);
     const [selectedPayment, setSelectedPayment] = useState(null);
+    const [selectedAddress, setSelectedAddress] = useState(null);
 
     return (
         <div>
@@ -21,8 +22,9 @@ const CheckoutPage = () => {
                                 setShippingFee={setShippingFee}
                                 selectedPayment={selectedPayment}
                                 setSelectedPayment={setSelectedPayment}
+                                setSelectedAddress={setSelectedAddress}
                             />
-                            <BoxRight shippingFee={shippingFee} selectedPayment={selectedPayment} />
+                            <BoxRight shippingFee={shippingFee} selectedPayment={selectedPayment} selectedAddress={selectedAddress} />
                         </div>
                     </form>
                 </div>

@@ -17,7 +17,7 @@ const SideBar = () => {
         localStorage.removeItem("user");
         window.location.href = "/";
     };
-    
+
 
     return (
         <nav className="flex-1 my-4 me-4 border border-[#f0f0f0]-200">
@@ -36,6 +36,28 @@ const SideBar = () => {
                         🧑‍💼 Thông tin cá nhân
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        to="tracking"
+                        className={({ isActive }) =>
+                            `block px-6 py-3 border-b border-[#f0f0f0]-200 transition duration-200 ${isActive ? "bg-[#BC9A6C] text-white" : "hover:bg-[#BC9A6C] hover:text-white"
+                            }`
+                        }
+                    >
+                        📦 Đơn hàng
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="settings"
+                        className={({ isActive }) =>
+                            `block px-6 py-3 border-b border-[#f0f0f0]-200 transition duration-200 ${isActive ? "bg-[#BC9A6C] text-white" : "hover:bg-[#BC9A6C] hover:text-white"
+                            }`
+                        }
+                    >
+                        ⚙️ Cài đặt
+                    </NavLink>
+                </li>
                 {
                     user?.role_id === 2 && (
                         <li>
@@ -49,22 +71,6 @@ const SideBar = () => {
 
                     )
                 }
-                <li>
-                    <Link
-                        to="tracking"
-                        className="block px-6 py-3 hover:bg-[#BC9A6C] border-b border-[#f0f0f0]-200 hover:text-white transition duration-200"
-                    >
-                        📦 Đơn hàng
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        to="settings"
-                        className="block px-6 py-3 hover:bg-[#BC9A6C] border-b border-[#f0f0f0]-200 hover:text-white transition duration-200"
-                    >
-                        ⚙️ Cài đặt
-                    </Link>
-                </li>
                 <li>
                     <button
                         className="block w-full text-left px-6 py-3 hover:bg-[#BC9A6C] hover:text-white transition duration-200"

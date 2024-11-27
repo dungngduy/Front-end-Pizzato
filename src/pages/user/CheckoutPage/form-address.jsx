@@ -4,13 +4,19 @@ import 'assets/user/scss/checkout.scss';
 import AxiosInstance from 'utils/apiServers';
 import { useAddress } from 'components/address';
 
-const Address = ({ onClose }) => {
+const Address = ({ onClose, setSelectedAddress }) => {
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
     const [selectedProvince, setSelectedProvince] = useState(null);
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [deliveryAddressId, setDeliveryAddressId] = useState(null);
+    const [error, setError] = useState(null);
+    const [errorAddress, setErrorAddress] = useState({
+        province: null,
+        district: null,
+        ward: null
+    });
     const { updateUser } = useAddress();
 
     // Fetch tỉnh
@@ -70,6 +76,10 @@ const Address = ({ onClose }) => {
 
     // Xử lý khi chọn tỉnh
     const handleProvinceChange = (provinceId, option) => {
+        if (!provinceId) {
+            setErrorAddress(prev => ({ ...prev, province: 'Bạn phải chọn Tỉnh/Thành phố!' }));
+            return;
+        }
         setSelectedProvince(provinceId);
         setSelectedDistrict(null); // Reset huyện và xã
         setWards([]);
@@ -82,10 +92,16 @@ const Address = ({ onClose }) => {
             district: '',
             ward: ''
         }));
+
+        setErrorAddress(prev => ({ ...prev, province: null }));
     };
 
     // Xử lý khi chọn huyện
     const handleDistrictChange = (districtId, option) => {
+        if (!districtId) {
+            setErrorAddress(prev => ({ ...prev, district: 'Bạn phải chọn Quận/Huyện!' }));
+            return;
+        }
         setSelectedDistrict(districtId);
         fetchWards(districtId); // Gọi API lấy xã
 
@@ -94,14 +110,22 @@ const Address = ({ onClose }) => {
             district: option.label,
             ward: ''
         }));
+
+        setErrorAddress(prev => ({ ...prev, district: null }));
     };
 
     const handleWardChange = (wardId, option) => {
+        if (!wardId) {
+            setErrorAddress(prev => ({ ...prev, ward: 'Bạn phải chọn Phường/Xã!' }));
+            return;
+        }
         fetchWards(wardId);
         setFormAddress(prev => ({
             ...prev,
             ward: option.label
         }));
+
+        setErrorAddress(prev => ({ ...prev, ward: null }));
     };
 
     const user = JSON.parse(localStorage.getItem('user'));
@@ -121,7 +145,11 @@ const Address = ({ onClose }) => {
     const handleSubmitAddress = (e) => {
         e.preventDefault();
 
-        const fullAddress = `${formAddress.address}, ${formAddress.ward}, ${formAddress.district}, ${formAddress.province}`;
+        const { address, ward, district, province } = formAddress;
+        const fullAddress = [address, ward, district, province]
+        .filter(Boolean)
+        .join(", ");
+
         const data = new FormData();
         data.append('email', formAddress.email);
         data.append('user_id', formAddress.user_id);
@@ -138,28 +166,30 @@ const Address = ({ onClose }) => {
         })
             .then((res) => {
                 if (res.status === 200) {
+                    const newAddress = {
+                        id: res.data.addressId,
+                        address: fullAddress,
+                        first_name: formAddress.first_name,
+                        last_name: formAddress.last_name,
+                        phone: formAddress.phone,
+                        email: formAddress.email,
+                        user_id: formAddress.user_id,
+                        delivery_area_id: deliveryAddressId,
+                    };
                     if (user) {
-                        const newAddress = {
-                            address: fullAddress,
-                            first_name: formAddress.first_name,
-                            last_name: formAddress.last_name,
-                            phone: formAddress.phone,
-                            email: formAddress.email,
-                            user_id: formAddress.user_id,
-                            delivery_area_id: deliveryAddressId,
-                        };
                         const updatedUser = { ...user, address: [...user.address, newAddress] };
                         updateUser(updatedUser);
                     }
+                    setSelectedAddress(newAddress);
 
-                    alert('Thêm địa chỉ giao hàng thành công');
+                    alert('Thêm địa chỉ giao hàng thành công');
+                    onClose();
                 } else {
-                    // setLoginError(res.data.message);
+                    setError(res.data.errors);
                     alert('Thêm địa chỉ giao hàng thất bại');
                 }
             })
             .catch((error) => {
-                // setError(error.response.data.message);
                 console.log(error);
             });
     };
@@ -177,24 +207,30 @@ const Address = ({ onClose }) => {
             <div className="form__content" data-aos="fade-down">
                 <h2 className="title mb-3 text-[20px] font-bold">Thông tin mua hàng</h2>
                 <div className="input">
-                    <div className="input__field mt-2">
+                    <div className="input__field">
                         <input type="email" name="email" value={formAddress.email} placeholder="Email (tùy chọn)" onChange={handleChange} />
                     </div>
+                    <span className="text-red-600">{error?.email}</span>
                 </div>
-                <div className="input flex justify-between gap-5">
-                    <div className="input__field mt-2">
+                <div className="input mt-4 flex gap-2">
+                    <div className="input__field flex-1">
                         <input type="text" name="last_name" value={formAddress.last_name} placeholder="Họ" onChange={handleChange} />
                     </div>
-                    <div className="input__field mt-2">
+                    <div className="input__field flex-1">
                         <input type="text" name="first_name" value={formAddress.first_name} placeholder="Tên" onChange={handleChange} />
                     </div>
                 </div>
-                <div className="input">
-                    <div className="input__field mt-2">
+                <div className="flex gap-2">
+                    <span className="flex-1 text-red-600">{error?.last_name}</span>
+                    <span className="flex-1 text-red-600">{error?.first_name}</span>
+                </div>
+                <div className="input mt-4">
+                    <div className="input__field">
                         <input type="text" name="phone" value={formAddress.phone} placeholder="Số điện thoại" onChange={handleChange} />
                     </div>
+                    <span className="text-red-600">{error?.phone}</span>
                 </div>
-                <div className="select__group flex justify-between">
+                <div className="flex justify-between mt-4">
                     <div className="input">
                         <Select
                             showSearch
@@ -206,6 +242,7 @@ const Address = ({ onClose }) => {
                             options={provinces}
                             getPopupContainer={trigger => trigger.parentNode}
                         />
+                        {errorAddress.province && <span className="text-red-500">{errorAddress.province}</span>}
                     </div>
                     <div className="input">
                         <Select
@@ -219,6 +256,7 @@ const Address = ({ onClose }) => {
                             disabled={!selectedProvince}
                             getPopupContainer={trigger => trigger.parentNode}
                         />
+                        {errorAddress.district && <span className="text-red-500">{errorAddress.district}</span>}
                     </div>
                     <div className="input">
                         <Select
@@ -231,19 +269,21 @@ const Address = ({ onClose }) => {
                             disabled={!selectedDistrict}
                             getPopupContainer={trigger => trigger.parentNode}
                         />
+                        {errorAddress.ward && <span className="text-red-500">{errorAddress.ward}</span>}
                     </div>
                 </div>
-                <div className="input">
-                    <div className="input__field mt-2">
-                        <input type="text" name="address" value={formAddress.address} placeholder="Địa chỉ (tùy chọn)" onChange={handleChange} />
+                <div className="input mt-4">
+                    <div className="input__field">
+                        <input type="text" name="address" value={formAddress.address} placeholder="Đường, số nhà ..." onChange={handleChange} />
                     </div>
+                    <span className="text-red-600">{error?.address}</span>
                 </div>
-                <div className="input">
-                    <div className="textarea__field mt-2">
+                <div className="input mt-4">
+                    <div className="textarea__field">
                         <textarea cols="50" rows="5" name="note" placeholder="Ghi chú (Tùy chọn)" onChange={handleChange}></textarea>
                     </div>
                 </div>
-                <div className="flex justify-end mt-2">
+                <div className="flex justify-end mt-4">
                     <button type="button" className="border border-[#000000]-300 py-2 px-4 rounded-md text-[#cccccc]" onClick={onClose}>
                         Huỷ
                     </button>

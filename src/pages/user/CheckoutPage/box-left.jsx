@@ -1,14 +1,14 @@
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 import FormAddress from "./form-address";
 import AddressSaved from "./address-saved";
 import { useAddress } from "components/address";
 
-const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment }) => {
+const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment, setSelectedAddress }) => {
     const [isPopupAddressVisible, setIsPopupAddressVisible] = useState(false);
     const [isPopupAddressSaved, setIsPopupAddressSaved] = useState(false);
-    const [selectedAddress, setSelectedAddress] = useState(null);
+    const [selectedAddress, setLocalSelectedAddress] = useState(null);
     const { user } = useAddress();
 
     const togglePopupAddress = () => {
@@ -20,6 +20,7 @@ const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment }
     }
 
     const handleSelectAddress = (address) => {
+        setLocalSelectedAddress(address);
         setSelectedAddress(address);
         setIsPopupAddressSaved(false);
     };
@@ -28,6 +29,14 @@ const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment }
         const value = parseInt(e.target.value, 10) || 0;
         setShippingFee(value);
     };
+
+    useEffect(() => {
+        if (!selectedAddress && user?.address?.length > 0) {
+            const defaultAddress = user.address[0];
+            setLocalSelectedAddress(defaultAddress);
+            setSelectedAddress(defaultAddress);
+        }
+    }, [user, selectedAddress, setSelectedAddress]);
 
     return (
         <div className="checkout__box__left pe-10" style={{ width: '800px' }}>
@@ -188,10 +197,10 @@ const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment }
             </div>
 
             {/* Add new address */}
-            {isPopupAddressVisible && <FormAddress onClose={togglePopupAddress} />}
+            {isPopupAddressVisible && <FormAddress onClose={togglePopupAddress} setSelectedAddress={setSelectedAddress} />}
 
             {/* Address saved */}
-            {isPopupAddressSaved && <AddressSaved onClose={togglePopupAddressSaved} onSelectAddress={handleSelectAddress} />}
+            {isPopupAddressSaved && <AddressSaved onClose={togglePopupAddressSaved} setSelectedAddress={setSelectedAddress} onSelectAddress={handleSelectAddress} />}
         </div>
     );
 };

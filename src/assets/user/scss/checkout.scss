@@ -206,7 +206,6 @@ label.radio-card {
             width: 100%;
             height: 40px;
             border: 1px solid map-get($map: $theme-colors, $key: "border");
-            margin-bottom: 20px;
             border-radius: 8px;
         }
 
@@ -233,10 +232,6 @@ label.radio-card {
             resize: none;
             padding: 10px;
         }
-    }
-
-    .select__group {
-        margin-bottom: 20px;
     }
 
     .ant-select-selector {

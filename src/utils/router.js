@@ -14,7 +14,6 @@ export const ROUTER = {
         TRACKING: 'tracking',
         INFO: 'info',
         SETTINGS: 'settings',
-        REFUND : 'refund',
         PAYMENTSUCCESS: '/payment-successed',
         PAYMENTFAILED: '/payment-failed',
 
