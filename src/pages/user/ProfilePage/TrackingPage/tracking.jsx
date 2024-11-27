@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import AxiosInstance from "utils/apiServers";
+import Rating from "./rating";
+import Notification from "./notification";
 import { formatCurrencyVND } from "utils/format";
 
 const Tracking = () => {
     const [searchText, setSearchText] = useState("");
     const [filterDate, setFilterDate] = useState("");
     const [orderList, setOrderList] = useState([]);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [isPopupVisibleRating, setIsPopupVisibleRating] = useState(false);
+    const [isPopupVisibleNotification, setIsPopupVisibleNotification] = useState(false);
 
     const user = JSON.parse(localStorage.getItem("user"));
 
@@ -19,9 +24,23 @@ const Tracking = () => {
             });
     }, [user.id]);
 
+    const handleRatingOrder = (order) => {
+        setSelectedOrder(order);
+        setIsPopupVisibleRating(true);
+    };
+
+    const handleCancelOrderVNpay = (order) => {
+        setSelectedOrder(order);
+        setIsPopupVisibleNotification(true);
+    };
+
+    const handleCancelOrderCOD = () => {
+        alert('Hủy đơn hàng thành công');
+    };
+
     return (
         <div className="w-full mx-auto my-4 mb-4">
-            <h2 className="text-lg font-bold text-[#BC9A6C] mb-4">
+            <h2 className="text-2xl font-bold text-[#BC9A6C] mb-4">
                 Theo dõi trạng thái đơn hàng
             </h2>
 
@@ -61,7 +80,7 @@ const Tracking = () => {
                             <th className="px-2 py-3 text-center text-gray-600 w-16">Số SP</th>
                             <th className="px-2 py-3 text-center text-gray-600 w-32">Tổng tiền</th>
                             <th className="px-4 py-3 text-center text-gray-600 w-40">Tình trạng</th>
-                            <th className="px-2 py-3 text-center text-gray-600 w-20">Hành động</th>
+                            <th className="px-2 py-3 text-center text-gray-600 w-[208px]">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,35 +94,47 @@ const Tracking = () => {
                                     <td className="px-4 py-2 text-center">
                                         <span
                                             className={`px-2 py-1 text-xs text-white rounded ${order.order_status === "pending"
-                                                    ? "bg-yellow-500"
-                                                    : order.order_status === "processed"
-                                                        ? "bg-blue-500"
-                                                        : order.order_status === "shipped"
-                                                            ? "bg-orange-500"
-                                                            : order.order_status === "delivered"
-                                                                ? "bg-green-500"
-                                                                : "bg-gray-500"
+                                                ? "bg-yellow-500"
+                                                : order.order_status === "processing"
+                                                    ? "bg-orange-500"
+                                                    : order.order_status === "completed"
+                                                        ? "bg-green-500"
+                                                        : order.order_status === "canceled"
+                                                            ? "bg-red-500"
+                                                            : "bg-gray-500"
                                                 }`}
                                         >
                                             {
                                                 order.order_status === "pending"
                                                     ? "Chưa xử lý"
-                                                    : order.order_status === "processed"
-                                                        ? "Đã xử lý"
-                                                        : order.order_status === "shipped"
-                                                            ? "Đang giao"
-                                                            : order.order_status === "delivered"
-                                                                ? "Đã giao"
+                                                    : order.order_status === "processing"
+                                                        ? "Đang giao"
+                                                        : order.order_status === "completed"
+                                                            ? "Đã giao"
+                                                            : order.order_status === "canceled"
+                                                                ? "Đã hủy"
                                                                 : "Không xác định"
                                             }
                                         </span>
                                     </td>
-                                    <td className="w-[330px] flex items-center justify-start gap-2 px-2 py-2 text-center text-blue-500 cursor-pointer">
-                                        <button className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white hover:bg-white hover:text-[#BD9A6C] transition duration-500">Chi tiết</button>
-                                        <button className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white hover:bg-white hover:text-[#BD9A6C] transition duration-500">Hủy đơn hàng</button>
+                                    <td className="w-[208px] flex items-center justify-center gap-2 px-2 py-2 text-center text-blue-500 cursor-pointer">
                                         {
-                                            order.order_status === "delivered" && (
-                                                <button className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white hover:bg-white hover:text-[#BD9A6C] transition duration-500">Viết đánh giá</button>
+                                            order.order_status === "canceled" ? (
+                                                <p className="text-red-500 font-semibold">Đơn hàng đã bị hủy</p>
+                                            ) : (
+                                                <>
+                                                    <button className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white">Chi tiết</button>
+                                                    {order.order_status !== "completed" && order.order_status !== "processing" && (
+                                                        order.payment_method === "vnpay" ? (
+                                                            <button onClick={() => handleCancelOrderVNpay(order)} className="px-2 py-2 rounded-lg border border-[#ff0000] bg-[#ff0000] text-white">Hủy đơn hàng</button>
+                                                        ) : (
+                                                            <button onClick={handleCancelOrderCOD} className="px-2 py-2 rounded-lg border border-[#ff0000] bg-[#ff0000] text-white">Hủy đơn hàng</button>
+                                                        )
+                                                    )}
+                                                    {order.order_status === "completed" && (
+                                                        <button onClick={() => handleRatingOrder(order)} className="px-2 py-2 rounded-lg border border-[#FFD700] bg-[#FFD700] text-white">Viết đánh giá</button>
+                                                    )}
+                                                </>
                                             )
                                         }
                                     </td>
@@ -119,6 +150,9 @@ const Tracking = () => {
                     </tbody>
                 </table>
             </div>
+
+            {isPopupVisibleRating && <Rating onClose={() => setIsPopupVisibleRating(false)} order={selectedOrder} />}
+            {isPopupVisibleNotification && <Notification onClose={() => setIsPopupVisibleNotification(false)} order={selectedOrder} />}
         </div>
     );
 };
