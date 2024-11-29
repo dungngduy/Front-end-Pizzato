@@ -15,6 +15,7 @@ import BlogDetailPage from 'pages/user/BlogDetailPage';
 import { UseProtectedRoute, UseProtectedRouteCheckout } from 'components/protected-route';
 import PaymentSuccessPage from 'pages/user/PaymentStatusPage/PaymentSuccessPage';
 import PaymentFailedPage from 'pages/user/PaymentStatusPage/PaymentFailedPage';
+import IntroducePage from 'pages/user/IntroducePage';
 
 const renderUserRouter = () => {
     const userRouter = [
@@ -75,6 +76,10 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.PAYMENTFAILED,
             element: <PaymentFailedPage />,
+        },
+        {
+            path: ROUTER.USER.INTRODUCE,
+            element: <IntroducePage />,
         }
     ]
 

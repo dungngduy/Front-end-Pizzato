@@ -55,14 +55,16 @@ const DetailProduct = () => {
         }
     };
 
-    const [selectedCrust, setSelectedCrust] = useState("Đế Dày Bột Tươi");
-    const [selectedBorder, setSelectedBorder] = useState("Viền phô mai 9");
-    const [selectedSize, setSelectedSize] = useState("Cỡ 9 inch");
+    const [selectedBases, setSelectedBases] = useState([]);
+    const [selectedBorder, setSelectedBorder] = useState([]);
+    const [selectedSize, setSelectedSize] = useState([]);
 
     const handleCrustChange = (event) => {
-        setSelectedCrust(event.target.value);
+        setSelectedBases(event.target.value);
+    
     };
-
+    console.log(selectedBases);
+    
     const handleBorderChange = (event) => {
         setSelectedBorder(event.target.value);
     };
@@ -74,18 +76,21 @@ const DetailProduct = () => {
     useEffect(() => {
         AxiosInstance.get(`/detail/${id}`)
             .then((res) => {
-                const image = res.data.pizza.thumb_image;
+                const image = res.data.product.thumb_image;
                 setSelectedImage(image);
-                setProduct(res.data.pizza);
-                setGalaries(res.data.galaries);
+                setProduct(res.data.product);
+                setGalaries(res.data.product.galleries);
+                setSelectedBases(res.data.product.bases)
             })
             .catch((err) => {
                 console.log(err);
             });
     }, [id]);
 
+
+
     const handleAddToCart = () => {
-        const subId = `${product.id}-${selectedCrust}-${selectedBorder}-${selectedSize}`;
+        const subId = `${product.id}-${selectedBases}-${selectedBorder}-${selectedSize}`;
         const user = JSON.parse(localStorage.getItem("user"));
         const newPizza = {
             subId: subId,
@@ -94,7 +99,7 @@ const DetailProduct = () => {
             price: product.price,
             image: product.thumb_image,
             quantity: quantity,
-            crust: selectedCrust,
+            crust: selectedBases,
             border: selectedBorder,
             size: selectedSize,
             user_id: user?.id
@@ -186,42 +191,22 @@ const DetailProduct = () => {
                                     <div className="mb-2">
                                         <span className="font-bold">Chọn Đế Bánh</span>
                                         <div className="flex gap-4 py-3">
-                                            <label className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                <input
-                                                    type="radio"
-                                                    name="pizza-crust"
-                                                    value="Đế Dày Bột Tươi"
-                                                    checked={selectedCrust === "Đế Dày Bột Tươi"}
-                                                    onChange={handleCrustChange}
-                                                    className="form-radio h-4 w-4 text-blue-600"
-                                                />
-                                                <span>Đế Dày Bột Tươi</span>
-                                            </label>
-
-                                            <label className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                <input
-                                                    type="radio"
-                                                    name="pizza-crust"
-                                                    value="Đế Vừa Bột Tươi"
-                                                    checked={selectedCrust === "Đế Vừa Bột Tươi"}
-                                                    onChange={handleCrustChange}
-                                                    className="form-radio h-4 w-4 text-blue-600"
-                                                />
-                                                <span>Đế Vừa Bột Tươi</span>
-                                            </label>
-
-                                            <label className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                <input
-                                                    type="radio"
-                                                    name="pizza-crust"
-                                                    value="Đế Mỏng Giòn"
-                                                    checked={selectedCrust === "Đế Mỏng Giòn"}
-                                                    onChange={handleCrustChange}
-                                                    className="form-radio h-4 w-4 text-blue-600"
-                                                />
-                                                <span>Đế Mỏng Giòn</span>
-                                            </label>
-                                        </div>
+                                        <div className="flex gap-4 py-3">
+                                    {selectedBases.map((base) => (
+                                        <label key={base.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                            <input
+                                                type="radio"
+                                                name="pizza-crust"
+                                                value={base.name}
+                                                checked={selectedBases.find((b) => b.name === base.name) === base}
+                                                onChange={() => handleCrustChange(base.name)}
+                                                className="form-radio h-4 w-4 text-blue-600"
+                                            />
+                                            <span>{base.name}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                                    </div>
                                     </div>
 
                                     {/* Tùy Chọn Viền */}
