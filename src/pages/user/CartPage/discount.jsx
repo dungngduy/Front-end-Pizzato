@@ -11,11 +11,8 @@ const Discount  = ({ isOpen, setIsOpen, selectedCode, setSelectedCode }) => {
 
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-      {/* Popup Container */}
       <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-lg p-4">
-        {/* Header */}
         <div className="text-lg font-bold text-gray-800 border-b pb-2 mb-4">Mã giảm giá</div>
-        {/* Danh sách mã giảm giá */}
         <div>
           {discountCodes.map((discount) => (
             <div
