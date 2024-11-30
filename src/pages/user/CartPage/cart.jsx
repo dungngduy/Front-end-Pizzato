@@ -8,9 +8,6 @@ const Cart = () => {
     const { cart, updateCartItem, removeFromCart, toggleItemSelection } = useContext(CartContext);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCode, setSelectedCode] = useState("");
-    // const handleApplyDiscount = () => {
-    //     alert(`Discount code applied: ${selectedCode}`);
-    // };
     const selectedItems = cart.filter(item => item.selected);
     const totalPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -55,7 +52,6 @@ const Cart = () => {
                                      />
                                 </div>
                         </div>
- 
                         {cart.map((item, index) => (
 
                             <div key={index} className="flex items-center border-t py-4 h-46 hover:bg-gray-50 transition duration-200">
