@@ -12,7 +12,7 @@ import "react-multi-carousel/lib/styles.css";
 import "assets/user/scss/detail-page.scss";
 import AxiosInstance from "utils/apiServers";
 import { CartContext } from "components/add-to-cart";
-import { formatCurrencyVND } from "utils/format";
+import { formatCurrencyVND, formatImage } from "utils/format";
 
 const responsive = {
     superLargeDesktop: {
@@ -42,7 +42,7 @@ const DetailProduct = () => {
     // Product
     const { id } = useParams();
     const [product, setProduct] = useState(null);
-    const [galaries, setGalaries] = useState([]);
+    const [galleries, setGalleries] = useState([]);
     const [reviews, setReviews] = useState([]);
 
     const handleImageClick = (imageSrc) => {
@@ -55,22 +55,38 @@ const DetailProduct = () => {
         }
     };
 
-    const [selectedBases, setSelectedBases] = useState([]);
-    const [selectedBorder, setSelectedBorder] = useState([]);
-    const [selectedSize, setSelectedSize] = useState([]);
+    const [sizes, setSizes] = useState([]);
+    const [bases, setBases] = useState([]);
+    const [edges, setEdges] = useState([]);
+    const [selectedBases, setSelectedBases] = useState("");
+    const [selectedEdges, setSelectedEdges] = useState("");
+    const [selectedSizes, setSelectedSizes] = useState("");
+
+    const calculateTotalPrice = () => {
+        const basePrice = product?.offer_price || 0;
+        const basePriceDiff = selectedBases
+            ? bases.find((b) => b.name === selectedBases)?.price || 0
+            : 0;
+        const edgePriceDiff = selectedEdges
+            ? edges.find((e) => e.name === selectedEdges)?.price || 0
+            : 0;
+        const sizePriceDiff = selectedSizes
+            ? sizes.find((s) => s.name === selectedSizes)?.price || 0
+            : 0;
+
+        return basePrice + basePriceDiff + edgePriceDiff + sizePriceDiff;
+    };
 
     const handleCrustChange = (event) => {
         setSelectedBases(event.target.value);
-    
     };
-    console.log(selectedBases);
-    
-    const handleBorderChange = (event) => {
-        setSelectedBorder(event.target.value);
+
+    const handleEdgesChange = (event) => {
+        setSelectedEdges(event.target.value);
     };
 
     const handleSizeChange = (event) => {
-        setSelectedSize(event.target.value);
+        setSelectedSizes(event.target.value);
     };
 
     useEffect(() => {
@@ -79,29 +95,35 @@ const DetailProduct = () => {
                 const image = res.data.product.thumb_image;
                 setSelectedImage(image);
                 setProduct(res.data.product);
-                setGalaries(res.data.product.galleries);
-                setSelectedBases(res.data.product.bases)
+                const galleries = res.data.product.galleries.map((g) => g.url);
+                setGalleries(galleries);
+
+                setBases(res.data.product.bases || []);
+                setEdges(res.data.product.edges || []);
+                setSizes(res.data.product.sizes || []);
             })
             .catch((err) => {
                 console.log(err);
             });
     }, [id]);
 
-
-
     const handleAddToCart = () => {
-        const subId = `${product.id}-${selectedBases}-${selectedBorder}-${selectedSize}`;
+        if(!selectedBases || !selectedEdges || !selectedSizes) {
+            alert("Vui lớn chọn đế bánh, viền, cỡ bánh");
+            return;
+        }
+        const subId = `${product.id}-${selectedBases}-${selectedEdges}-${selectedSizes}`;
         const user = JSON.parse(localStorage.getItem("user"));
         const newPizza = {
             subId: subId,
             id: product.id,
             name: product.name,
-            price: product.price,
+            price: calculateTotalPrice(),
             image: product.thumb_image,
             quantity: quantity,
             crust: selectedBases,
-            border: selectedBorder,
-            size: selectedSize,
+            border: selectedEdges,
+            size: selectedSizes,
             user_id: user?.id
         };
 
@@ -131,20 +153,20 @@ const DetailProduct = () => {
                             <div>
                                 <img
                                     className="w-[520px] h-[500px] rounded-lg"
-                                    src={selectedImage}
+                                    src={formatImage(selectedImage)}
                                     alt="Main Product"
                                 />
                             </div>
                             {/* Image Gallery */}
                             <div className="w-[500px]">
                                 <CarouselMulti responsive={responsive} infinite={true}>
-                                    {galaries.map((item, index) => (
+                                    {galleries.map((item, index) => (
                                         <div key={index} className="gallery__item flex gap-5">
                                             <img
                                                 className="w-[125px] h-[120px] rounded-lg cursor-pointer hover:opacity-80 transition duration-300"
-                                                src={item.image}
+                                                src={formatImage(item)}
                                                 alt={`Pizza ${index + 1}`}
-                                                onClick={() => handleImageClick(item.image)}
+                                                onClick={() => handleImageClick(item)}
                                             />
                                         </div>
                                     ))}
@@ -171,7 +193,7 @@ const DetailProduct = () => {
 
                                 {/* Product Price */}
                                 <div className="text-2xl font-semibold text-gray-900">
-                                    {formatCurrencyVND(product.price)}
+                                    {formatCurrencyVND(calculateTotalPrice())}
                                 </div>
 
                                 {/* Rating and Reviews */}
@@ -191,51 +213,39 @@ const DetailProduct = () => {
                                     <div className="mb-2">
                                         <span className="font-bold">Chọn Đế Bánh</span>
                                         <div className="flex gap-4 py-3">
-                                        <div className="flex gap-4 py-3">
-                                    {selectedBases.map((base) => (
-                                        <label key={base.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                            <input
-                                                type="radio"
-                                                name="pizza-crust"
-                                                value={base.name}
-                                                checked={selectedBases.find((b) => b.name === base.name) === base}
-                                                onChange={() => handleCrustChange(base.name)}
-                                                className="form-radio h-4 w-4 text-blue-600"
-                                            />
-                                            <span>{base.name}</span>
-                                        </label>
-                                    ))}
-                                </div>
-                                    </div>
+                                            {bases.map((base) => (
+                                                <label key={base.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                                    <input
+                                                        type="radio"
+                                                        name="pizza-crust"
+                                                        value={base.name}
+                                                        checked={selectedBases === base.name}
+                                                        onChange={handleCrustChange}
+                                                        className="form-radio h-4 w-4 text-blue-600"
+                                                    />
+                                                    <span>{base.name}</span>
+                                                </label>
+                                            ))}
+                                        </div>
                                     </div>
 
                                     {/* Tùy Chọn Viền */}
                                     <div className="mb-2">
                                         <span className="font-bold">Tùy Chọn Viền</span>
                                         <div className="flex gap-4 py-3">
-                                            <label className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                <input
-                                                    type="radio"
-                                                    name="pizza-border"
-                                                    value="Viền phô mai 9"
-                                                    checked={selectedBorder === "Viền phô mai 9"}
-                                                    onChange={handleBorderChange}
-                                                    className="form-radio h-4 w-4 text-blue-600"
-                                                />
-                                                <span>Viền phô mai 9</span>
-                                            </label>
-
-                                            <label className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                <input
-                                                    type="radio"
-                                                    name="pizza-border"
-                                                    value="Viền xúc xích"
-                                                    checked={selectedBorder === "Viền xúc xích"}
-                                                    onChange={handleBorderChange}
-                                                    className="form-radio h-4 w-4 text-blue-600"
-                                                />
-                                                <span>Viền xúc xích</span>
-                                            </label>
+                                            {edges.map((edge) => (
+                                                <label key={edge.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                                    <input
+                                                        type="radio"
+                                                        name="pizza-border"
+                                                        value={edge.name}
+                                                        checked={selectedEdges === edge.name}
+                                                        onChange={handleEdgesChange}
+                                                        className="form-radio h-4 w-4 text-blue-600"
+                                                    />
+                                                    <span>{edge.name}</span>
+                                                </label>
+                                            ))}
                                         </div>
                                     </div>
 
@@ -243,29 +253,19 @@ const DetailProduct = () => {
                                     <div>
                                         <span className="font-bold">Chọn Cỡ Bánh</span>
                                         <div className="flex gap-4 py-3">
-                                            <label className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                <input
-                                                    type="radio"
-                                                    name="pizza-size"
-                                                    value="Cỡ 9 inch"
-                                                    checked={selectedSize === "Cỡ 9 inch"}
-                                                    onChange={handleSizeChange}
-                                                    className="form-radio h-4 w-4 text-blue-600"
-                                                />
-                                                <span>Cỡ 9 inch</span>
-                                            </label>
-
-                                            <label className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                <input
-                                                    type="radio"
-                                                    name="pizza-size"
-                                                    value="Cỡ 12 inch"
-                                                    checked={selectedSize === "Cỡ 12 inch"}
-                                                    onChange={handleSizeChange}
-                                                    className="form-radio h-4 w-4 text-blue-600"
-                                                />
-                                                <span>Cỡ 12 inch</span>
-                                            </label>
+                                            {sizes.map((size) => (
+                                                <label key={size.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                                    <input
+                                                        type="radio"
+                                                        name="pizza-size"
+                                                        value={size.name}
+                                                        checked={selectedSizes === size.name}
+                                                        onChange={handleSizeChange}
+                                                        className="form-radio h-4 w-4 text-blue-600"
+                                                    />
+                                                    <span>{size.name}</span>
+                                                </label>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>

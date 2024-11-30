@@ -2,7 +2,7 @@ import { memo, useState, useEffect } from "react";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 import AxiosInstance from "utils/apiServers";
-import { formatCurrencyVND } from "utils/format";
+import { formatCurrencyVND, formatImage } from "utils/format";
 
 const Menu = () => {
     const [tabLists, setTabList] = useState([]);
@@ -37,7 +37,7 @@ const Menu = () => {
                                                     <div className="menu__item font-bold" data-aos="fade-left">
                                                         <Link to={`/detail/${pizza.id}`}>
                                                             <div className="menu__item__image">
-                                                                <img src={pizza.thumb_image} alt={pizza.name} />
+                                                                <img src={formatImage(pizza.thumb_image)} alt={pizza.name} />
                                                             </div>
                                                             <div className="menu__item__content">
                                                                 <h3>{pizza.name}</h3>

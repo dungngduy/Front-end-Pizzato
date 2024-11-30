@@ -2,7 +2,7 @@ import { memo, useState, useEffect } from "react";
 import { Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import AxiosInstance from "utils/apiServers";
-import { formatCurrencyVND } from "utils/format";
+import { formatCurrencyVND, formatImage } from "utils/format";
 
 const NewProduct = () => {
     const [hotProduct, setHotProduct] = useState([]);
@@ -64,7 +64,7 @@ const NewProduct = () => {
                     {hotProduct.map((item, index) => {
                         return (
                             <div key={index} className="col-xl-12 new__product__image-top" data-aos="zoom-in">
-                                <img src={item.thumb_image} alt={item.thumb_image} />
+                                <img src={formatImage(item.thumb_image)} alt={item.thumb_image} />
                             </div>
                         )
                     })}
