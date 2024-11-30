@@ -11,8 +11,7 @@ const OrderTimeOut = () => {
 
     useEffect(() => {
         const lastNotificationId = sessionStorage.getItem("lastNotificationId");
-    
-        // Lấy thông báo từ backend
+
         AxiosInstance.get(`/notifications/${user.id}`)
             .then((res) => {
                 const notifications = res.data.notification;
