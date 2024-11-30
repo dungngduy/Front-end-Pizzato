@@ -55,7 +55,7 @@ const Cart = () => {
                                      />
                                 </div>
                         </div>
-                                
+ 
                         {cart.map((item, index) => (
 
                             <div key={index} className="flex items-center border-t py-4 h-46 hover:bg-gray-50 transition duration-200">
@@ -98,7 +98,6 @@ const Cart = () => {
                         ))}
                     </div>
                 )}
-
                 {/* Right Box: Order Summary */}
                 <div className="p-4 bg-gray-50 flex flex-col h-full">
                     <div className="flex-grow">
@@ -131,5 +130,4 @@ const Cart = () => {
         </div>
     );
 }
-
 export default memo(Cart);
