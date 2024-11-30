@@ -94,7 +94,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                                                 + {item.border}
                                             </p>
                                         </div>
-                                        <div className="info__price">
+                                        <div className="info__price w-[200px] flex justify-end">
                                             <p className="font-bold text-[#f00000]">{formatCurrencyVND(item.price)}</p>
                                         </div>
                                     </div>
