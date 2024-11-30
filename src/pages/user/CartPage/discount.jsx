@@ -41,8 +41,6 @@ const Discount  = ({ isOpen, setIsOpen, selectedCode, setSelectedCode }) => {
             </div>
           ))}
         </div>
-
-        {/* Footer */}
         <div className="mt-4">
           <div className="text-gray-600 text-sm mb-2">
             Mã giảm giá: <span className="font-semibold text-gray-800">{selectedCode || "Chưa chọn"}</span>
