@@ -39,8 +39,9 @@ const Cart = () => {
                                     }}
                                 />
                                 <span className="ml-2 font-semibold text-lg">Chọn tất cả</span>
-
-                            </div>
+ 
+                            </div> 
+                            
                             <div>
                                 <button
                                         onClick={() => setIsOpen(true)}
