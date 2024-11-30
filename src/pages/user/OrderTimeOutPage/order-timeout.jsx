@@ -46,7 +46,7 @@ const OrderTimeOut = () => {
 
     return (
         <>
-            {isPopupVisible && (
+            {isPopupVisible && user && (
                 <div className="popup-refund__overlay show">
                     <div className="bg-white rounded-lg shadow-lg w-[600px] relative p-6" data-aos="fade-down">
                         <h1 className="text-2xl font-bold text-center mb-6">
