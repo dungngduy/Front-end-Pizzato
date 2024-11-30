@@ -6,7 +6,6 @@ export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [userId, setUserId] = useState(null);
 
-    // Hàm lấy userId từ localStorage
     const getUserId = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         return user ? user.id : null;
@@ -23,7 +22,6 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem('cart', JSON.stringify(allCarts));
     };
     
-    // Hàm thêm sản phẩm vào giỏ hàng
     const addToCart = (newItem) => {
         setCart(prevCart => {
             const existingItem = prevCart.find(item => item.subId === newItem.subId);
@@ -44,7 +42,6 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-    // Lấy giỏ hàng từ localStorage khi component được mount
     useEffect(() => {
         const userIdFromStorage = getUserId();
         setUserId(userIdFromStorage);
