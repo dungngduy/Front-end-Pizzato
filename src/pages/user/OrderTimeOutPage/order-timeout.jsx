@@ -5,30 +5,40 @@ import "assets/user/scss/tracking.scss";
 const OrderTimeOut = () => {
     const [notifications, setNotifications] = useState([]);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const timeoutRef = useRef(null); // Dùng useRef để lưu timeout
+    const timeoutRef = useRef(null);
 
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        // Lấy thông báo từ backend
+        const lastNotificationId = sessionStorage.getItem("lastNotificationId");
+
         AxiosInstance.get(`/notifications/${user.id}`)
             .then((res) => {
-                setNotifications(res.data.notification); // Lưu thông báo vào state
+                const notifications = res.data.notification;
+
+                if (
+                    notifications.length === 0 ||
+                    (lastNotificationId && lastNotificationId === notifications.id)
+                ) {
+                    return;
+                }
+
+                setNotifications(notifications);
                 timeoutRef.current = setTimeout(() => {
-                    setIsPopupVisible(true); // Hiển thị popup sau 5 giây
+                    setIsPopupVisible(true);
+                    sessionStorage.setItem("lastNotificationId", notifications.id);
                 }, 5000);
             })
             .catch((err) => {
-                console.error("Error fetching notification:", err);
+                console.error(err);
             });
-
-        // Cleanup hàm setTimeout khi component bị unmount
+    
         return () => {
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
         };
-    }, [user.id]); // Dùng user.id làm dependency để chỉ chạy khi có thay đổi
+    }, [user.id]);
 
     const handleClosePopup = () => {
         setIsPopupVisible(false);
@@ -44,19 +54,19 @@ const OrderTimeOut = () => {
                         </h1>
                         <div className="policy-content mb-6">
                             <ul>
-                                {notifications.map((notification, index) => (
-                                    <li key={index}>
+                                {notifications && (
+                                    <li key={notifications.id}>
                                         <p>
-                                            <strong>Mã hóa đơn:</strong> {notification.invoice_id}
+                                            <strong>Mã hóa đơn:</strong> {notifications.invoice_id}
                                         </p>
                                         <p>
-                                            <strong>Lý do:</strong> {notification.reason}
+                                            <strong>Lý do:</strong> {notifications.reason}
                                         </p>
                                         <p>
-                                            <strong>Giải pháp:</strong> {notification.solution}
+                                            <strong>Giải pháp:</strong> {notifications.solution}
                                         </p>
                                     </li>
-                                ))}
+                                )}
                             </ul>
                         </div>
                         <button

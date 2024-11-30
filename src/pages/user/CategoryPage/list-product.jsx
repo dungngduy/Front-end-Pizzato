@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Rate, Segmented, Select, Input, Checkbox, Slider, Tag, Pagination } from 'antd';
 import { AppstoreOutlined, BarsOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { BsFillShareFill, BsSuitHeart, BsHandbag } from "react-icons/bs";
-import { formatCurrencyVND } from 'utils/format';
+import { formatCurrencyVND, formatImage } from 'utils/format';
 import AxiosInstance from 'utils/apiServers';
 
 const ListProduct = () => {
@@ -40,11 +40,11 @@ const ListProduct = () => {
     const [menus, setMenus] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProduct, setTotalItems] = useState(0);
-    const pageSize = 9; // Số lượng sản phẩm trên mỗi trang
+    const pageSize = 9;
 
     // search
     const { Search } = Input;
-    const [searchTerm, setSearchTerm] = useState(''); // Từ khóa tìm kiếm
+    const [searchTerm, setSearchTerm] = useState("");
     useEffect(() => {
         AxiosInstance.get(`/menus?currentPage=${currentPage}&pageSize=${pageSize}&search=${encodeURIComponent(searchTerm)}`)
             .then(res => {
@@ -114,7 +114,7 @@ const ListProduct = () => {
                                         <div className="product__item">
                                             <div className="product__item__image">
                                                 <Link to={`/detail/${menu.id}`}>
-                                                    <img src={menu.thumb_image} alt={menu.thumb_image} />
+                                                    <img src={formatImage(menu.thumb_image)} alt={menu.thumb_image} />
                                                     {viewMode === 'Kanban' && (
                                                         <div className="product__item__icons">
                                                             <BsFillShareFill />
@@ -175,7 +175,7 @@ const ListProduct = () => {
                         <div className="category__sidebar__search">
                             <Search
                                 placeholder="Tìm kiếm món ăn"
-                                onSearch={onSearch} // Gọi hàm tìm kiếm
+                                onSearch={onSearch}
                                 enterButton
                             />
                         </div>

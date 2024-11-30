@@ -1,6 +1,6 @@
 import { memo, useState, useEffect, useContext } from "react";
 import AxiosInstance from "utils/apiServers";
-import { formatCurrencyVND } from "utils/format";
+import { formatCurrencyVND, formatImage } from "utils/format";
 import { CartContext } from "components/add-to-cart";
 
 const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => {
@@ -79,7 +79,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                             <div key={index} className="checkout__box__right__content py-5 border-b-2 border-[#000000]-400">
                                 <div className="checkout__box__right__content__item flex gap-3">
                                     <div className="checkout__box__right__content__item__image w-[80px] h-[60px]">
-                                        <img src={item.image} alt={item.name} className="w-full h-full" />
+                                        <img src={formatImage(item.image)} alt={item.name} className="w-full h-full" />
                                         <div className="count">
                                             <p>{item.quantity}</p>
                                         </div>

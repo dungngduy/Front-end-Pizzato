@@ -22,3 +22,21 @@ export const formatDate = (date) => {
 
     return `${day}/${month}/${year}`;
 }
+
+export const formatImage = (image) => {
+    if (image.includes("products")) {
+        return `http://localhost:8000/storage/${image}`;
+    }
+
+    // Tiếp theo xử lý "galleries"
+    if (image.includes("galleries")) {
+        return `http://localhost:8000/storage/${image}`;
+    }
+
+    // Xử lý "categories"
+    if (image.includes("categories")) {
+        return `http://localhost:8000/storage/${image}`;
+    }
+
+    return image;
+}

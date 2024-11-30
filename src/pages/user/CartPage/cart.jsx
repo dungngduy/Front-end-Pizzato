@@ -1,5 +1,5 @@
 import React, { memo, useState, useContext } from "react";
-import { formatCurrencyVND } from "utils/format";
+import { formatCurrencyVND, formatImage } from "utils/format";
 import { Link } from "react-router-dom";
 import { CartContext } from "components/add-to-cart";
 
@@ -50,7 +50,7 @@ const Cart = () => {
                                 />
                                 <div className="ml-4 w-16 h-16 rounded">
                                     <img
-                                        src={item.image}
+                                        src={formatImage(item.image)}
                                         alt={item.name}
                                         className="w-full h-full object-cover rounded-lg"
                                     />

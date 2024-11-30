@@ -3,6 +3,7 @@ import CarouselMulti from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 import AxiosInstance from "utils/apiServers";
+import { formatImage } from "utils/format";
 
 const responsive = {
     superLargeDesktop: {
@@ -54,7 +55,7 @@ const Category = () => {
                             return (
                                 <div key={index} className="categories__item" data-aos="zoom-in">
                                     <Link to="">
-                                        <img src={category.image} alt={category.name} />
+                                        <img src={formatImage(category.image)} alt={category.name} />
                                         <p>{category.name}</p>
                                     </Link>
                                 </div>
