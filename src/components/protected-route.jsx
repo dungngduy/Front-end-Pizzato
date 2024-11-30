@@ -47,10 +47,8 @@ const ProtectedRouteCheckout = ({ children }) => {
 
     return children;
 };
-
 // const ProtectedRouteAdmin = ({ children }) => {
 //     const user = JSON.parse(localStorage.getItem("user"));
-
 //     if (!user) {
 //         Swal.fire({
 //             title: "Lỗi truy cập!",
@@ -58,7 +56,6 @@ const ProtectedRouteCheckout = ({ children }) => {
 //             icon: "warning",
 //             confirmButtonText: "OK",
 //         });
-
 //         return <Navigate to="/" />;
 //     } else if (user && user.role !== "admin") {
 //         Swal.fire({
@@ -67,10 +64,8 @@ const ProtectedRouteCheckout = ({ children }) => {
 //             icon: "warning",
 //             confirmButtonText: "OK",
 //         });
-
 //         return <Navigate to="/" />;
 //     }
-
 //     return children;
 // };
 
