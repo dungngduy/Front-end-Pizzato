@@ -10,6 +10,10 @@ const OrderTimeOut = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
+        if (!user || !user.id) {
+            console.warn("No user found in localStorage, skipping notification logic.");
+            return;
+        }
         const lastNotificationId = sessionStorage.getItem("lastNotificationId");
 
         AxiosInstance.get(`/notifications/${user.id}`)
@@ -38,7 +42,7 @@ const OrderTimeOut = () => {
                 clearTimeout(timeoutRef.current);
             }
         };
-    }, [user.id]);
+    }, [user]);
 
     const handleClosePopup = () => {
         setIsPopupVisible(false);
