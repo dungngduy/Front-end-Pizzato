@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AxiosInstance from "utils/apiServers";
 import Rating from "./rating";
 import Notification from "./notification";
-import { formatCurrencyVND } from "utils/format";
+import { formatCurrencyVND, formatDate } from "utils/format";
 
 const Tracking = () => {
     const [searchText, setSearchText] = useState("");
@@ -75,12 +75,13 @@ const Tracking = () => {
                 <table className="min-w-full bg-white">
                     <thead>
                         <tr className="bg-gray-50">
-                            <th className="px-2 py-3 text-center text-gray-600 w-12">STT</th>
-                            <th className="px-2 py-3 text-center text-gray-600 w-40">Mã hóa đơn</th>
-                            <th className="px-2 py-3 text-center text-gray-600 w-16">Số SP</th>
-                            <th className="px-2 py-3 text-center text-gray-600 w-32">Tổng tiền</th>
-                            <th className="px-4 py-3 text-center text-gray-600 w-40">Tình trạng</th>
-                            <th className="px-2 py-3 text-center text-gray-600 w-[208px]">Hành động</th>
+                            <th className="px-2 py-3 text-center text-gray-600">STT</th>
+                            <th className="px-2 py-3 text-center text-gray-600">Mã hóa đơn</th>
+                            <th className="px-2 py-3 text-center text-gray-600">Số SP</th>
+                            <th className="px-2 py-3 text-center text-gray-600">Tổng tiền</th>
+                            <th className="px-4 py-3 text-center text-gray-600">Tình trạng</th>
+                            <th className="px-4 py-3 text-center text-gray-600">Thơi gian đặt hàng</th>
+                            <th className="flex items-center justify-center px-2 py-3 text-center text-gray-600">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -117,7 +118,8 @@ const Tracking = () => {
                                             }
                                         </span>
                                     </td>
-                                    <td className="w-[208px] flex items-center justify-center gap-2 px-2 py-2 text-center text-blue-500 cursor-pointer">
+                                    <td className="px-4 py-2 text-center">{formatDate(order.created_at)}</td>
+                                    <td className="flex items-center justify-center gap-2 px-2 py-2 text-center text-blue-500 cursor-pointer">
                                         {
                                             order.order_status === "canceled" ? (
                                                 <p className="text-red-500 font-semibold">Đơn hàng đã bị hủy</p>

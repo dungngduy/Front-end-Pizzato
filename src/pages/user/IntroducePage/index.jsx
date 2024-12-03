@@ -1,10 +1,15 @@
 import { memo } from "react";
-import "assets/user/scss/category-page.scss"; 
-import Introduce from "./introduce";
+import "assets/user/scss/category-page.scss";
+import BannerAbout from "./banner-about";
+import About from "./about";
 const IntroducePage = () => {
     return (
         <main>
-            <Introduce />
+            {/* Banner About */}
+            <BannerAbout />
+
+            {/* About */}
+            <About />
         </main>
     );
 };

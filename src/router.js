@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { ROUTER } from "./utils/router";
 import HomePage from './pages/user/HomePage';
+import AboutPage from 'pages/user/IntroducePage';
 import MasterLayout from './pages/user/theme/MasterLayout';
 import ProfilePage from './pages/user/ProfilePage';
 import CategoryPage from 'pages/user/CategoryPage';
@@ -9,6 +10,7 @@ import CartPage from 'pages/user/CartPage';
 import OrderTracking from 'pages/user/ProfilePage/TrackingPage';
 import InfoPage from 'pages/user/ProfilePage/InfoPage';
 import SettingPage from 'pages/user/ProfilePage/SettingPage';
+import NotificationPage from 'pages/user/ProfilePage/NotificationPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
 import BlogPage from 'pages/user/BlogPage';
 import BlogDetailPage from 'pages/user/BlogDetailPage';
@@ -24,6 +26,10 @@ const renderUserRouter = () => {
             element: <HomePage />,
         },
         {
+            path: ROUTER.USER.ABOUT,
+            element: <AboutPage />,
+        },
+        {
             path: ROUTER.USER.PROFILE,
             element: <UseProtectedRoute><ProfilePage /></UseProtectedRoute>,
             children: [
@@ -36,6 +42,11 @@ const renderUserRouter = () => {
                 {
                     path: ROUTER.USER.TRACKING,
                     element: <OrderTracking />,
+
+                },
+                {
+                    path: ROUTER.USER.NOTÌICATION,
+                    element: <NotificationPage />,
 
                 },
                 {

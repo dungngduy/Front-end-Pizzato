@@ -14,6 +14,8 @@ import AxiosInstance from "utils/apiServers";
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({
+        emailLogin: '',
+        passwordLogin: '',
         name: '',
         email: '',
         password: '',
@@ -28,7 +30,7 @@ const LoginPage = () => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value
+            [name]: value || ''
         });
     };
 
@@ -67,8 +69,8 @@ const LoginPage = () => {
         setSuccess(false);
 
         const data = new FormData();
-        data.append('email', formData.email);
-        data.append('password', formData.password);
+        data.append('email', formData.emailLogin);
+        data.append('password', formData.passwordLogin);
 
         AxiosInstance.post('/login', data, {
             headers: {
@@ -84,7 +86,7 @@ const LoginPage = () => {
 
                 localStorage.setItem('user', JSON.stringify(userWithAddress));
                 setSuccess(true);
-                setFormData({ email: '', password: '' });
+                setFormData({ emailLogin: '', passwordLogin: '' });
                 window.location.href = '/';
             } else {
                 setLoginError(res.data.message);
@@ -135,11 +137,11 @@ const LoginPage = () => {
                             <div className="input-boxes">
                                 <div className="input-box">
                                     <AiOutlineMail />
-                                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+                                    <input type="email" name="emailLogin" value={formData.emailLogin || ''} onChange={handleChange} placeholder="Email" />
                                 </div>
                                 <div className="input-box">
                                     <AiOutlineLock />
-                                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Mật khẩu" />
+                                    <input type="password" name="passwordLogin" value={formData.passwordLogin || ''} onChange={handleChange} placeholder="Mật khẩu" />
                                 </div>
                                 <div className="text"><Link to="#">Quên mật khẩu?</Link></div>
                                 <div className="button input-box">
@@ -172,25 +174,25 @@ const LoginPage = () => {
                             <div className="input-boxes">
                                 <div className="input-box">
                                     <AiOutlineUser />
-                                    <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Tên đăng nhập" /> <br />
+                                    <input type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="Tên đăng nhập" /> <br />
                                 </div>
                                 {error && <span className="text-[#ff0000]">{error.name}</span>}
 
                                 <div className="input-box">
                                     <AiOutlineMail />
-                                    <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Email" /> <br />
+                                    <input type="text" name="email" value={formData.email || ''} onChange={handleChange} placeholder="Email" /> <br />
                                 </div>
                                 {error && <span className="text-[#ff0000]">{error.email}</span>}
 
                                 <div className="input-box">
                                     <AiOutlineLock />
-                                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Mật khẩu" /> <br />
+                                    <input type="password" name="password" value={formData.password || ''} onChange={handleChange} placeholder="Mật khẩu" /> <br />
                                 </div>
                                 {error && <span className="text-[#ff0000]">{error.password}</span>}
 
                                 <div className="input-box">
                                     <AiOutlineCheckCircle />
-                                    <input type="password" name="password_confirmation" value={formData.password_confirmation} onChange={handleChange} placeholder="Xác nhận mật khẩu" /> <br />
+                                    <input type="password" name="password_confirmation" value={formData.password_confirmation || ''} onChange={handleChange} placeholder="Xác nhận mật khẩu" /> <br />
                                 </div>
                                 {error && <span className="text-[#ff0000]">{error.confirmPassword}</span>}
 

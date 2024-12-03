@@ -47,6 +47,7 @@ const ProtectedRouteCheckout = ({ children }) => {
 
     return children;
 };
+
 // const ProtectedRouteAdmin = ({ children }) => {
 //     const user = JSON.parse(localStorage.getItem("user"));
 //     if (!user) {
