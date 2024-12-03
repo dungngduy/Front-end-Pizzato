@@ -42,7 +42,7 @@ const HeaderMenu = () => {
             path: ROUTER.USER.BLOG,
         },
         {
-            name: "Liên hệ",
+            name: "Chính sách",
             path: ROUTER.USER.CONTACT,
         }
     ]);
