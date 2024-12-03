@@ -112,9 +112,9 @@ const HeaderMenu = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-3 col-lg-3">
-                            <div className="header__logo">
+                            <div className="header__logo w-[190px] h-[110px]">
                                 <Link to={""}>
-                                    <img src="/assets/images/logo-pizzato.webp" alt="Logo" />
+                                    <img className="w-full h-full" src="/assets/images/logo-pizzato.png" alt="Logo" />
                                 </Link>
                             </div>
                         </div>

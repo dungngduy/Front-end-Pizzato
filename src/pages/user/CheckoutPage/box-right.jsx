@@ -1,10 +1,11 @@
 import { memo, useState, useEffect, useContext } from "react";
 import AxiosInstance from "utils/apiServers";
+import Swal from "sweetalert2";
 import { formatCurrencyVND, formatImage } from "utils/format";
 import { CartContext } from "components/add-to-cart";
 
 const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => {
-    const { cart, removeItemsAfterPayment } = useContext(CartContext);
+    const { cart, calculateTotalPrice, removeItemsAfterPayment } = useContext(CartContext);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -15,11 +16,28 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
     }, []);
 
     const selectedItems = cart.filter(item => item.selected);
-    const totalPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    const cartDiscount = cart.filter(item => item.discount);
+    const discount = cartDiscount[0]?.discount;
+
+    const subPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    const totalPrice = calculateTotalPrice(cart, discount);
 
     const handleCheckout = () => {
         setLoading(true);
         setError(null);
+
+        if (!selectedAddress) {
+            Swal.fire({
+                title: "Lỗi thanh toán!",
+                text: "Bạn cần có địa chỉ để thanh toán đơn hàng!",
+                icon: "warning",
+                confirmButtonText: "OK",
+            });
+
+            setLoading(false);
+            return;
+        }
 
         const orderData = {
             user_id: user?.id,
@@ -32,13 +50,13 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
             cartItems: selectedItems
         };
 
-        if(orderData.user_id && orderData.address) {
+        if (orderData.user_id && orderData.address) {
             if (selectedPayment === "vnpay") {
                 AxiosInstance.post('/checkout', orderData)
                     .then(res => {
                         const paymentUrl = res.data.vnp_Url;
                         window.location.href = paymentUrl;
-    
+
                     })
                     .catch(error => {
                         setError(error?.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán qua VNPAY.');
@@ -87,12 +105,18 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                                     <div className="checkout__box__right__content__item__info flex justify-between gap-5">
                                         <div className="info__basic">
                                             <h3 className="text-xl font-bold">{item.name}</h3>
-                                            <p className="text-[#676767]">Kích thước: {item.size}</p>
-                                            <p className="text-[#676767]">
-                                                Chi tiết: <br />
-                                                + {item.crust} <br />
-                                                + {item.border}
-                                            </p>
+                                            {item.crust && item.border && item.size ? (
+                                                <>
+                                                    <p className="text-[#676767]">Kích thước: {item.size}</p>
+                                                    <p className="text-[#676767]">
+                                                        Chi tiết: <br />
+                                                        + {item.crust} <br />
+                                                        + {item.border}
+                                                    </p>
+                                                </>
+                                            ) : (
+                                                null
+                                            )}
                                         </div>
                                         <div className="info__price w-[200px] flex justify-end">
                                             <p className="font-bold text-[#f00000]">{formatCurrencyVND(item.price)}</p>
@@ -106,11 +130,20 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                 <div className="total__price flex justify-between gap-5 py-3 border-b-2 border-[#000000]-400">
                     <div className="title__total">
                         <p className="text-[#676767] mb-2">Tạm tính</p>
-                        <p className="text-[#676767]">Phí vận chuyển</p>
+                        <p className="text-[#676767] mb-2">Phí vận chuyển</p>
+                        <p className="text-[#676767]">Mã giảm giá</p>
                     </div>
                     <div className="price__total">
-                        <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(totalPrice)}</p>
-                        <p className="text-[#f00000] font-bold">{formatCurrencyVND(shippingFee)}</p>
+                        <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(subPrice)}</p>
+                        <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(shippingFee)}</p>
+                        <p className="text-[#f00000] font-bold">
+                            {discount
+                                ? discount.discount_type === "percent"
+                                    ? `${discount.discount}%`
+                                    : formatCurrencyVND(discount.discount)
+                                : "Chưa chọn"
+                            }
+                        </p>
                     </div>
                 </div>
                 <div className="total flex justify-between gap-5 py-3 border-b-2 border-[#000000]-400">

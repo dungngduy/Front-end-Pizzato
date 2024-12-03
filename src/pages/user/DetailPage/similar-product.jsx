@@ -2,7 +2,7 @@ import { FaHeart, FaExchangeAlt } from 'react-icons/fa';
 import { memo, useState, useEffect } from 'react';
 import AxiosInstance from 'utils/apiServers';
 import { Link, useParams } from 'react-router-dom';
-import { formatCurrencyVND } from 'utils/format';
+import { formatCurrencyVND, formatImage } from 'utils/format';
 
 const SimilarProducts = () => {
     const { id } = useParams();
@@ -25,7 +25,7 @@ const SimilarProducts = () => {
                 {isSimilarPizza.map((pizza) => (
                     <div key={pizza.id} className="relative group">
                         {/* Product Image */}
-                        <img className="object-cover rounded-md" src={pizza.thumb_image} width={170} height={170} alt={pizza.thumb_image} />
+                        <img className="object-cover rounded-md" src={formatImage(pizza.thumb_image)} width={170} height={170} alt={pizza.thumb_image} />
 
                         {/* Overlay with Icons */}
                         <div className="absolute mx-12 inset-y-px top-1 bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300 flex justify-center items-center gap-3 opacity-0 group-hover:opacity-100">

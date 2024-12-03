@@ -50,7 +50,7 @@ const DetailProduct = () => {
     };
 
     const handleQuantityChange = (value) => {
-        if (value > 0) {
+        if (value > 0 && value <= product?.qty) {
             setQuantity(value);
         }
     };
@@ -108,11 +108,15 @@ const DetailProduct = () => {
     }, [id]);
 
     const handleAddToCart = () => {
-        if(!selectedBases || !selectedEdges || !selectedSizes) {
+        if (
+            (bases.length > 0 && !selectedBases) ||
+            (edges.length > 0 && !selectedEdges) ||
+            (sizes.length > 0 && !selectedSizes)
+        ) {
             alert("Vui lớn chọn đế bánh, viền, cỡ bánh");
             return;
         }
-        const subId = `${product.id}-${selectedBases}-${selectedEdges}-${selectedSizes}`;
+        const subId = `${product.id}-${selectedBases || "Not Updated"}-${selectedEdges || "Not Updated"}-${selectedSizes || "Not Updated"}`;
         const user = JSON.parse(localStorage.getItem("user"));
         const newPizza = {
             subId: subId,
@@ -121,9 +125,9 @@ const DetailProduct = () => {
             price: calculateTotalPrice(),
             image: product.thumb_image,
             quantity: quantity,
-            crust: selectedBases,
-            border: selectedEdges,
-            size: selectedSizes,
+            crust: selectedBases || "",
+            border: selectedEdges || "",
+            size: selectedSizes || "",
             user_id: user?.id
         };
 
@@ -210,64 +214,76 @@ const DetailProduct = () => {
                                 <div>
                                     {/* biến thể */}
                                     {/* Chọn Đế Bánh */}
-                                    <div className="mb-2">
-                                        <span className="font-bold">Chọn Đế Bánh</span>
-                                        <div className="flex gap-4 py-3">
-                                            {bases.map((base) => (
-                                                <label key={base.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                    <input
-                                                        type="radio"
-                                                        name="pizza-crust"
-                                                        value={base.name}
-                                                        checked={selectedBases === base.name}
-                                                        onChange={handleCrustChange}
-                                                        className="form-radio h-4 w-4 text-blue-600"
-                                                    />
-                                                    <span>{base.name}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    {bases.length > 0 ? (
+                                        bases.map((base) => (
+                                            <div className="mb-2">
+                                                <span className="font-bold">Chọn Đế Bánh</span>
+                                                <div className="flex gap-4 py-3">
+                                                    <label key={base.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                                        <input
+                                                            type="radio"
+                                                            name="pizza-crust"
+                                                            value={base.name}
+                                                            checked={selectedBases === base.name}
+                                                            onChange={handleCrustChange}
+                                                            className="form-radio h-4 w-4 text-blue-600"
+                                                        />
+                                                        <span>{base.name}</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        null
+                                    )}
 
                                     {/* Tùy Chọn Viền */}
-                                    <div className="mb-2">
-                                        <span className="font-bold">Tùy Chọn Viền</span>
-                                        <div className="flex gap-4 py-3">
-                                            {edges.map((edge) => (
-                                                <label key={edge.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                    <input
-                                                        type="radio"
-                                                        name="pizza-border"
-                                                        value={edge.name}
-                                                        checked={selectedEdges === edge.name}
-                                                        onChange={handleEdgesChange}
-                                                        className="form-radio h-4 w-4 text-blue-600"
-                                                    />
-                                                    <span>{edge.name}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    {edges.length > 0 ? (
+                                        edges.map((edge) => (
+                                            <div className="mb-2">
+                                                <span className="font-bold">Tùy Chọn Viền</span>
+                                                <div className="flex gap-4 py-3">
+                                                    <label key={edge.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                                        <input
+                                                            type="radio"
+                                                            name="pizza-border"
+                                                            value={edge.name}
+                                                            checked={selectedEdges === edge.name}
+                                                            onChange={handleEdgesChange}
+                                                            className="form-radio h-4 w-4 text-blue-600"
+                                                        />
+                                                        <span>{edge.name}</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        null
+                                    )}
 
                                     {/* Chọn Cỡ Bánh */}
-                                    <div>
-                                        <span className="font-bold">Chọn Cỡ Bánh</span>
-                                        <div className="flex gap-4 py-3">
-                                            {sizes.map((size) => (
-                                                <label key={size.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
-                                                    <input
-                                                        type="radio"
-                                                        name="pizza-size"
-                                                        value={size.name}
-                                                        checked={selectedSizes === size.name}
-                                                        onChange={handleSizeChange}
-                                                        className="form-radio h-4 w-4 text-blue-600"
-                                                    />
-                                                    <span>{size.name}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    {sizes.length > 0 ? (
+                                        sizes.map((size) => (
+                                            <div>
+                                                <span className="font-bold">Chọn Cỡ Bánh</span>
+                                                <div className="flex gap-4 py-3">
+                                                    <label key={size.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                                        <input
+                                                            type="radio"
+                                                            name="pizza-size"
+                                                            value={size.name}
+                                                            checked={selectedSizes === size.name}
+                                                            onChange={handleSizeChange}
+                                                            className="form-radio h-4 w-4 text-blue-600"
+                                                        />
+                                                        <span>{size.name}</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        null
+                                    )}
                                 </div>
                                 {/* biến thể */}
                                 {/* Quantity Selector and Add to Cart */}
@@ -284,6 +300,7 @@ const DetailProduct = () => {
                                             type="number"
                                             value={quantity}
                                             min="1"
+                                            max={product.qty}
                                             onChange={(e) =>
                                                 handleQuantityChange(parseInt(e.target.value))
                                             }

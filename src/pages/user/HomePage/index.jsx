@@ -8,12 +8,10 @@ import Menu from "./menu";
 import Chef from "./chef";
 import Feedback from "./feedback";
 import News from "./news";
-import OrderTimeout from "../OrderTimeOutPage/order-timeout";
 
 const HomePage = () => {
     return (
         <main>
-            <OrderTimeout />
             <Banner />
             <div className="container">
                 {/* New Product */}

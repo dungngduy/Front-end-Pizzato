@@ -49,6 +49,17 @@ const SideBar = () => {
                 </li>
                 <li>
                     <NavLink
+                        to="notification"
+                        className={({ isActive }) =>
+                            `block px-6 py-3 border-b border-[#f0f0f0]-200 transition duration-200 ${isActive ? "bg-[#BC9A6C] text-white" : "hover:bg-[#BC9A6C] hover:text-white"
+                            }`
+                        }
+                    >
+                        🛎️ Thông báo
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
                         to="settings"
                         className={({ isActive }) =>
                             `block px-6 py-3 border-b border-[#f0f0f0]-200 transition duration-200 ${isActive ? "bg-[#BC9A6C] text-white" : "hover:bg-[#BC9A6C] hover:text-white"
