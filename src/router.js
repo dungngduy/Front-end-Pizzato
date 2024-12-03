@@ -18,6 +18,7 @@ import { UseProtectedRoute, UseProtectedRouteCheckout } from 'components/protect
 import PaymentSuccessPage from 'pages/user/PaymentStatusPage/PaymentSuccessPage';
 import PaymentFailedPage from 'pages/user/PaymentStatusPage/PaymentFailedPage';
 import IntroducePage from 'pages/user/IntroducePage';
+import ContactPage from 'pages/user/ContactPage';
 
 const renderUserRouter = () => {
     const userRouter = [
@@ -28,6 +29,10 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.ABOUT,
             element: <AboutPage />,
+        },
+        {
+            path: ROUTER.USER.CONTACT,
+            element: <ContactPage />,
         },
         {
             path: ROUTER.USER.PROFILE,

@@ -91,6 +91,11 @@ const BlogList = () => {
                                     alt={title}
                                     className="w-20 h-16 rounded-md object-cover"
                                 />
+                                     <img
+                                    src="https://www.pizzaexpress.vn/wp-content/uploads/2018/08/p1-e1533617300392-370x275.jpg"
+                                    alt={title}
+                                    className="w-20 h-16 rounded-md object-cover"
+                                />
                                 <p className="text-gray-700">{title}</p>
                             </li>
                         ))}
