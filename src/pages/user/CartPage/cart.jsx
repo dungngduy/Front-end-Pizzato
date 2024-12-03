@@ -129,7 +129,6 @@ const Cart = () => {
                         ))}
                     </div>
                 )}
-
                 {/* Right Box: Order Summary */}
                 <div className="p-4 bg-gray-50 flex flex-col h-full">
                     <div className="flex-grow">
@@ -156,14 +155,12 @@ const Cart = () => {
                         {/* Discount Code */}
                         <div className="flex items-center mt-4 justify-between gap-2">
                         </div>
-
                         {/* Total */}
                         <div className="flex justify-between mt-4 text-lg font-semibold text-gray-800">
                             <span>Tổng cộng</span>
                             <span className="text-orange-500">{formatCurrencyVND(totalPrice)}</span>
                         </div>
                     </div>
-
                     {/* Confirm Button */}
                     <Link to="/checkout">
                         <button className="mt-4 w-full py-2 bg-[#BC9A6C] text-white font-semibold rounded hover:bg-[#BC9A6C]-600 transition duration-200">
@@ -175,5 +172,4 @@ const Cart = () => {
         </div>
     );
 }
-
 export default memo(Cart);

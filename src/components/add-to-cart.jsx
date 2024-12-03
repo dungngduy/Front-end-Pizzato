@@ -7,7 +7,6 @@ export const CartProvider = ({ children }) => {
     const [userId, setUserId] = useState(null);
     const [discount, setDiscount] = useState(null);
 
-    // Hàm lấy userId từ localStorage
     const getUserId = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         return user ? user.id : null;
@@ -51,7 +50,6 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-    // Lấy giỏ hàng từ localStorage khi component được mount
     useEffect(() => {
         const userIdFromStorage = getUserId();
         setUserId(userIdFromStorage);
