@@ -236,6 +236,8 @@ const DetailProduct = () => {
                                     ) : (
                                         null
                                     )}
+
+                                    {/* Tùy Chọn Viền */}
                                     {edges.length > 0 ? (
                                         edges.map((edge) => (
                                             <div className="mb-2">
