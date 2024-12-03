@@ -2,11 +2,11 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className="container py-8">
-      <h1 className="text-2xl font-extrabold text-red-500 mb-6 text-center uppercase tracking-wide">
+    <div className="container py-8 ">
+      <h1 className="text-2xl font-extrabold text-red-500 mb-6 text-center uppercase tracking-wide ">
         A. CHÍNH SÁCH VẬN CHUYỂN, GIAO HÀNG, THANH TOÁN
       </h1>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left ">
         1. Hình thức mua hàng
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -16,7 +16,7 @@ const Contact = () => {
         www.Pizzatos.vn & Ứng dụng Pizzato's Pizza Vietnam và cửa hàng sẽ giao
         hàng đến địa chỉ khách yêu cầu trong đơn hàng.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         2. Giao hàng
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -25,7 +25,7 @@ const Contact = () => {
         vòng 30 phút trong khu vực giao hàng. Thời gian hoạt động: 10h00 – 22h00
         mỗi ngày (Thời gian đặt hàng: 0h00 - 21h30).
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         3. Phương thức thanh toán cho giao hàng
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -36,7 +36,7 @@ const Contact = () => {
         dụng/ghi nợ, Ví MoMo, ZaloPay, ShopeePay trên Website & Ứng dụng của
         Pizzato’s Pizza.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         B. CHÍNH SÁCH ĐIỀU CHỈNH NỘI DUNG ĐƠN HÀNG
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -47,7 +47,7 @@ const Contact = () => {
         thay đổi sản phẩm trong đơn hàng nếu đơn hàng đã và đang được thực hiện
         bởi cửa hàng.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         C. CHÍNH SÁCH BẢO MẬT
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -61,7 +61,7 @@ const Contact = () => {
         Website & Ứng dụng của Pizzato’s Pizza thường xuyên để cập nhật thông
         tin mới.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         1. MỤC ĐÍCH VÀ PHẠM VI THU THẬP
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -80,7 +80,7 @@ const Contact = () => {
         hợp pháp. Pizzato’s Pizza không chịu mọi trách nhiệm liên quan đến pháp
         luật của thông tin khách hàng khai báo.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         2. PHẠM VI SỬ DỤNG THÔNG TIN
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -130,7 +130,7 @@ const Contact = () => {
         dụng các thông tin cá nhân của Quý khách hàng vào những mục đích không
         hợp pháp.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         3. CHIA SẺ THÔNG TIN
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -144,7 +144,7 @@ const Contact = () => {
         cầu về thông tin, phục vụ mục đích điều tra hoặc những yêu cầu khác theo
         quy định của pháp luật.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         1. TÀI KHOẢN SỬ DỤNG CỦA KHÁCH HÀNG
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -155,7 +155,7 @@ const Contact = () => {
         cho tất cả mọi hoạt động diễn ra trong tài khoản hoặc mật mã của khách
         hàng.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         2. TRUY CẬP VÀO WEBSITE & ỨNG DỤNG CỦA Pizzato’S PIZZA (GỌI TẮT LÀ
         WEBSITE, ỨNG DỤNG)
       </h3>
@@ -202,7 +202,7 @@ const Contact = () => {
         ý không van nài, với mục đích thương mại, bất kỳ người sử dụng nào của
         website, ứng dụng để yêu cầu đăng ký
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         3. ĐĂNG KÝ THÔNG TIN CỦA NGƯỜI SỬ DỤNG
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -233,7 +233,7 @@ const Contact = () => {
         Pizzato’s Pizza Vietnam có quyền sử dụng những thông tin này cho mục
         đích quảng cáo trên website, ứng dụng & các kênh truyền thông khác.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         4. TỪ CHỐI BẢO HÀNH
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
@@ -263,7 +263,7 @@ const Contact = () => {
         thông qua trung gian, tốt nhất là khách hàng nên sử dụng khả năng phán
         xét của mình để quyết định thế nào là hợp lý.
       </p>
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-left">
+      <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
         5. HẠN CHẾ VỀ NGHĨA VỤ PHÁP LÝ
       </h3>
       <p className="text-[16px] leading-relaxed text-gray-700">
