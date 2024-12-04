@@ -19,6 +19,7 @@ import PaymentSuccessPage from 'pages/user/PaymentStatusPage/PaymentSuccessPage'
 import PaymentFailedPage from 'pages/user/PaymentStatusPage/PaymentFailedPage';
 import IntroducePage from 'pages/user/IntroducePage';
 import ContactPage from 'pages/user/ContactPage';
+import OrderStatusPage from 'pages/user/OrderStatusPage';
 
 const renderUserRouter = () => {
     const userRouter = [
@@ -96,6 +97,10 @@ const renderUserRouter = () => {
         {
             path: ROUTER.USER.INTRODUCE,
             element: <IntroducePage />,
+        },
+        {
+            path: ROUTER.USER.ORDERSTATUS,
+            element: <OrderStatusPage />,
         }
     ]
 
