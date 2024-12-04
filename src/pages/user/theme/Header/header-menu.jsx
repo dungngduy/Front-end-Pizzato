@@ -9,7 +9,7 @@ import {
 } from 'react-icons/ai';
 import { Link, useLocation } from "react-router-dom";
 import AxiosInstance from "utils/apiServers";
-import { formatCurrencyVND } from "utils/format";
+import { formatCurrencyVND, formatImage } from "utils/format";
 import { ROUTER } from "utils/router";
 import { CartContext } from "components/add-to-cart";
 
@@ -112,7 +112,7 @@ const HeaderMenu = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-3 col-lg-3">
-                            <div className="header__logo w-[190px] h-[110px]">
+                            <div className="header__logo w-[190px] h-[120px]">
                                 <Link to={""}>
                                     <img className="w-full h-full" src="/assets/images/logo-pizzato.png" alt="Logo" />
                                 </Link>
@@ -181,7 +181,7 @@ const HeaderMenu = () => {
                                                             return (
                                                                 <li key={index} className="popup__cart__item">
                                                                     <Link to="">
-                                                                        <img src={item.image} alt={item.name} />
+                                                                        <img src={formatImage(item.image)} alt={item.name} />
                                                                         <div className="popup__cart__item__details">
                                                                             <p className="font-bold hover:text-[#BC9A6C] transition duration-300 text-[16px]">
                                                                                 {item.name}

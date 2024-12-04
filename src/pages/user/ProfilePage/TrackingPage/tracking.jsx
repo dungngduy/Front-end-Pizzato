@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AxiosInstance from "utils/apiServers";
 import Rating from "./rating";
 import Notification from "./notification";
+import Swal from "sweetalert2";
 import { formatCurrencyVND, formatDate } from "utils/format";
 
 const Tracking = () => {
@@ -34,8 +35,37 @@ const Tracking = () => {
         setIsPopupVisibleNotification(true);
     };
 
-    const handleCancelOrderCOD = () => {
-        alert('Hủy đơn hàng thành công');
+    const handleCancelOrderCOD = async (order) => {
+        try {
+            const confirmCancel = await Swal.fire({
+                title: "Xóa đơn hàng?",
+                text: "Bạn có chắc chắn muốn xóa đơn hàng này không?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Xóa",
+                cancelButtonText: "Hủy",
+            })
+
+            if (!confirmCancel.isConfirmed) return;
+    
+            const response = await AxiosInstance.put(`/order/${order.id}`);
+    
+            if (response.status === 200) {
+                await Swal.fire({
+                    title: "Xóa đơn hàng thành công!",
+                    text: "Đơn hàng của bạn đã được xử lý",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+
+                const updatedOrders = await AxiosInstance.get(`/orders?user_id=${order.user_id}`);
+                setOrderList(updatedOrders.data.orders);
+            } else {
+                throw new Error("Có lỗi xảy ra khi hủy đơn hàng.");
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -130,7 +160,7 @@ const Tracking = () => {
                                                         order.payment_method === "vnpay" ? (
                                                             <button onClick={() => handleCancelOrderVNpay(order)} className="px-2 py-2 rounded-lg border border-[#ff0000] bg-[#ff0000] text-white">Hủy đơn hàng</button>
                                                         ) : (
-                                                            <button onClick={handleCancelOrderCOD} className="px-2 py-2 rounded-lg border border-[#ff0000] bg-[#ff0000] text-white">Hủy đơn hàng</button>
+                                                            <button onClick={() => handleCancelOrderCOD(order)} className="px-2 py-2 rounded-lg border border-[#ff0000] bg-[#ff0000] text-white">Hủy đơn hàng</button>
                                                         )
                                                     )}
                                                     {order.order_status === "completed" && (
@@ -144,7 +174,7 @@ const Tracking = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="6" className="py-4 text-center">
+                                <td colSpan="7" className="py-4 text-center">
                                     Không có đơn hàng
                                 </td>
                             </tr>
