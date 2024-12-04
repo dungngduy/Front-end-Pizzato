@@ -1,10 +1,34 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import {
-    MdDateRange,
-    MdOutlineTrendingFlat
-} from "react-icons/md";
+import { MdDateRange, MdOutlineTrendingFlat } from "react-icons/md";
 import { PiUser } from "react-icons/pi";
+
+const newsData = [
+    {
+        date: "19-05-2024",
+        author: "Nguyễn Duy Dũng",
+        title: "Bí quyết tự làm bánh Pizza ngon như nhà hàng",
+        description: "Pizza là một trong những món ăn nhanh phổ biến nhất trên thế giới. Trên thực tế hiện nay có thể tìm thấy món ăn này ở bất cứ quốc gia nào mà bạn đặt chân đến.",
+        image: "https://bepxua.vn/wp-content/uploads/2021/01/lam-banh-pizza-tai-nha-2.jpg",
+        link: "/blog"
+    },
+    {
+        date: "20-05-2024",
+        author: "Trần Minh Tuấn",
+        title: "Top 5 loại nhân Pizza hấp dẫn nhất thế giới",
+        description: "Cùng khám phá các loại nhân pizza độc đáo nhất mà bạn không nên bỏ qua. Từ nhân hải sản đến nhân phô mai tràn đầy hương vị.",
+        image: "https://cdn.tgdd.vn/2021/08/CookProduct/cacloai(4)-1200x676.jpg",
+        link: "/blog"
+    },
+    {
+        date: "21-05-2024",
+        author: "Lê Hải Đăng",
+        title: "Lịch sử và sự phát triển của món Pizza",
+        description: "Pizza có nguồn gốc từ Ý và đã phát triển thành một món ăn phổ biến trên toàn cầu. Tìm hiểu hành trình thú vị của món ăn này qua các thời kỳ.",
+        image: "https://veronapizza.vn/wp-content/uploads/2024/01/z4944987098497_a7045891a26d642c19ee896aafe7ed1a.jpg",
+        link: "/blog"
+    }
+];
 
 const News = () => {
     return (
@@ -17,99 +41,36 @@ const News = () => {
                 </p>
             </div>
             <div className="row-grid-4">
-                <div className="g-xl-4" data-aos="fade-up">
-                    <div className="new__item">
-                        <div className="news__image">
-                            <img src="/assets/images/news.jpg" alt="News" />
-                        </div>
-                        <div className="new__content">
-                            <div className="new__author">
-                                <div className="date">
-                                    <MdDateRange />
-                                    <p>19-05-2024</p>
-                                </div>
-                                <div className="author">
-                                    <PiUser />
-                                    <p>Nguyễn Duy Dũng</p>
-                                </div>
+                {newsData.map((news, index) => (
+                    <div className="g-xl-4" data-aos="fade-up" key={index}>
+                        <div className="new__item">
+                            <div className="news__image">
+                                <img src={news.image} alt={news.title} />
                             </div>
-                            <div className="new__info">
-                                <Link to="">
-                                    <h2>Bí quyết tự làm bánh Pizza ngon như nhà hàng</h2>
-                                    <p>
-                                        Pizza là một trong những món ăn nhanh phổ biến nhất trên thế giới.
-                                        Trên thực tế hiện nay có thể tìm thấy món ăn này ở bất cứ quốc gia nào mà bạn đặt chân đến
-                                    </p>
-                                    <div className="new__button">
-                                        <button type="button" className="href__button">Đọc tiếp <MdOutlineTrendingFlat /></button>
+                            <div className="new__content">
+                                <div className="new__author">
+                                    <div className="date">
+                                        <MdDateRange />
+                                        <p>{news.date}</p>
                                     </div>
-                                </Link>
+                                    <div className="author">
+                                        <PiUser />
+                                        <p>{news.author}</p>
+                                    </div>
+                                </div>
+                                <div className="new__info">
+                                    <Link to={news.link}>
+                                        <h2>{news.title}</h2>
+                                        <p>{news.description}</p>
+                                        <div className="new__button">
+                                            <button type="button" className="href__button">Đọc tiếp <MdOutlineTrendingFlat /></button>
+                                        </div>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="g-xl-4" data-aos="fade-up">
-                    <div className="new__item">
-                        <div className="news__image">
-                            <img src="/assets/images/news.jpg" alt="News" />
-                        </div>
-                        <div className="new__content">
-                            <div className="new__author">
-                                <div className="date">
-                                    <MdDateRange />
-                                    <p>19-05-2024</p>
-                                </div>
-                                <div className="author">
-                                    <PiUser />
-                                    <p>Nguyễn Duy Dũng</p>
-                                </div>
-                            </div>
-                            <div className="new__info">
-                                <Link to="">
-                                    <h2>Bí quyết tự làm bánh Pizza ngon như nhà hàng</h2>
-                                    <p>
-                                        Pizza là một trong những món ăn nhanh phổ biến nhất trên thế giới.
-                                        Trên thực tế hiện nay có thể tìm thấy món ăn này ở bất cứ quốc gia nào mà bạn đặt chân đến
-                                    </p>
-                                    <div className="new__button">
-                                        <button type="button" className="href__button">Đọc tiếp <MdOutlineTrendingFlat /></button>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="g-xl-4" data-aos="fade-up">
-                    <div className="new__item">
-                        <div className="news__image">
-                            <img src="/assets/images/news.jpg" alt="News" />
-                        </div>
-                        <div className="new__content">
-                            <div className="new__author">
-                                <div className="date">
-                                    <MdDateRange />
-                                    <p>19-05-2024</p>
-                                </div>
-                                <div className="author">
-                                    <PiUser />
-                                    <p>Nguyễn Duy Dũng</p>
-                                </div>
-                            </div>
-                            <div className="new__info">
-                                <Link to="">
-                                    <h2>Bí quyết tự làm bánh Pizza ngon như nhà hàng</h2>
-                                    <p>
-                                        Pizza là một trong những món ăn nhanh phổ biến nhất trên thế giới.
-                                        Trên thực tế hiện nay có thể tìm thấy món ăn này ở bất cứ quốc gia nào mà bạn đặt chân đến
-                                    </p>
-                                    <div className="new__button">
-                                        <button type="button" className="href__button">Đọc tiếp <MdOutlineTrendingFlat /></button>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );

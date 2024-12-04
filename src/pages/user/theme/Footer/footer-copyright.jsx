@@ -14,7 +14,7 @@ const FooterCopyright = () => {
                 <div className="row footer__copyright">
                     <div className="col-xl-6 footer__copyright__text">
                         <ul>
-                            <li>Copyright © 2024. All rights reserved</li>
+                            <li>Design and Development by WD-65</li>
                         </ul>
                     </div>
                     <div className="col-xl-6">
