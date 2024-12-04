@@ -13,6 +13,7 @@ const ListProduct = () => {
     const [viewMode, setViewMode] = useState('Kanban');
     const [inputValue, setInputValue] = useState([20000, 500000]);
     const [menus, setMenus] = useState([]);
+    const [pizzaRatingOnTop, setPizzaRatingOnTop] = useState([]);
     const [filteredMenus, setFilteredMenus] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProduct, setTotalItems] = useState(0);
@@ -76,6 +77,14 @@ const ListProduct = () => {
         setSearchTerm(value); // Set searchTerm here
         setCurrentPage(1);  // Reset to first page when searching
     };
+
+    useEffect(() => {
+        AxiosInstance.get(`/pizza-rating`)
+            .then(res => {
+                setPizzaRatingOnTop(res.data.productRating);
+            })
+            .catch(err => console.error(err));
+    }, []);
 
     return (
         <div className="container">
@@ -221,54 +230,20 @@ const ListProduct = () => {
                     </div>
                     <div className="category__sidebar__lastest-product">
                         <h2>Đánh giá cao nhất</h2>
-                        <div className="category__sidebar__lastest-product__item">
-                            <Link to={""}>
-                                <div className="lastest-product__item__image">
-                                    <img src="/assets/images/products/product-1.jpg" alt="Product 1" />
-                                </div>
-                                <div className="lastest-product__item__info">
-                                    <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
-                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                    <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="category__sidebar__lastest-product__item">
-                            <Link to={""}>
-                                <div className="lastest-product__item__image">
-                                    <img src="/assets/images/products/product-1.jpg" alt="Product 1" />
-                                </div>
-                                <div className="lastest-product__item__info">
-                                    <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
-                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                    <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="category__sidebar__lastest-product__item">
-                            <Link to={""}>
-                                <div className="lastest-product__item__image">
-                                    <img src="/assets/images/products/product-1.jpg" alt="Product 1" />
-                                </div>
-                                <div className="lastest-product__item__info">
-                                    <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
-                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                    <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
-                                </div>
-                            </Link>
-                        </div>
-                        <div className="category__sidebar__lastest-product__item">
-                            <Link to={""}>
-                                <div className="lastest-product__item__image">
-                                    <img src="/assets/images/products/product-1.jpg" alt="Product 1" />
-                                </div>
-                                <div className="lastest-product__item__info">
-                                    <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
-                                    <Rate allowHalf disabled defaultValue={4.5} />
-                                    <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
-                                </div>
-                            </Link>
-                        </div>
+                        {pizzaRatingOnTop.map((pizza, index) => (
+                            <div className="category__sidebar__lastest-product__item">
+                                <Link to={""}>
+                                    <div className="lastest-product__item__image">
+                                        <img src={formatImage(pizza.image)} alt={pizza.name} />
+                                    </div>
+                                    <div className="lastest-product__item__info">
+                                        <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
+                                        <Rate allowHalf disabled defaultValue={4.5} />
+                                        <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
                     </div>
                     <div className="category__sidebar__product-tags">
                         <h2>Tags</h2>
