@@ -214,12 +214,15 @@ const DetailProduct = () => {
                                 <div>
                                     {/* biến thể */}
                                     {/* Chọn Đế Bánh */}
-                                    {bases.length > 0 ? (
-                                        bases.map((base) => (
-                                            <div className="mb-2">
-                                                <span className="font-bold">Chọn Đế Bánh</span>
-                                                <div className="flex gap-4 py-3">
-                                                    <label key={base.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                    {bases.length > 0 && (
+                                        <div className="mb-2">
+                                            <span className="font-bold">Chọn Đế Bánh</span>
+                                            <div className="flex gap-4 py-3">
+                                                {bases.map((base) => (
+                                                    <label
+                                                        key={base.id}
+                                                        className="flex items-center gap-2 text-gray-600 text-[15px]"
+                                                    >
                                                         <input
                                                             type="radio"
                                                             name="pizza-crust"
@@ -230,20 +233,20 @@ const DetailProduct = () => {
                                                         />
                                                         <span>{base.name}</span>
                                                     </label>
-                                                </div>
+                                                ))}
                                             </div>
-                                        ))
-                                    ) : (
-                                        null
+                                        </div>
                                     )}
 
-                                    {/* Tùy Chọn Viền */}
-                                    {edges.length > 0 ? (
-                                        edges.map((edge) => (
-                                            <div className="mb-2">
-                                                <span className="font-bold">Tùy Chọn Viền</span>
-                                                <div className="flex gap-4 py-3">
-                                                    <label key={edge.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                    {edges.length > 0 && (
+                                        <div className="mb-2">
+                                            <span className="font-bold">Tùy Chọn Viền</span>
+                                            <div className="flex gap-4 py-3">
+                                                {edges.map((edge) => (
+                                                    <label
+                                                        key={edge.id}
+                                                        className="flex items-center gap-2 text-gray-600 text-[15px]"
+                                                    >
                                                         <input
                                                             type="radio"
                                                             name="pizza-border"
@@ -254,20 +257,20 @@ const DetailProduct = () => {
                                                         />
                                                         <span>{edge.name}</span>
                                                     </label>
-                                                </div>
+                                                ))}
                                             </div>
-                                        ))
-                                    ) : (
-                                        null
+                                        </div>
                                     )}
 
-                                    {/* Chọn Cỡ Bánh */}
-                                    {sizes.length > 0 ? (
-                                        sizes.map((size) => (
-                                            <div>
-                                                <span className="font-bold">Chọn Cỡ Bánh</span>
-                                                <div className="flex gap-4 py-3">
-                                                    <label key={size.id} className="flex items-center gap-2 text-gray-600 text-[15px]">
+                                    {sizes.length > 0 && (
+                                        <div>
+                                            <span className="font-bold">Chọn Cỡ Bánh</span>
+                                            <div className="flex gap-4 py-3">
+                                                {sizes.map((size) => (
+                                                    <label
+                                                        key={size.id}
+                                                        className="flex items-center gap-2 text-gray-600 text-[15px]"
+                                                    >
                                                         <input
                                                             type="radio"
                                                             name="pizza-size"
@@ -278,11 +281,9 @@ const DetailProduct = () => {
                                                         />
                                                         <span>{size.name}</span>
                                                     </label>
-                                                </div>
+                                                ))}
                                             </div>
-                                        ))
-                                    ) : (
-                                        null
+                                        </div>
                                     )}
                                 </div>
                                 {/* biến thể */}
