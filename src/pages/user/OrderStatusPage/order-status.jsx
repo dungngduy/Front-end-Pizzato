@@ -66,14 +66,26 @@ const OrderStatus = () => {
             </div>
           </div>
 
-         
+          <div className="flex items-start">
+            <div className="w-4 h-4 bg-green-500 rounded-full mt-1"></div>
+            <div className="ml-4">
+              <p className="text-sm font-medium">08:42 27-11-2024</p>
+              <p className="text-sm text-gray-500">Đang vận chuyển</p>
+            </div>
+          </div>
 
           {/* Add more timeline items as needed */}
         </div>
       </div>
 
       {/* Action Buttons */}
-     
+      <div className="bg-white shadow-md rounded-md p-4 flex justify-between items-center">
+        <button className="bg-red-500 text-white px-4 py-2 rounded-md">Đã Nhận Hàng</button>
+        <div className="flex space-x-2">
+          <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md">Yêu Cầu Trả Hàng/Hoàn Tiền</button>
+          <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md">Liên Hệ Người Bán</button>
+        </div>
+      </div>
     </div>
   );
 };
