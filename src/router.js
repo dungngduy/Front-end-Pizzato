@@ -18,7 +18,7 @@ import { UseProtectedRoute, UseProtectedRouteCheckout } from 'components/protect
 import PaymentSuccessPage from 'pages/user/PaymentStatusPage/PaymentSuccessPage';
 import PaymentFailedPage from 'pages/user/PaymentStatusPage/PaymentFailedPage';
 import IntroducePage from 'pages/user/IntroducePage';
-import ContactPage from 'pages/user/ContactPage';
+import PolicyPage from 'pages/user/PolicyPage';
 import OrderStatusPage from 'pages/user/OrderStatusPage';
 
 const renderUserRouter = () => {
@@ -32,8 +32,8 @@ const renderUserRouter = () => {
             element: <AboutPage />,
         },
         {
-            path: ROUTER.USER.CONTACT,
-            element: <ContactPage />,
+            path: ROUTER.USER.POLICY,
+            element: <PolicyPage />,
         },
         {
             path: ROUTER.USER.PROFILE,

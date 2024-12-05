@@ -41,17 +41,15 @@ const SimilarProducts = () => {
                             {/* pizza Info */}
                             <div className="mt-4 px-4">
                                 <div className="h-20 flex flex-col justify-between">
-                                    <Link to={`/detail/${pizza.id}`}>
-                                        <h3 className="text-l font-bold">{pizza.name}</h3>
-                                        <div className='flex gap-2'>
-                                            <div className="text-yellow-600 text-x ">{formatCurrencyVND(pizza.offer_price)}</div>
-                                            <div>
-                                                {pizza.price && (
-                                                    <div className="text-gray-500 line-through text-x">{formatCurrencyVND(pizza.price)}</div>
-                                                )}
-                                            </div>
+                                    <h3 className="text-l font-bold">{pizza.name}</h3>
+                                    <div className='flex gap-2'>
+                                        <div className="text-yellow-600 text-x ">{formatCurrencyVND(pizza.offer_price)}</div>
+                                        <div>
+                                            {pizza.price && (
+                                                <div className="text-gray-500 line-through text-x">{formatCurrencyVND(pizza.price)}</div>
+                                            )}
                                         </div>
-                                    </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>

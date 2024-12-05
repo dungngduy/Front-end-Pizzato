@@ -1,5 +1,6 @@
 import { memo } from "react";
-import 'assets/user/scss/home-page.scss'; 
+import { Helmet } from "react-helmet-async";
+import 'assets/user/scss/home-page.scss';
 import Banner from "./banner";
 import NewProduct from "./new-product";
 import Category from "./category";
@@ -11,33 +12,39 @@ import News from "./news";
 
 const HomePage = () => {
     return (
-        <main>
-            <Banner />
-            <div className="container">
-                {/* New Product */}
-                <NewProduct />
+        <>
+            <Helmet>
+                <title>Trang chủ - Pizzato</title>
+                <meta name="description" content="Đây là trang chủ của website." />
+            </Helmet>
+            <main>
+                <Banner />
+                <div className="container">
+                    {/* New Product */}
+                    <NewProduct />
 
-                {/* Categories */}
-                <Category />
-                
-                {/* Choose Food */}
-                <ChooseFood />
+                    {/* Categories */}
+                    <Category />
 
-                {/* Menu */}
-                <Menu />
-            </div>
+                    {/* Choose Food */}
+                    <ChooseFood />
 
-            {/* Sub-banner */}
-            <Chef />
+                    {/* Menu */}
+                    <Menu />
+                </div>
 
-            <div className="container">
-                {/* Feedback */}
-                <Feedback />
-                
-                {/* News */}
-                <News />
-            </div>
-        </main>
+                {/* Sub-banner */}
+                <Chef />
+
+                <div className="container">
+                    {/* Feedback */}
+                    <Feedback />
+
+                    {/* News */}
+                    <News />
+                </div>
+            </main>
+        </>
     );
 };
 

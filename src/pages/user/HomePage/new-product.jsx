@@ -3,10 +3,12 @@ import { Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import AxiosInstance from "utils/apiServers";
 import { formatCurrencyVND, formatImage } from "utils/format";
+import useIncrementView from 'components/increment-view';
 
 const NewProduct = () => {
     const [hotProduct, setHotProduct] = useState([]);
     const [gallaries, setGallaries] = useState([]);
+    const { incrementView } = useIncrementView();
 
     useEffect(() => {
         AxiosInstance.get("/hot-product")
@@ -15,6 +17,10 @@ const NewProduct = () => {
                 setGallaries(res.data.gallaries);
             })
     }, []);
+
+    const handleProductClick = (productId) => {
+        incrementView(productId);
+    };
 
     return (
         <div className="row new__product__container">
@@ -53,7 +59,7 @@ const NewProduct = () => {
                                 </div>
                             </div>
                             <div className="new__product__button" data-aos="fade-right">
-                                <Link to={`/detail/${item.id}`}><button type="button">Đọc thêm</button></Link>
+                                <Link onClick={() => handleProductClick(item.id)} to={`/detail/${item.id}`}><button type="button">Đọc thêm</button></Link>
                             </div>
                         </div>
                     )
@@ -76,7 +82,7 @@ const NewProduct = () => {
                                     data-aos="zoom-in"
                                     key={index}
                                 >
-                                    <img src={item.image} alt={`new-pro-${index + 1}`} />
+                                    <img src={formatImage(item.galleries)} alt={`new-pro-${index + 1}`} />
                                 </div>
                             )
                         })}

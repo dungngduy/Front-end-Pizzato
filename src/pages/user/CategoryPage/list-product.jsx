@@ -4,6 +4,7 @@ import { Rate, Segmented, Select, Slider, Pagination, Input, Checkbox, Tag } fro
 import { AppstoreOutlined, BarsOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { BsFillShareFill, BsSuitHeart, BsHandbag } from 'react-icons/bs';
 import { formatCurrencyVND, formatImage } from 'utils/format';
+import useIncrementView from 'components/increment-view';
 import AxiosInstance from 'utils/apiServers';
 
 // Destructure Search from Input
@@ -16,6 +17,7 @@ const ListProduct = () => {
     const [pizzaRating, setPizzaRating] = useState(null);
     const [pizzaRatingOnTop, setPizzaRatingOnTop] = useState([]);
     const [filteredMenus, setFilteredMenus] = useState([]);
+    const { incrementView } = useIncrementView();
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProduct, setTotalItems] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
@@ -95,6 +97,10 @@ const ListProduct = () => {
             .catch(err => console.error(err));
     }, []);
 
+    const handleProductClick = (productId) => {
+        incrementView(productId);
+    };
+
     return (
         <div className="container">
             <div className="row category__container">
@@ -124,7 +130,7 @@ const ListProduct = () => {
                                 <div key={index} className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                     <div className="product__item">
                                         <div className="product__item__image">
-                                            <Link to={`/detail/${menu.id}`}>
+                                            <Link onClick={() => handleProductClick(menu.id)} to={`/detail/${menu.id}`}>
                                                 <img src={formatImage(menu.thumb_image)} alt={menu.thumb_image} />
                                                 {viewMode === 'Kanban' && (
                                                     <div className="product__item__icons">
@@ -135,7 +141,7 @@ const ListProduct = () => {
                                                 )}
                                             </Link>
                                         </div>
-                                        <Link to={`/detail/${menu.id}`}>
+                                        <Link onClick={() => handleProductClick(menu.id)} to={`/detail/${menu.id}`}>
                                             <div className="product__item__info">
                                                 {viewMode === 'List' && (
                                                     <div className={`${viewMode === 'List'}`}>

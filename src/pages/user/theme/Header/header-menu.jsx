@@ -43,7 +43,7 @@ const HeaderMenu = () => {
         },
         {
             name: "Chính sách",
-            path: ROUTER.USER.CONTACT,
+            path: ROUTER.USER.POLICY,
         }
     ]);
 
