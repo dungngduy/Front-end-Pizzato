@@ -1,13 +1,20 @@
 import { memo } from "react";
-import "assets/user/scss/category-page.scss"; 
+import { Helmet } from "react-helmet-async";
+import "assets/user/scss/category-page.scss";
 import BlogList from "./blog";
 import BannerBlog from "./banner-blog";
 const BlogPage = () => {
     return (
-        <main>
-            <BannerBlog/>
-            <BlogList></BlogList>
-        </main>
+        <>
+            <Helmet>
+                <title>Bài viết - Pizzato</title>
+                <meta name="description" content="Đây là trang bài viết của website." />
+            </Helmet>
+            <main>
+                <BannerBlog />
+                <BlogList />
+            </main>
+        </>
     );
 };
 

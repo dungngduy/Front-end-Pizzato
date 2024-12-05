@@ -5,7 +5,7 @@ import { ROUTER } from 'utils/router';
 const BannerCategory = () => {
     const breadcrumbItems = [
         { title: 'Trang chủ', url: ROUTER.USER.HOME },
-        { title: 'Bài viết', url: ROUTER.USER.CONTACT, className: 'focus__link' },
+        { title: 'Bài viết', url: ROUTER.USER.BLOG, className: 'focus__link' },
     ];
     
     return (

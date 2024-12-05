@@ -5,13 +5,15 @@ import RouterCustom from './router';
 import './styles/style.scss';
 import './index.css';
 import { CartProvider } from 'components/add-to-cart';
+import { HelmetProvider } from "react-helmet-async";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    {/* Bọc toàn bộ ứng dụng với CartProvider */}
-    <CartProvider>
-      <RouterCustom />
-    </CartProvider>
-  </BrowserRouter>
+  <HelmetProvider>
+    <BrowserRouter>
+      <CartProvider>
+        <RouterCustom />
+      </CartProvider>
+    </BrowserRouter>
+  </HelmetProvider>
 );

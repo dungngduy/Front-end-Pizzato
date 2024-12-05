@@ -146,6 +146,8 @@ const DetailProduct = () => {
             });
     }, [id]);
 
+    const avgReview = parseFloat((reviews.map((review) => review.rating).reduce((a, b) => a + b, 0) / reviews.length).toFixed(1));
+
     return (
         <div>
             <div className="container mx-auto p-2 py-[85px] w-[1200px]">
@@ -154,9 +156,9 @@ const DetailProduct = () => {
                     <div className="flex gap-10 w-full">
                         <div className="flex flex-col gap-5">
                             {/* Main Product Image */}
-                            <div>
+                            <div className="w-[520px] h-[520px]">
                                 <img
-                                    className="w-[520px] h-[500px] rounded-lg"
+                                    className="w-[100%] h-[100%] rounded-lg"
                                     src={formatImage(selectedImage)}
                                     alt="Main Product"
                                 />
@@ -190,7 +192,7 @@ const DetailProduct = () => {
 
                                 {/* Product Description */}
                                 <p className="text-gray-600 text-[16px] w-[500px]">
-                                    {product.long_description}
+                                    {product.short_description}
                                 </p>
 
                                 <div className="mt-14 border-t border-gray-300 w-[480px]"></div>
@@ -206,10 +208,10 @@ const DetailProduct = () => {
                                         className="text-[16px]"
                                         allowHalf
                                         disabled
-                                        defaultValue={4.5}
+                                        defaultValue={avgReview}
                                     />
-                                    <span className="text-gray-600">5.0 Đánh giá</span>
-                                    <span className="text-gray-500">| 22 Lượt xem</span>
+                                    <span className="text-gray-600">{avgReview} đánh giá</span>
+                                    <span className="text-gray-500">| {product.view} Lượt xem</span>
                                 </div>
                                 <div>
                                     {/* biến thể */}
