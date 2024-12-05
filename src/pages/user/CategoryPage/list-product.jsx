@@ -11,8 +11,9 @@ const { Search } = Input;
 
 const ListProduct = () => {
     const [viewMode, setViewMode] = useState('Kanban');
-    const [inputValue, setInputValue] = useState([20000, 500000]);
+    const [inputValue, setInputValue] = useState([0, 500000]);
     const [menus, setMenus] = useState([]);
+    const [pizzaRating, setPizzaRating] = useState(null);
     const [pizzaRatingOnTop, setPizzaRatingOnTop] = useState([]);
     const [filteredMenus, setFilteredMenus] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -80,6 +81,14 @@ const ListProduct = () => {
 
     useEffect(() => {
         AxiosInstance.get(`/pizza-rating`)
+            .then(res => {
+                setPizzaRating(res.data.productRating);
+            })
+            .catch(err => console.error(err));
+    }, []);
+
+    useEffect(() => {
+        AxiosInstance.get(`/pizza-rating-on-top`)
             .then(res => {
                 setPizzaRatingOnTop(res.data.productRating);
             })
@@ -202,17 +211,23 @@ const ListProduct = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="category__sidebar__hot-product" style={{ backgroundImage: `url("/assets/images/products/product-1.jpg")` }}>
+                    <div className="category__sidebar__hot-product" style={{ backgroundImage: pizzaRating?.thumb_image ? `url(${pizzaRating.thumb_image})` : '' }}>
                         <div className="overlay__hot-product">
-                            <div className="content__hot-product">
-                                <div className="content__hot-product__title">
-                                    <h2>Pizza Mozzarella siêu ngon</h2>
-                                    <p>120.000đ - 150.000đ</p>
+                            {pizzaRating ? (
+                                <div className="content__hot-product" key={pizzaRating.id}>
+                                    <div className="content__hot-product__title">
+                                        <h2>{pizzaRating.name}</h2>
+                                        <p>{formatCurrencyVND(pizzaRating.offer_price)}</p>
+                                    </div>
+                                    <div className="content__hot-product__link">
+                                        <Link to={`/product/${pizzaRating.id}`}>
+                                            Xem chi tiết <ArrowRightOutlined />
+                                        </Link>
+                                    </div>
                                 </div>
-                                <div className="content__hot-product__link">
-                                    <Link to={""}>Xem chi tiết <ArrowRightOutlined /></Link>
-                                </div>
-                            </div>
+                            ) : (
+                                <p>Đang tải dữ liệu...</p>
+                            )}
                         </div>
                     </div>
                     <div className="category__sidebar__filter-price">
@@ -221,7 +236,7 @@ const ListProduct = () => {
                             <Slider
                                 range
                                 min={0}
-                                max={500000}
+                                max={5000000}
                                 value={inputValue}
                                 onChange={onChangePrice}
                             />
@@ -231,15 +246,15 @@ const ListProduct = () => {
                     <div className="category__sidebar__lastest-product">
                         <h2>Đánh giá cao nhất</h2>
                         {pizzaRatingOnTop.map((pizza, index) => (
-                            <div className="category__sidebar__lastest-product__item">
+                            <div key={index} className="category__sidebar__lastest-product__item">
                                 <Link to={""}>
                                     <div className="lastest-product__item__image">
-                                        <img src={formatImage(pizza.image)} alt={pizza.name} />
+                                        <img src={formatImage(pizza.thumb_image)} alt={pizza.name} />
                                     </div>
                                     <div className="lastest-product__item__info">
-                                        <h4 className="lastest-product__item__name">Pizza Mozzarella</h4>
-                                        <Rate allowHalf disabled defaultValue={4.5} />
-                                        <p className="lastest-product__item__price">120.000đ - 150.000đ</p>
+                                        <h4 className="lastest-product__item__name">{pizza.name}</h4>
+                                        <Rate allowHalf disabled defaultValue={pizza.avg_rating} />
+                                        <p className="lastest-product__item__price">{formatCurrencyVND(pizza.offer_price)}</p>
                                     </div>
                                 </Link>
                             </div>
@@ -248,11 +263,9 @@ const ListProduct = () => {
                     <div className="category__sidebar__product-tags">
                         <h2>Tags</h2>
                         <div className="category__sidebar__product-tags__list">
-                            <Tag color="#BC9A6C">Tag 1</Tag>
-                            <Tag color="#BC9A6C">Tag 2</Tag>
-                            <Tag color="#BC9A6C">Tag 3</Tag>
-                            <Tag color="#BC9A6C">Tag 4</Tag>
-                            <Tag color="#BC9A6C">Tag 5</Tag>
+                            <Tag color="#BC9A6C">Pizza</Tag>
+                            <Tag color="#BC9A6C">Pizza ngon</Tag>
+                            <Tag color="#BC9A6C">Hải sản</Tag>
                         </div>
                     </div>
                 </div>
