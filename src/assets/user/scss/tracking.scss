@@ -31,3 +31,23 @@
     opacity: 1;
     visibility: visible;
 }
+
+.scrollbar-order {
+    scrollbar-width: thin !important;
+    scrollbar-color: #BC9A6C #f5f5f5 !important;
+    padding-right: 10px;
+}
+
+.scrollbar-order::-webkit-scrollbar {
+    width: 4px !important;
+    height: 4px !important;
+}
+
+.scrollbar-order::-webkit-scrollbar-track {
+    background: #f5f5f5 !important;
+}
+
+.scrollbar-order::-webkit-scrollbar-thumb {
+    background-color: #BC9A6C !important;
+    border-radius: 2px !important;
+}

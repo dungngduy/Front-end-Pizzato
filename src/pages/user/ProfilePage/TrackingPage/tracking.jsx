@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AxiosInstance from "utils/apiServers";
 import Rating from "./rating";
 import Notification from "./notification";
+import OrderDetail from "./order-detail";
 import Swal from "sweetalert2";
 import { formatCurrencyVND, formatDate } from "utils/format";
 
@@ -12,6 +13,7 @@ const Tracking = () => {
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [isPopupVisibleRating, setIsPopupVisibleRating] = useState(false);
     const [isPopupVisibleNotification, setIsPopupVisibleNotification] = useState(false);
+    const [isPopupVisibleOrderDetail, setIsPopupVisibleOrderDetail] = useState(false);
 
     const user = JSON.parse(localStorage.getItem("user"));
 
@@ -33,6 +35,11 @@ const Tracking = () => {
     const handleCancelOrderVNpay = (order) => {
         setSelectedOrder(order);
         setIsPopupVisibleNotification(true);
+    };
+
+    const handleViewOrderDetail = (order) => {
+        setSelectedOrder(order);
+        setIsPopupVisibleOrderDetail(true);
     };
 
     const handleCancelOrderCOD = async (order) => {
@@ -155,7 +162,7 @@ const Tracking = () => {
                                                 <p className="text-red-500 font-semibold">Đơn hàng đã bị hủy</p>
                                             ) : (
                                                 <>
-                                                    <button className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white">Chi tiết</button>
+                                                    <button onClick={() => handleViewOrderDetail(order)} className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white">Chi tiết</button>
                                                     {order.order_status !== "completed" && order.order_status !== "processing" && (
                                                         order.payment_method === "vnpay" ? (
                                                             <button onClick={() => handleCancelOrderVNpay(order)} className="px-2 py-2 rounded-lg border border-[#ff0000] bg-[#ff0000] text-white">Hủy đơn hàng</button>
@@ -185,6 +192,7 @@ const Tracking = () => {
 
             {isPopupVisibleRating && <Rating onClose={() => setIsPopupVisibleRating(false)} order={selectedOrder} />}
             {isPopupVisibleNotification && <Notification onClose={() => setIsPopupVisibleNotification(false)} order={selectedOrder} />}
+            {isPopupVisibleOrderDetail && <OrderDetail onClose={() => setIsPopupVisibleOrderDetail(false)} order={selectedOrder} />}
         </div>
     );
 };

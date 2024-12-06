@@ -4,7 +4,7 @@ import { formatCurrencyVND } from "utils/format";
 import { CartContext } from "components/add-to-cart";
 import "assets/user/scss/tracking.scss";
 
-const Discount = ({ isOpen, setIsOpen, selectedCode, setSelectedCode }) => {
+const Discount = ({ isOpen, setIsOpen, selectedCode, setSelectedCode, subPrice }) => {
     const [discountCodes, setDiscountCodes] = useState([]);
     const { applyDiscount } = useContext(CartContext);
 
@@ -32,33 +32,39 @@ const Discount = ({ isOpen, setIsOpen, selectedCode, setSelectedCode }) => {
                 {/* Header */}
                 <div className="text-lg font-bold text-gray-800 border-b pb-2 mb-4">Mã giảm giá</div>
                 {/* Danh sách mã giảm giá */}
-                <div className="overflow-y-auto custom-scrollbar max-h-[254px]">
-                    {discountCodes.map((discount) => (
-                        <div
-                            key={discount.id}
-                            className="flex items-center justify-between p-2 border rounded-lg mb-2 cursor-pointer hover:bg-gray-100"
-                            onClick={() => handleApplyDiscount(discount)}
-                        >
-                            <div className="flex items-center space-x-4">
-                                <div className="bg-orange-500 text-white font-bold text-lg px-3 py-2 rounded">
-                                    {discount.name}
+                <div className="overflow-y-auto custom-scrollbar max-h-[310px]">
+                    {discountCodes.map((discount) => {
+                        const isDisabled = subPrice < discount.min_purchase_amount;
+
+                        return (
+                            <div
+                                key={discount.id}
+                                className={`flex items-center justify-between p-2 border rounded-lg mb-2 cursor-pointer ${isDisabled ? "bg-gray-200 cursor-not-allowed" : "hover:bg-gray-100"
+                                    }`}
+                                onClick={() => !isDisabled && handleApplyDiscount(discount)}
+                            >
+                                <div className="flex items-center space-x-4">
+                                    <div className="bg-orange-500 text-white font-bold text-lg px-3 py-2 rounded">
+                                        {discount.name}
+                                    </div>
+                                    <div>
+                                        <div className="font-semibold text-gray-800">{discount.code}</div>
+                                        <div className="text-sm text-gray-600">Đơn hàng tối thiểu: {formatCurrencyVND(discount.min_purchase_amount)}</div>
+                                        <div className="text-sm text-gray-600">Giảm giá: {discount.discount_type === "percent" ? `${discount.discount}%` : formatCurrencyVND(discount.discount)}</div>
+                                        <div className="text-xs text-gray-400">HSD: {discount.expire_date_date}</div>
+                                    </div>
                                 </div>
                                 <div>
-                                    <div className="font-semibold text-gray-800">{discount.code}</div>
-                                    <div className="text-sm text-gray-600">Đơn hàng tối thiểu: {formatCurrencyVND(discount.min_purchase_amount)}</div>
-                                    <div className="text-xs text-gray-400">HSD: {discount.expire_date_date}</div>
+                                    <input
+                                        type="radio"
+                                        name="discountCode"
+                                        checked={selectedCode?.id === discount.id}
+                                        onChange={() => handleApplyDiscount(discount)}
+                                    />
                                 </div>
                             </div>
-                            <div>
-                                <input
-                                    type="radio"
-                                    name="discountCode"
-                                    checked={selectedCode?.id === discount.id}
-                                    onChange={() => handleApplyDiscount(discount)}
-                                />
-                            </div>
-                        </div>
-                    ))}
+                        )
+                    })}
                 </div>
 
                 {/* Footer */}

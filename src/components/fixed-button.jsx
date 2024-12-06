@@ -58,7 +58,7 @@ const FixedButton = () => {
 
                 {/* Nút chính */}
                 <button
-                    className="fixed bottom-[70px] right-4 text-white px-3 py-3 rounded-full shadow-lg bg-[#418bfe] hover:bg-[#418bfe]/80 transition duration-200"
+                    className="fixed z-50 bottom-[70px] right-4 text-white px-3 py-3 rounded-full shadow-lg bg-[#418bfe] hover:bg-[#418bfe]/80 transition duration-200"
                     onClick={handleFixedButtonClick}
                 >
                     <AiFillBell />
@@ -69,7 +69,7 @@ const FixedButton = () => {
             </div>
 
             <button
-                className="fixed bottom-4 right-4 px-3 py-3 text-white rounded-full shadow-lg bg-[#9ac1fd] hover:bg-[#9ac1fd]/80 transition duration-200"
+                className="fixed z-50 bottom-4 right-4 px-3 py-3 text-white rounded-full shadow-lg bg-[#9ac1fd] hover:bg-[#9ac1fd]/80 transition duration-200"
                 onClick={handleScrollToTop}
             >
                 <AiOutlineArrowUp />

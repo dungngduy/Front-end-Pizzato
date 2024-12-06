@@ -85,7 +85,7 @@ const FooterContainer = () => {
                                 Bài viết gần đây
                             </h2>
                             <div className="recent__post">
-                                {newsData.map((news, index) => (<div key={index} className="recent__post__item" data-aos="zoom-in">
+                                {newsData.map((news, index) => (<div key={index} className="recent__post__item">
                                     <div className="recent__post__item">
                                         <div className="recent__post__images">
                                             <img src={news.image} alt="" />

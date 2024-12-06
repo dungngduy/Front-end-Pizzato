@@ -17,6 +17,5 @@ export const ROUTER = {
         NOTÌICATION: 'notification',
         PAYMENTSUCCESS: '/payment-successed',
         PAYMENTFAILED: '/payment-failed',
-        ORDERSTATUS: '/order-status',
     },
 }
