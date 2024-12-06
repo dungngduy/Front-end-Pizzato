@@ -30,7 +30,7 @@ const RefundCash = ({ order }) => {
     const handleRefund = () => {
         AxiosInstance.post("/refund-request", dataRefund)
             .then(() => {
-                console.log("Thanh cong");
+                window.location.reload();
             })
             .catch((error) => {
                 console.log(error);

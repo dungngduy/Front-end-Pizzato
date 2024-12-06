@@ -2,10 +2,10 @@ import { memo } from "react";
 
 const About = () => {
     return (
-        <div className=" container p-8">
+        <div className="container p-8">
             {/* About Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="py-[130px]">
+                <div className="pt-8">
                     <img
                         src="https://core.afg.vn/uploads/images/1593330280536pep.jpg"
                         alt="Restaurant"
@@ -13,7 +13,7 @@ const About = () => {
                     />
                 </div>
                 <div>
-                    <div className="p-8  max-w-4xl mx-auto">
+                    <div className="py-8 ps-8 max-w-4xl mx-auto">
                         <h2 className="text-3xl font-bold  text-gray-900 mb-6">
                             Giới thiệu về Pizzato
                         </h2>
@@ -43,7 +43,7 @@ const About = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="p-8  max-w-4xl mx-auto">
+                <div className="py-8 pe-8 max-w-4xl mx-auto">
                     <h2 className="text-3xl font-bold  text-gray-900 mb-6">
                         Sứ mệnh và tầm nhìn
                     </h2>
@@ -63,7 +63,7 @@ const About = () => {
                     </p>
                 </div>
                 <div>
-                    <div className="py-16">
+                    <div className="pt-8">
                         <img
                             src="https://daylambanh.edu.vn/wp-content/uploads/2024/04/cach-lam-banh-pizza.jpg"
                             alt="Restaurant"
@@ -73,7 +73,7 @@ const About = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="py-[140px]">
+                <div className="pt-8">
                     <img
                         src="https://nvhphunu.vn/wp-content/uploads/2023/11/cach-lam-banh-pizza-tom-ngon-nhu-nha-hang.jpg"
                         alt="Restaurant"
@@ -81,7 +81,7 @@ const About = () => {
                     />
                 </div>
                 <div>
-                    <div className="p-8  max-w-4xl mx-auto">
+                    <div className="py-8 ps-8 max-w-4xl mx-auto">
                         <h2 className="text-3xl font-bold  text-gray-900 mb-6">
                             Những giá trị tạo nên Pizzato
                         </h2>

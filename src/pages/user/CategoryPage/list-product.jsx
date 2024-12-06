@@ -70,15 +70,16 @@ const ListProduct = () => {
             );
             setFilteredMenus(filteredBySearch);
         } else {
-            setFilteredMenus(menus); // Reset the filter when searchTerm is cleared
+            setFilteredMenus(menus);
         }
     }, [searchTerm, menus]);
 
     const handlePageChange = (page) => setCurrentPage(page);
     const onChangePrice = (newValue) => setInputValue(newValue);
+    
     const onSearch = (value) => {
-        setSearchTerm(value); // Set searchTerm here
-        setCurrentPage(1);  // Reset to first page when searching
+        setSearchTerm(value);
+        setCurrentPage(1);
     };
 
     useEffect(() => {

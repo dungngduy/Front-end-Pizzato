@@ -18,6 +18,10 @@ const Cart = () => {
     const subPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const totalPrice = calculateTotalPrice(cart, discount);
 
+    const discountValue = discount && discount.discount_type === "percent"
+        ? (subPrice * discount.discount) / 100
+        : discount?.discount || 0;
+
     const handleOpenDiscount = () => {
         if (selectedItems.length === 0) {
             Swal.fire({
@@ -61,7 +65,7 @@ const Cart = () => {
                             <div>
                                 <button
                                     onClick={handleOpenDiscount}
-                                    className="px-2 py-1 text-white bg-[#dbdbdb] rounded hover:bg-[#b4b4b4] transition duration-300"
+                                    className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600 transition duration-300"
                                 >
                                     Chọn mã giảm giá
                                 </button>
@@ -70,6 +74,7 @@ const Cart = () => {
                                     setIsOpen={setIsOpen}
                                     selectedCode={selectedCode}
                                     setSelectedCode={setSelectedCode}
+                                    subPrice={subPrice}
                                 />
                             </div>
                         </div>
@@ -82,25 +87,31 @@ const Cart = () => {
                                     checked={item.selected || false}
                                     onChange={() => toggleItemSelection(item.subId)}
                                 />
-                                <div className="ml-4 w-16 h-16 rounded">
-                                    <img
-                                        src={formatImage(item.image)}
-                                        alt={item.name}
-                                        className="w-full h-full object-cover rounded-lg"
-                                    />
-                                </div>
-                                <div className="w-[220px] ml-4 flex-grow">
-                                    <h2 className="font-semibold text-gray-800">{item.name}</h2>
-                                    <p className="text-sm text-gray-500">Kích thước: {item.size}</p>
-                                    <p className="text-sm text-gray-500">Chi tiết: {item.crust}</p>
-                                    <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>
-                                </div>
+                                <Link to={`/detail/${item.id}`}>
+                                    <div className="flex justify-between items-center w-full">
+                                        <div className="ml-4 w-16 h-16 rounded">
+                                            <img
+                                                src={formatImage(item.image)}
+                                                alt={item.name}
+                                                className="w-full h-full object-cover rounded-lg"
+                                            />
+                                        </div>
+                                        <div className="w-[220px] ml-4 flex-grow">
+                                            <h2 className="font-semibold text-gray-800">{item.name}</h2>
+                                            <p className="text-sm text-gray-500">Kích thước: {item.size}</p>
+                                            <p className="text-sm text-gray-500">Chi tiết: {
+                                                item.crust && item.border ? item.crust + " | " + item.border : "Không có"
+                                            }</p>
+                                            <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>
+                                        </div>
+                                    </div>
+                                </Link>
 
                                 <div className="ml-8 flex-grow">
                                     <div className="text-orange-500 font-bold text-lg">{formatCurrencyVND(item.price * item.quantity)}</div>
                                 </div>
                                 {/* Quantity Control */}
-                                <div className="flex items-center">
+                                <div className="me-4 flex items-center">
                                     <button onClick={() => item.quantity > 1 && updateCartItem(item.subId, item.quantity - 1)} className="px-2 py-1 border text-gray-500 bg-gray-100 rounded">-</button>
                                     <span className="mx-2">{item.quantity}</span>
                                     <button onClick={() => updateCartItem(item.subId, item.quantity + 1)} className="px-2 py-1 border text-gray-500 bg-gray-100 rounded">+</button>
@@ -142,12 +153,7 @@ const Cart = () => {
                                 <div className="flex justify-between text-gray-600 mb-2">
                                     <span>Mã giảm giá</span>
                                     <span>
-                                        {discount
-                                            ? discount.discount_type === "percent"
-                                                ? `${discount.discount}%`
-                                                : formatCurrencyVND(discount.discount)
-                                            : "Chưa chọn"
-                                        }
+                                        {formatCurrencyVND(discountValue)}
                                     </span>
                                 </div>
                             )
