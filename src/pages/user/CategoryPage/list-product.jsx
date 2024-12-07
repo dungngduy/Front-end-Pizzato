@@ -16,11 +16,16 @@ const ListProduct = () => {
     const [menus, setMenus] = useState([]);
     const [pizzaRating, setPizzaRating] = useState(null);
     const [pizzaRatingOnTop, setPizzaRatingOnTop] = useState([]);
-    const [filteredMenus, setFilteredMenus] = useState([]);
     const { incrementView } = useIncrementView();
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProduct, setTotalItems] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
+
+    const [categories, setCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [filteredMenus, setFilteredMenus] = useState([]);
+    
+
     const pageSize = 9;
 
     const options = [
@@ -102,11 +107,41 @@ const ListProduct = () => {
         incrementView(productId);
     };
 
+    useEffect(() => {
+        AxiosInstance.get('/all-categories')
+          .then(res => {
+            setCategories(res.data.categories);
+          })
+          .catch(err => console.error(err));
+      }, []);
+      
+    useEffect(() => {
+        if (selectedCategories.length > 0) {
+            const filtered = menus.filter(menu =>
+                selectedCategories.includes(menu.category_id)
+            );
+            setFilteredMenus(filtered);
+        } else {
+            setFilteredMenus(menus);
+        }
+    }, [selectedCategories, menus]);
+
+    const handleCategoryChange = (categoryId) => {
+        setSelectedCategories(prev => {
+            if (prev.includes(categoryId)) {
+                return prev.filter(id => id !== categoryId);
+            }
+            return [...prev, categoryId];
+        });
+    };
+    
+    
+
     return (
         <div className="container">
             <div className="row category__container">
                 <div className="col-xl-9">
-                    <div className="row">
+                    <div className="row py-8">
                         <div className="col-xl-6 sort__by">
                             <p>Sắp xếp theo:</p>
                             <Select
@@ -125,7 +160,7 @@ const ListProduct = () => {
                             />
                         </div>
                     </div>
-                    <div className={`list__product ${viewMode === 'List' ? 'list-view' : 'kanban-view'}`}>
+                    <div className={`list__product ${viewMode === 'List' ? 'list-view' : 'kanban-view'}`} >
                         <div className={`${viewMode === 'Kanban' ? 'row-grid-4' : 'row'}`}>
                             {filteredMenus.map((menu, index) => (
                                 <div key={index} className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
@@ -196,26 +231,18 @@ const ListProduct = () => {
                         />
                     </div>
                     <div className="category__sidebar__list">
-                        <h2>Danh mục</h2>
+                    <h2>Danh mục</h2>
                         <div className="category__sidebar__list__item">
-                            <div className="list__checked">
-                                <Checkbox><span className="list__checked__name">Pizza 1</span></Checkbox>
+                        {categories && categories.map(category => (
+                            <div className="list__checked" key={category.id}>
+                                <Checkbox
+                                onChange={() => handleCategoryChange(category.id)}
+                                checked={selectedCategories.includes(category.id)}
+                                >
+                                <span className="list__checked__name">{category.name}</span>
+                                </Checkbox>
                             </div>
-                            <div className="list__checked">
-                                <Checkbox><span className="list__checked__name">Pizza 2</span></Checkbox>
-                            </div>
-                            <div className="list__checked">
-                                <Checkbox><span className="list__checked__name">Pizza 3</span></Checkbox>
-                            </div>
-                            <div className="list__checked">
-                                <Checkbox><span className="list__checked__name">Pizza 4</span></Checkbox>
-                            </div>
-                            <div className="list__checked">
-                                <Checkbox><span className="list__checked__name">Pizza 5</span></Checkbox>
-                            </div>
-                            <div className="list__checked">
-                                <Checkbox><span className="list__checked__name">Pizza 6</span></Checkbox>
-                            </div>
+                            ))}
                         </div>
                     </div>
                     <div className="category__sidebar__hot-product" style={{ backgroundImage: pizzaRating?.thumb_image ? `url(${pizzaRating.thumb_image})` : '' }}>
