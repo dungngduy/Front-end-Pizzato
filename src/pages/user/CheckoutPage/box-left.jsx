@@ -117,39 +117,20 @@ const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment, 
             <div className="payment__method mt-10">
                 <h2 className="text-xl font-bold mb-3">Hình thức thanh toán</h2>
                 <div className="flex flex-wrap">
-                    <label htmlFor="radio-card-1" className="radio-card w-1/3">
+                    <label htmlFor="cash" className="radio-card w-1/3">
                         <input
                             type="radio"
                             name="payment_method"
-                            id="radio-card-1"
-                            checked={selectedPayment === "radio-card-1"}
-                            onChange={() => setSelectedPayment("radio-card-1")}
+                            id="cash"
+                            checked={selectedPayment === "cash"}
+                            onChange={() => setSelectedPayment("cash")}
                         />
                         <div className="card-content-wrapper">
                             <span className="check-icon"></span>
                             <div className="card-content">
                                 <img
                                     className="w-[180px] h-[60px] mt-[10px]"
-                                    src="/assets/images/payment/paypal.png"
-                                    alt=""
-                                />
-                            </div>
-                        </div>
-                    </label>
-                    <label htmlFor="radio-card-2" className="radio-card w-1/3">
-                        <input
-                            type="radio"
-                            name="payment_method"
-                            id="radio-card-2"
-                            checked={selectedPayment === "radio-card-2"}
-                            onChange={() => setSelectedPayment("radio-card-2")}
-                        />
-                        <div className="card-content-wrapper">
-                            <span className="check-icon"></span>
-                            <div className="card-content">
-                                <img
-                                    className="w-[180px] h-[60px] mt-[10px]"
-                                    src="/assets/images/payment/google-pay.png"
+                                    src="/assets/images/payment/cash.png"
                                     alt=""
                                 />
                             </div>
@@ -169,25 +150,6 @@ const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment, 
                                 <img
                                     className="w-[180px] h-[60px] mt-[10px]"
                                     src="/assets/images/payment/vnpay.png"
-                                    alt=""
-                                />
-                            </div>
-                        </div>
-                    </label>
-                    <label htmlFor="radio-card-4" className="radio-card w-1/3">
-                        <input
-                            type="radio"
-                            name="payment_method"
-                            id="radio-card-4"
-                            checked={selectedPayment === "radio-card-4"}
-                            onChange={() => setSelectedPayment("radio-card-4")}
-                        />
-                        <div className="card-content-wrapper">
-                            <span className="check-icon"></span>
-                            <div className="card-content">
-                                <img
-                                    className="w-[180px] h-[60px] mt-[10px]"
-                                    src="/assets/images/payment/visa.png"
                                     alt=""
                                 />
                             </div>

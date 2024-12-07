@@ -5,7 +5,7 @@ import { formatCurrencyVND, formatImage } from "utils/format";
 import { CartContext } from "components/add-to-cart";
 
 const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => {
-    const { cart, calculateTotalPrice, removeItemsAfterPayment } = useContext(CartContext);
+    const { cart, calculateTotalPrice, removeItemsAfterPayment, generateCartHash } = useContext(CartContext);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -27,6 +27,20 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
         setLoading(true);
         setError(null);
 
+        const cartHash = generateCartHash(selectedItems);
+        const orderId = `${user.id}_${cartHash}`;
+
+        if (localStorage.getItem(orderId) === "completed") {
+            Swal.fire({
+                title: "Lỗi thanh toán!",
+                text: "Đơn hàng đã được thanh toán!",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+            setLoading(false);
+            return;
+        }
+
         if (!selectedAddress) {
             Swal.fire({
                 title: "Lỗi thanh toán!",
@@ -43,12 +57,16 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
             user_id: user?.id,
             address: selectedAddress.address,
             sub_total: totalPrice + shippingFee,
-            grand_total: totalPrice + shippingFee,
+            grand_total: totalPrice + shippingFee - (discount?.discount || 0),
             product_qty: selectedItems.reduce((total, item) => total + item.quantity, 0),
             payment_method: selectedPayment,
+            delivery_charge: shippingFee,
+            coupon_info: JSON.stringify(discount?.code) || null,
             address_id: selectedAddress.id,
             cartItems: selectedItems
         };
+
+        localStorage.setItem(orderId, "inProgress");
 
         if (orderData.user_id && orderData.address) {
             if (selectedPayment === "vnpay") {
@@ -56,6 +74,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                     .then(res => {
                         const paymentUrl = res.data.vnp_Url;
                         window.location.href = paymentUrl;
+                        localStorage.setItem(orderId, "completed");
 
                     })
                     .catch(error => {
@@ -70,6 +89,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                     .then(() => {
                         window.location.href = '/payment-successed';
                         removeItemsAfterPayment(selectedItems);
+                        localStorage.setItem(orderId, "completed");
                     })
                     .catch(error => {
                         setError(error?.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán.');
