@@ -59,7 +59,8 @@ const Discount = ({ isOpen, setIsOpen, selectedCode, setSelectedCode, subPrice }
                                         type="radio"
                                         name="discountCode"
                                         checked={selectedCode?.id === discount.id}
-                                        onChange={() => handleApplyDiscount(discount)}
+                                        onChange={() => !isDisabled && handleApplyDiscount(discount)}
+                                        disabled={isDisabled}
                                     />
                                 </div>
                             </div>

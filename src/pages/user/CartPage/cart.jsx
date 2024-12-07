@@ -113,8 +113,18 @@ const Cart = () => {
                                 {/* Quantity Control */}
                                 <div className="me-4 flex items-center">
                                     <button onClick={() => item.quantity > 1 && updateCartItem(item.subId, item.quantity - 1)} className="px-2 py-1 border text-gray-500 bg-gray-100 rounded">-</button>
-                                    <span className="mx-2">{item.quantity}</span>
-                                    <button onClick={() => updateCartItem(item.subId, item.quantity + 1)} className="px-2 py-1 border text-gray-500 bg-gray-100 rounded">+</button>
+                                    <input
+                                        className="w-12 text-center outline-none"
+                                        type="number"
+                                        value={item.quantity}
+                                        min="1"
+                                        max={item.qty}
+                                        onChange={(e) => {
+                                            const newQuantity = Math.min(Math.max(Number(e.target.value), 1), item.qty);
+                                            updateCartItem(item.subId, newQuantity);
+                                        }}
+                                    />
+                                    <button onClick={() => updateCartItem(item.subId, item.quantity + 1, item.qty)} className="px-2 py-1 border text-gray-500 bg-gray-100 rounded">+</button>
                                 </div>
                                 {/* Delete Button */}
                                 <button

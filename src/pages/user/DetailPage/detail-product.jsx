@@ -122,6 +122,7 @@ const DetailProduct = () => {
             subId: subId,
             id: product.id,
             name: product.name,
+            qty: product.qty,
             price: calculateTotalPrice(),
             image: product.thumb_image,
             quantity: quantity,
@@ -158,7 +159,7 @@ const DetailProduct = () => {
                             {/* Main Product Image */}
                             <div className="w-[520px] h-[520px]">
                                 <img
-                                    className="w-[100%] h-[100%] rounded-lg"
+                                    className="w-[100%] rounded-lg"
                                     src={formatImage(selectedImage)}
                                     alt="Main Product"
                                 />
@@ -166,6 +167,14 @@ const DetailProduct = () => {
                             {/* Image Gallery */}
                             <div className="w-[500px]">
                                 <CarouselMulti responsive={responsive} infinite={true}>
+                                    <div key="main-image" className="gallery__item flex gap-5">
+                                        <img
+                                            className="w-[125px] h-[120px] rounded-lg cursor-pointer hover:opacity-80 transition duration-300"
+                                            src={formatImage(selectedImage)}
+                                            alt="Main Product"
+                                            onClick={() => handleImageClick(selectedImage)}
+                                        />
+                                    </div>
                                     {galleries.map((item, index) => (
                                         <div key={index} className="gallery__item flex gap-5">
                                             <img
@@ -317,9 +326,10 @@ const DetailProduct = () => {
                                     </div>
                                     <button
                                         onClick={handleAddToCart}
-                                        className="bg-[#BC9A6C] text-white px-6 py-2 rounded-md hover:bg-[#a47d53] transition duration-300"
+                                        className={`bg-[#BC9A6C] text-white px-6 py-2 rounded-md hover:bg-[#a47d53] transition duration-300 ${product.qty === 0 ? "bg-gray-400 cursor-not-allowed" : ""}`}
+                                        disabled={product.qty === 0}
                                     >
-                                        Thêm vào giỏ hàng
+                                        {product.qty === 0 ? "Sản phẩm đã hết hàng" : "Thêm vào giỏ hàng"}
                                     </button>
                                 </div>
 

@@ -8,7 +8,7 @@ import { AddressProvider } from "components/address";
 
 const CheckoutPage = () => {
     const [shippingFee, setShippingFee] = useState(40000);
-    const [selectedPayment, setSelectedPayment] = useState(null);
+    const [selectedPayment, setSelectedPayment] = useState("cash");
     const [selectedAddress, setSelectedAddress] = useState(null);
 
     return (

@@ -1,16 +1,23 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import "assets/user/scss/tracking.scss";
 import { formatCurrencyVND } from "utils/format";
+import AxiosInstance from "utils/apiServers";
 
-const OrderStatus = ({ onClose }) => {
-    const orderItems = [
-        { id: 1, name: "Pizza Pepperoni", price: 150000, quantity: 2 },
-        { id: 2, name: "Coca-Cola", price: 20000, quantity: 3 },
-        { id: 3, name: "Salad Caesar", price: 50000, quantity: 1 },
-        { id: 4, name: "Salad Caesar", price: 50000, quantity: 1 },
-        { id: 5, name: "Salad Caesar", price: 50000, quantity: 1 },
-        { id: 6, name: "Salad Caesar", price: 50000, quantity: 1 },
-    ];
+const OrderStatus = ({ order, onClose }) => {
+    const [orderItems, setOrderItems] = useState([]);
+    const [address, setAddress] = useState({});
+
+    useEffect(() => {
+        AxiosInstance.get(`/order/${order.id}`)
+            .then((res) => {
+                const data = res.data.order; // Lấy dữ liệu gốc từ API
+                setOrderItems(data.items || []); // Đảm bảo luôn là mảng
+                setAddress(data.addresses || {});
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [order.id]);
 
     return (
         <div>
@@ -26,83 +33,130 @@ const OrderStatus = ({ onClose }) => {
                             </svg>
                         </button>
                     </div>
+
                     {/* Header */}
                     <div className="bg-white shadow-md rounded-md p-5 mb-6">
                         <div className="flex justify-between items-center">
-                            <h1 className="text-lg font-semibold">Mã đơn hàng: 24112571XSG3B2</h1>
-                            <span className="text-red-500 font-medium">GIAO HÀNG THÀNH CÔNG</span>
+                            <h1 className="text-lg font-semibold">Mã đơn hàng: {order.invoice_id}</h1>
+                            <span
+                                className={`font-medium uppercase ${order.order_status === "pending"
+                                        ? "text-red-500"
+                                        : order.order_status === "processing"
+                                            ? "text-green-500"
+                                            : order.order_status === "completed"
+                                                ? "text-blue-500"
+                                                : "text-gray-500"
+                                    }`}
+                            >
+                                {order.order_status === "pending"
+                                    ? "Đơn Hàng Đã Đặt"
+                                    : order.order_status === "processing"
+                                        ? "Đang Xử Lý"
+                                        : order.order_status === "completed"
+                                            ? "Đã Giao Hàng"
+                                            : "Trạng Thái Không Xác Định"}
+                            </span>
                         </div>
                     </div>
 
                     {/* Progress Bar */}
                     <div className="bg-white shadow-md rounded-md p-4 mb-4">
                         <div className="flex items-center justify-between">
+                            {/* Đơn Hàng Đã Đặt */}
                             <div className="flex-1 flex flex-col items-center">
-                                <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">
+                                <div
+                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "pending" || order.order_status === "processing" || order.order_status === "completed" ? "bg-green-500 text-white" : "bg-gray-300 text-gray-500"
+                                        }`}
+                                >
                                     1
                                 </div>
-                                <span className="text-sm mt-2">Đơn Hàng Đã Đặt</span>
+                                <span
+                                    className={`text-sm mt-2 ${order.order_status === "pending" || order.order_status === "processing" || order.order_status === "completed" ? "font-bold text-green-500" : "text-gray-500"
+                                        }`}
+                                >
+                                    Đơn Hàng Đã Đặt
+                                </span>
                             </div>
 
-                            <div className="flex-1 border-t-2 border-green-500"></div>
+                            <div
+                                className={`flex-1 border-t-2 ${order.order_status === "pending" || order.order_status === "processing" || order.order_status === "completed"
+                                    ? "border-green-500"
+                                    : "border-gray-300"
+                                    }`}
+                            ></div>
 
+                            {/* Chờ Xử lý */}
                             <div className="flex-1 flex flex-col items-center">
-                                <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">
+                                <div
+                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "processing" || order.order_status === "completed"
+                                        ? "bg-green-500 text-white"
+                                        : "bg-gray-300 text-gray-500"
+                                        }`}
+                                >
                                     2
                                 </div>
-                                <span className="text-sm mt-2">Đơn Hàng Đã Thanh Toán</span>
+                                <span
+                                    className={`text-sm mt-2 ${order.order_status === "processing" || order.order_status === "completed" ? "font-bold text-green-500" : "text-gray-500"
+                                        }`}
+                                >
+                                    Chờ Xử Lý
+                                </span>
                             </div>
 
-                            <div className="flex-1 border-t-2 border-green-500"></div>
-
+                            <div
+                                className={`flex-1 border-t-2 ${order.order_status === "processing" || order.order_status === "completed" ? "border-green-500" : "border-gray-300"
+                                    }`}
+                            ></div>
                             <div className="flex-1 flex flex-col items-center">
-                                <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">
-                                    4
+                                <div
+                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "completed" ? "bg-green-500 text-white" : "bg-gray-300 text-gray-500"
+                                        }`}
+                                >
+                                    3
                                 </div>
-                                <span className="text-sm mt-2">Chờ Giao Hàng</span>
-                            </div>
-
-                            <div className="flex-1 border-t-2 border-gray-300"></div>
-
-                            <div className="flex-1 flex flex-col items-center">
-                                <div className="w-8 h-8 bg-gray-300 text-white rounded-full flex items-center justify-center">
-                                    5
-                                </div>
-                                <span className="text-sm mt-2">Đánh Giá</span>
+                                <span
+                                    className={`text-sm mt-2 ${order.order_status === "completed" ? "font-bold text-green-500" : "text-gray-500"
+                                        }`}
+                                >
+                                    Hoàn Thành
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 justify-between bg-white shadow-md rounded-md">
-                        {/* Order Details */}
-                        <div className="p-5 mb-4">
-                            <h2 className="text-lg font-semibold mb-4">Địa Chỉ Nhận Hàng</h2>
-                            <p className="text-sm mb-2 font-medium">Đỗ Bá Chính</p>
-                            <p className="text-sm mb-2">(+84) 373860506</p>
-                            <p className="text-sm mb-4">Số nhà 23, Hẻm 179/64/41...</p>
 
+
+                    {/* Order Details */}
+                    <div className="grid grid-cols-2 justify-between bg-white shadow-md rounded-md">
+                        <div className="p-5 mb-4">
+                            {address && (
+                                <>
+                                    <h2 className="text-lg font-semibold mb-4">Địa Chị Nhận Hàng</h2>
+                                    <p className="text-sm mb-2 font-medium">{`${address.first_name} ${address.last_name}`}</p>
+                                    <p className="text-sm mb-2">{address.phone}</p>
+                                    <p className="text-sm mb-4">{address.address}</p>
+                                </>
+                            )}
                             {/* Order Items */}
                             <div className="mt-6">
                                 <h2 className="text-lg font-semibold mb-4">Chi Tiết Sản Phẩm</h2>
-                                <div
-                                    className="scrollbar-order overflow-y-auto max-h-[194px] space-y-4"
-                                >
+                                <div className="scrollbar-order overflow-y-auto max-h-[194px] space-y-4">
                                     {orderItems.map((item) => (
                                         <div key={item.id} className="flex items-center justify-between border-b pb-2">
                                             <div>
-                                                <p className="text-sm font-medium">{item.name}</p>
+                                                <p className="text-sm font-medium">{item.product.name}</p>
                                                 <p className="text-sm text-gray-500">
-                                                    Số lượng: {item.quantity}
+                                                    Số lượng: {item.qty}
                                                 </p>
                                                 <p className="text-sm text-gray-500">
-                                                    Kích thúc: Nhỏ
+                                                    Kích thước: {item.product_size || "Không có"}
                                                 </p>
                                                 <p className="text-sm text-gray-500">
-                                                    Đế bánh: Nâu | Mẫu: Xanh
+                                                    Đế bánh: {item.product_option || "Không có"}
                                                 </p>
                                             </div>
                                             <div>
                                                 <p className="text-sm font-medium">
-                                                    {formatCurrencyVND(item.price * item.quantity)}
+                                                    {formatCurrencyVND(item.unit_price * item.qty)}
                                                 </p>
                                             </div>
                                         </div>
@@ -110,59 +164,7 @@ const OrderStatus = ({ onClose }) => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Timeline */}
-                        <div className="p-5 mb-4 space-y-2">
-                            <div className="flex items-start">
-                                <div className="w-4 h-4 bg-green-500 rounded-full mt-1"></div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium">18:59 27-11-2024</p>
-                                    <p className="text-sm text-gray-500">
-                                        Đã giao - Giao hàng thành công
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start">
-                                <div className="w-4 h-4 bg-green-500 rounded-full mt-1"></div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium">08:42 27-11-2024</p>
-                                    <p className="text-sm text-gray-500">
-                                        Đơn hàng đã đến trạm giao hàng tại khu vực của bạn và sẽ được
-                                        giao trong vòng 24h
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex items-start">
-                                <div className="w-4 h-4 bg-green-500 rounded-full mt-1"></div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium">08:42 27-11-2024</p>
-                                    <p className="text-sm text-gray-500">
-                                        Đơn hàng đã rời đến bưu cục
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex items-start">
-                                <div className="w-4 h-4 bg-green-500 rounded-full mt-1"></div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium">08:42 27-11-2024</p>
-                                    <p className="text-sm text-gray-500">
-                                        Đơn hàng đã giao đến bưu cục{" "}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
-
-                    {/* Action Buttons */}
-                    {/* <div className="bg-white shadow-md rounded-md p-4 flex justify-between items-center">
-                        <button className="bg-red-500 text-white px-4 py-2 rounded-md">Đã Nhận Hàng</button>
-                        <div className="flex space-x-2">
-                            <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md">Yêu Cầu Trả Hàng/Hoàn Tiền</button>
-                            <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md">Liên Hệ Người Bán</button>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </div>
