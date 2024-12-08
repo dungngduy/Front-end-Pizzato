@@ -1,4 +1,5 @@
-import React from "react";
+import { memo } from "react";
+
 const BlogDetail = () => {
     return (
         <div className="container py-8">
@@ -95,4 +96,4 @@ const BlogDetail = () => {
     );
 };
 
-export default BlogDetail;
+export default memo(BlogDetail);

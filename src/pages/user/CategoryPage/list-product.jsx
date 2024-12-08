@@ -7,8 +7,8 @@ import { formatCurrencyVND, formatImage } from 'utils/format';
 import useIncrementView from 'components/increment-view';
 import AxiosInstance from 'utils/apiServers';
 
-// Destructure Search from Input
 const { Search } = Input;
+const { Option } = Select;
 
 const ListProduct = () => {
     const [viewMode, setViewMode] = useState('Kanban');
@@ -18,12 +18,13 @@ const ListProduct = () => {
     const [pizzaRatingOnTop, setPizzaRatingOnTop] = useState([]);
     const { incrementView } = useIncrementView();
     const [currentPage, setCurrentPage] = useState(1);
+    const [lastPage, setLastPage] = useState(1);
+    const [total, setTotal] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
 
     const [categories, setCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [filteredMenus, setFilteredMenus] = useState([]);
-
+    const [sortValue, setSortValue] = useState('1');
     const pageSize = 9;
 
     const options = [
@@ -37,63 +38,56 @@ const ListProduct = () => {
         },
         {
             value: '3',
-            label: 'Bán chạy nhất',
-        },
-        {
-            value: '4',
             label: 'Giá cả tăng dần',
         },
         {
-            value: '5',
+            value: '4',
             label: 'Giá cả giảm dần',
         },
     ];
 
     useEffect(() => {
-        let filtered = menus;
-
-        // Lọc theo giá
-        filtered = filtered.filter(menu =>
-            menu.offer_price >= inputValue[0] && menu.offer_price <= inputValue[1]
-        );
-
-        // Lọc theo tìm kiếm
-        if (searchTerm) {
-            filtered = filtered.filter(menu =>
-                menu.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-        }
-
-        // Lọc theo danh mục
-        if (selectedCategories.length > 0) {
-            filtered = filtered.filter(menu =>
-                selectedCategories.includes(menu.category_id)
-            );
-        }
-
-        setFilteredMenus(filtered);
-    }, [menus, inputValue, searchTerm, selectedCategories, currentPage]);
-
-    useEffect(() => {
-        AxiosInstance.get(`/menus?currentPage=${currentPage}&pageSize=${pageSize}`)
+        AxiosInstance.get('/menus', {
+            params: {
+                page: currentPage,
+                pageSize,
+                minPrice: inputValue[0],
+                maxPrice: inputValue[1],
+                searchTerm,
+                categories: selectedCategories,
+                sort: sortValue,
+            },
+        })
             .then(res => {
                 setMenus(res.data.menus);
-                setFilteredMenus(res.data.menus);
+                setTotal(res.data.totalPizza);
+                setLastPage(res.data.lastPage);
             })
             .catch(err => console.error(err));
-    }, [currentPage, pageSize]);
+    }, [currentPage, pageSize, inputValue, searchTerm, selectedCategories, sortValue]);
 
     const handlePageChange = (page) => {
-        setCurrentPage(page);
+        // Kiểm tra nếu page không vượt quá lastPage
+        if (page <= lastPage && page >= 1) {
+            setCurrentPage(page);
+        }
     };
 
-    const onChangePrice = (newValue) => setInputValue(newValue);
+    const onChangePrice = (newValue) => {
+        setInputValue(newValue);
+        setCurrentPage(1);
+    };
 
     const onSearch = (value) => {
         setSearchTerm(value);
         setCurrentPage(1);
     };
-    
+
+    const handleSortChange = (value) => {
+        setSortValue(value);
+        setCurrentPage(1);
+    };
+
     useEffect(() => {
         AxiosInstance.get(`/pizza-rating`)
             .then(res => {
@@ -125,14 +119,13 @@ const ListProduct = () => {
             }
             return [...prev, categoryId];
         });
+
+        setCurrentPage(1);
     };
 
     const handleProductClick = (productId) => {
         incrementView(productId);
     };
-
-    // Lọc sản phẩm đã phân trang
-    const paginatedProducts = filteredMenus.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     return (
         <div className="container">
@@ -142,10 +135,16 @@ const ListProduct = () => {
                         <div className="col-xl-6 sort__by">
                             <p>Sắp xếp theo:</p>
                             <Select
-                                defaultValue="1"
+                                value={sortValue}
                                 style={{ width: 200 }}
-                                options={options}
-                            />
+                                onChange={handleSortChange}
+                            >
+                                {options.map(option => (
+                                    <Option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </Option>
+                                ))}
+                            </Select>
                         </div>
                         <div className="col-xl-6 segmented__category">
                             <p>Hiển thị theo:</p>
@@ -159,7 +158,7 @@ const ListProduct = () => {
                     </div>
                     <div className={`list__product ${viewMode === 'List' ? 'list-view' : 'kanban-view'}`} >
                         <div className={`${viewMode === 'Kanban' ? 'row-grid-4' : 'row'}`}>
-                            {paginatedProducts.map((menu, index) => (
+                            {menus.map((menu, index) => (
                                 <div key={index} className={`${viewMode === 'Kanban' ? 'g-xl-4' : 'col-xl-12'}`}>
                                     <div className="product__item">
                                         <div className="product__item__image">
@@ -213,7 +212,7 @@ const ListProduct = () => {
                             <Pagination
                                 current={currentPage}
                                 pageSize={pageSize}
-                                total={filteredMenus.length}
+                                total={total}
                                 onChange={handlePageChange}
                             />
                         </div>

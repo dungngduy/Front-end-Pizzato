@@ -5,7 +5,7 @@ import BlogDetail from "./blog-detail";
 const BlogDetailPage = () => {
     return (
         <main>
-            <BlogDetail></BlogDetail>
+            <BlogDetail />
         </main>
     );
 };
