@@ -147,7 +147,7 @@ const BlogList = () => {
                             tại nhà.
                         </p>
                         <p className="py-4 text-[16px] leading-relaxed text-gray-700">
-                            Pizza Express Với 3 Tiêu Chí: Pizza ngon – Giá rẻ – Vận chuyển tận
+                            Pizza Express Với 3 Tiêu Chí: Pizza ngon - Giá rẻ - Vận chuyển tận
                             nhà Hãy cùng đến Pizza Express để trải nghiệm những món mới với
                             những ƯU ĐÃI vô cùng lớn nhé. Pizza Express chúng tôi luôn mong
                             muốn gửi đến bạn những bữa ăn chất lượng với giá hợp lý nhất.
@@ -159,7 +159,7 @@ const BlogList = () => {
                         <p className="py-4 text-[16px] leading-relaxed text-gray-700">
                             Một trong những phong cách đặc biệt nhất là{" "}
                             <span className="font-semibold italic">
-                                Pizza Express Với 3 Tiêu Chí: Pizza ngon – Giá rẻ – Vận chuyển
+                                Pizza Express Với 3 Tiêu Chí: Pizza ngon - Giá rẻ - Vận chuyển
                                 tận nhà
                             </span>
                             , nổi bật với phần đế dày cùng phần nhân vô cùng chất lượng. Nếu

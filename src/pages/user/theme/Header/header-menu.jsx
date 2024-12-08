@@ -73,7 +73,7 @@ const HeaderMenu = () => {
         // Kiểm tra localStorage
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            setUser(JSON.parse(storedUser)); // Parse dữ liệu nếu cần
+            setUser(JSON.parse(storedUser));
         }
     }, []);
 
