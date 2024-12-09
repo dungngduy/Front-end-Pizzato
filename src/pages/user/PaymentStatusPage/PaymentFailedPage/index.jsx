@@ -5,12 +5,12 @@ const PaymentFailPage = () => {
         <div className="container flex justify-center items-center my-4">
             <div className="bg-white p-8 rounded-lg w-full">
                 <div className="text-center">
-                    <h1 className="text-3xl font-semibold text-green-600 mb-4">Thanh toán thất bại</h1>
-                    <p className="text-gray-600 mb-6">Có một sự cố trong quá trình thanh toán của bạn. Vui lòng thử lại sau hoặc liên hệ với chúng tôi nếu vấn đề tiếp diễn.</p>
+                    <h1 className="text-3xl font-semibold text-green-600 mb-4">Đặt hàng thất bại</h1>
+                    <p className="text-gray-600 mb-6">Có một sự cố trong quá trình đặt hàng của bạn. Vui lòng thử lại sau hoặc liên hệ với chúng tôi nếu vấn đề tiếp diễn.</p>
                     <div className="flex justify-center w-[200px] h-[200px] mx-auto">
                         <img src="/assets/images/payment-fail.jpg" alt="" />
                     </div>
-                    <p className="text-gray-500 mt-4 mb-8">Đơn hàng của bạn chưa được xử lý. Chúng tôi sẽ không tiến hành gửi hàng cho đến khi thanh toán thành công.</p>
+                    <p className="text-gray-500 mt-4 mb-8">Đơn hàng của bạn chưa được xử lý. Chúng tôi sẽ không tiến hành gửi hàng cho đến khi đặt hàng thành công.</p>
                     <div className="flex justify-center gap-4">
                         <button
                             onClick={() => window.location.href = "/"}

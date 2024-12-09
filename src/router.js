@@ -14,7 +14,7 @@ import NotificationPage from 'pages/user/ProfilePage/NotificationPage';
 import CheckoutPage from 'pages/user/CheckoutPage';
 import BlogPage from 'pages/user/BlogPage';
 import BlogDetailPage from 'pages/user/BlogDetailPage';
-import { UseProtectedRoute, UseProtectedRouteCheckout } from 'components/protected-route';
+import { UseProtectedRoute } from 'components/protected-route';
 import PaymentSuccessPage from 'pages/user/PaymentStatusPage/PaymentSuccessPage';
 import PaymentFailedPage from 'pages/user/PaymentStatusPage/PaymentFailedPage';
 import IntroducePage from 'pages/user/IntroducePage';
@@ -75,7 +75,7 @@ const renderUserRouter = () => {
         },
         {
             path: ROUTER.USER.CHECKOUT,
-            element: <UseProtectedRouteCheckout><CheckoutPage /></UseProtectedRouteCheckout>,
+            element: <UseProtectedRoute><CheckoutPage /></UseProtectedRoute>,
         },
         {
             path: ROUTER.USER.BLOG,

@@ -1,16 +1,19 @@
 import { memo, useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import AxiosInstance from "utils/apiServers";
 import Swal from "sweetalert2";
 import { formatCurrencyVND, formatImage } from "utils/format";
 import { CartContext } from "components/add-to-cart";
 
 const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => {
-    const { cart, calculateTotalPrice, removeItemsAfterPayment, generateCartHash } = useContext(CartContext);
+    const { cart, calculateTotalPrice, removeItemsAfterPayment } = useContext(CartContext);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        // Lấy dữ liệu người dùng từ localStorage
         const userData = JSON.parse(localStorage.getItem("user")) || [];
         setUser(userData);
     }, []);
@@ -23,20 +26,23 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
     const subPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const totalPrice = calculateTotalPrice(cart, discount);
 
+    const handleSelectItem = () => {
+        Swal.fire({
+            title: "Lỗi thanh toán!",
+            text: "Bạn không có sản phẩm để thực hiện thanh toán!",
+            icon: "warning",
+            confirmButtonText: "OK",
+        }).then(() => {
+            navigate("/cart")
+        });
+    }
+
     const handleCheckout = () => {
         setLoading(true);
         setError(null);
 
-        const cartHash = generateCartHash(selectedItems);
-        const orderId = `${user.id}_${cartHash}`;
-
-        if (localStorage.getItem(orderId) === "completed") {
-            Swal.fire({
-                title: "Lỗi thanh toán!",
-                text: "Đơn hàng đã được thanh toán!",
-                icon: "error",
-                confirmButtonText: "OK",
-            });
+        if (selectedItems.length === 0) {
+            handleSelectItem();
             setLoading(false);
             return;
         }
@@ -56,8 +62,9 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
         const orderData = {
             user_id: user?.id,
             address: selectedAddress.address,
-            sub_total: totalPrice + shippingFee,
+            sub_total: subPrice,
             grand_total: totalPrice + shippingFee - (discount?.discount || 0),
+            discount: discount?.discount || 0,
             product_qty: selectedItems.reduce((total, item) => total + item.quantity, 0),
             payment_method: selectedPayment,
             delivery_charge: shippingFee,
@@ -66,15 +73,12 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
             cartItems: selectedItems
         };
 
-        localStorage.setItem(orderId, "inProgress");
-
         if (orderData.user_id && orderData.address) {
             if (selectedPayment === "vnpay") {
                 AxiosInstance.post('/checkout', orderData)
                     .then(res => {
                         const paymentUrl = res.data.vnp_Url;
                         window.location.href = paymentUrl;
-                        localStorage.setItem(orderId, "completed");
 
                     })
                     .catch(error => {
@@ -89,7 +93,6 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                     .then(() => {
                         window.location.href = '/payment-successed';
                         removeItemsAfterPayment(selectedItems);
-                        localStorage.setItem(orderId, "completed");
                     })
                     .catch(error => {
                         setError(error?.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán.');
@@ -111,7 +114,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                 <h2 className="text-xl font-bold text-[24px] border-b-2 border-[#000000]-400 py-3">Đơn hàng <em className="font-normal text-[16px]">({selectedItems.length} sản phẩm)</em></h2>
                 {
                     selectedItems.length === 0 ? (
-                        <p>Không có sản phẩm cần thanh toán</p>
+                        <p className="text-center m-3">Không có sản phẩm cần thanh toán</p>
                     ) : (
                         selectedItems.map((item, index) => (
                             <div key={index} className="checkout__box__right__content py-5 border-b-2 border-[#000000]-400">
@@ -138,7 +141,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                                                 null
                                             )}
                                         </div>
-                                        <div className="info__price w-[200px] flex justify-end">
+                                        <div className="info__price w-[110px] flex justify-end">
                                             <p className="font-bold text-[#f00000]">{formatCurrencyVND(item.price)}</p>
                                         </div>
                                     </div>
@@ -147,33 +150,41 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                         ))
                     )
                 }
-                <div className="total__price flex justify-between gap-5 py-3 border-b-2 border-[#000000]-400">
-                    <div className="title__total">
-                        <p className="text-[#676767] mb-2">Tạm tính</p>
-                        <p className="text-[#676767] mb-2">Phí vận chuyển</p>
-                        <p className="text-[#676767]">Mã giảm giá</p>
-                    </div>
-                    <div className="price__total">
-                        <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(subPrice)}</p>
-                        <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(shippingFee)}</p>
-                        <p className="text-[#f00000] font-bold">
-                            {discount
-                                ? discount.discount_type === "percent"
-                                    ? `${discount.discount}%`
-                                    : formatCurrencyVND(discount.discount)
-                                : "Chưa chọn"
-                            }
-                        </p>
-                    </div>
-                </div>
-                <div className="total flex justify-between gap-5 py-3 border-b-2 border-[#000000]-400">
-                    <div className="title">
-                        <p className="text-[#676767] font-bold">Tổng tiền</p>
-                    </div>
-                    <div className="price">
-                        <p className="text-[#f00000] font-bold">{formatCurrencyVND(totalPrice + shippingFee)}</p>
-                    </div>
-                </div>
+                {
+                    selectedItems.length > 0 && (
+                        <div className="total__price flex justify-between gap-5 py-3 border-b-2 border-[#000000]-400">
+                            <div className="title__total">
+                                <p className="text-[#676767] mb-2">Tạm tính</p>
+                                <p className="text-[#676767] mb-2">Phí vận chuyển</p>
+                                <p className="text-[#676767]">Mã giảm giá</p>
+                            </div>
+                            <div className="price__total">
+                                <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(subPrice)}</p>
+                                <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(shippingFee)}</p>
+                                <p className="text-[#f00000] font-bold">
+                                    {discount
+                                        ? discount.discount_type === "percent"
+                                            ? `${discount.discount}%`
+                                            : formatCurrencyVND(discount.discount)
+                                        : "Chưa chọn"
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    )
+                }
+                {
+                    selectedItems.length > 0 && (
+                        <div className="total flex justify-between gap-5 py-3 border-b-2 border-[#000000]-400">
+                            <div className="title">
+                                <p className="text-[#676767] font-bold">Tổng tiền</p>
+                            </div>
+                            <div className="price">
+                                <p className="text-[#f00000] font-bold">{formatCurrencyVND(totalPrice + shippingFee)}</p>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
             <div className="button__checkout py-3 w-full">
                 <button
