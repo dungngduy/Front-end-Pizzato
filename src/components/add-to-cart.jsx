@@ -91,7 +91,7 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-    // Hàm áp dụng mã giảm giá
+    // hàm giảm giá 
     const applyDiscount = (selectedDiscount) => {
         setDiscount(selectedDiscount);
         saveDiscountForUser(userId, selectedDiscount);
@@ -99,7 +99,7 @@ export const CartProvider = ({ children }) => {
         setCart(prevCart => {
             const updatedCart = prevCart.map(item => ({
                 ...item,
-                discount: selectedDiscount,  // Gắn mã giảm giá vào từng sản phẩm trong giỏ
+                discount: selectedDiscount,
             }));
 
             saveCartForUser(userId, updatedCart);

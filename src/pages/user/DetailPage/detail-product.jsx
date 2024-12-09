@@ -191,27 +191,22 @@ const DetailProduct = () => {
 
                         <div className="w-[670px]">
                             <div className="space-y-4">
-                                {/* Stock Status */}
                                 <span className="bg-yellow-400 text-white px-2 py-1 rounded">
                                     {product.category.name}
                                 </span>
 
-                                {/* Product Title */}
                                 <h1 className="text-4xl font-bold">{product.name}</h1>
 
-                                {/* Product Description */}
                                 <p className="text-gray-600 text-[16px] w-[500px]">
                                     {product.short_description}
                                 </p>
 
                                 <div className="mt-14 border-t border-gray-300 w-[480px]"></div>
 
-                                {/* Product Price */}
                                 <div className="text-2xl font-semibold text-gray-900">
                                     {formatCurrencyVND(calculateTotalPrice())}
                                 </div>
 
-                                {/* Rating and Reviews */}
                                 <div className="flex items-center space-x-2">
                                     <Rate
                                         className="text-[16px]"
@@ -224,7 +219,6 @@ const DetailProduct = () => {
                                 </div>
                                 <div>
                                     {/* biến thể */}
-                                    {/* Chọn Đế Bánh */}
                                     {bases.length > 0 && (
                                         <div className="mb-2">
                                             <span className="font-bold">Chọn Đế Bánh</span>
