@@ -15,7 +15,7 @@ const PaymentSuccessPage = () => {
         <div className="container flex justify-center items-center my-4">
             <div className="bg-white p-8 rounded-lg w-full">
                 <div className="text-center">
-                    <h1 className="text-3xl font-semibold text-green-600 mb-4">Thanh toán thành công</h1>
+                    <h1 className="text-3xl font-semibold text-green-600 mb-4">Đặt hàng thành công</h1>
                     <p className="text-gray-600 mb-6">Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi!</p>
                     <div className="flex justify-center w-[200px] h-[200px] mx-auto">
                         <img src="/assets/images/payment-success.png" alt="" />

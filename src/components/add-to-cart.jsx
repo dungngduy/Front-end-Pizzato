@@ -143,11 +143,6 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-    const generateCartHash = (cartItems) => {
-        const itemsHash = cartItems.map(item => `${item.subId}_${item.quantity}`).join("_");
-        return btoa(itemsHash);
-    };
-
     return (
         <CartContext.Provider
             value={{
@@ -160,7 +155,6 @@ export const CartProvider = ({ children }) => {
                 applyDiscount,
                 calculateTotalPrice,
                 removeItemsAfterPayment,
-                generateCartHash
             }}
         >
             {children}

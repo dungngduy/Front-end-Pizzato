@@ -18,13 +18,27 @@ const Tracking = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        AxiosInstance.get(`/orders?user_id=${user.id}`)
-            .then((res) => {
-                setOrderList(res.data.orders);
-            })
-            .catch((err) => {
-                console.error("Error fetching orders:", err);
-            });
+        // Lấy danh sách đơn hàng của user lần đầu tiên
+        const fetchOrders = () => {
+            AxiosInstance.get(`/orders?user_id=${user.id}`)
+                .then((res) => {
+                    setOrderList(res.data.orders);
+                })
+                .catch((err) => {
+                    console.error("Error fetching orders:", err);
+                });
+        };
+
+        // Gọi hàm lấy đơn hàng ngay khi load
+        fetchOrders();
+
+        // Thực hiện polling mỗi 5 giây (5000ms)
+        const intervalId = setInterval(fetchOrders, 5000);
+
+        // Cleanup khi component unmount
+        return () => {
+            clearInterval(intervalId);
+        };
     }, [user.id]);
 
     const handleRatingOrder = (order) => {
@@ -54,9 +68,9 @@ const Tracking = () => {
             })
 
             if (!confirmCancel.isConfirmed) return;
-    
+
             const response = await AxiosInstance.put(`/order/${order.id}`);
-    
+
             if (response.status === 200) {
                 await Swal.fire({
                     title: "Xóa đơn hàng thành công!",
