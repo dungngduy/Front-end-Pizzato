@@ -14,7 +14,7 @@ const CheckoutPage = () => {
     return (
         <>
             <Helmet>
-                <title>Thang toán - Pizzato</title>
+                <title>Thanh toán - Pizzato</title>
                 <meta name="description" content="Đây là trang thanh toán của website." />
             </Helmet>
             <div>
