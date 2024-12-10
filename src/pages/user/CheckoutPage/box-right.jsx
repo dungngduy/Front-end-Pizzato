@@ -26,6 +26,10 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
     const subPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const totalPrice = calculateTotalPrice(cart, discount);
 
+    const discountValue = discount && discount.discount_type === "percent"
+        ? (subPrice * discount.discount) / 100
+        : discount?.discount || 0;
+
     const handleSelectItem = () => {
         Swal.fire({
             title: "Lỗi thanh toán!",
@@ -64,7 +68,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
             address: selectedAddress.address,
             sub_total: subPrice,
             grand_total: totalPrice + shippingFee - (discount?.discount || 0),
-            discount: discount?.discount || 0,
+            discount: discountValue,
             product_qty: selectedItems.reduce((total, item) => total + item.quantity, 0),
             payment_method: selectedPayment,
             delivery_charge: shippingFee,
@@ -162,12 +166,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                                 <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(subPrice)}</p>
                                 <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(shippingFee)}</p>
                                 <p className="text-[#f00000] font-bold">
-                                    {discount
-                                        ? discount.discount_type === "percent"
-                                            ? `${discount.discount}%`
-                                            : formatCurrencyVND(discount.discount)
-                                        : "Chưa chọn"
-                                    }
+                                    {formatCurrencyVND(discountValue)}
                                 </p>
                             </div>
                         </div>
