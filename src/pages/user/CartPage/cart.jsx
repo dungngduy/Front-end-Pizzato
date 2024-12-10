@@ -11,6 +11,7 @@ const Cart = () => {
     const [selectedCode, setSelectedCode] = useState(null);
 
     const selectedItems = cart.filter(item => item.selected);
+
     const cartDiscount = cart.filter(item => item.discount);
     const discount = cartDiscount[0]?.discount;
 
@@ -35,24 +36,24 @@ const Cart = () => {
     };
 
     return (
-        <div className= "container flex justify-center py-16 px-4 w-full mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full bg-white rounded-lg overflow-hidden">
+        <div className="flex justify-center py-16 w-[1200px] max-w-7xl mx-auto">
+            <div className="grid grid-cols-3 gap-4 w-full bg-white rounded-lg overflow-hidden">
                 {/* Left Box: Product List */}
                 {cart.length === 0 ? (
                     <div className="col-span-2 border p-4 flex justify-center items-center">
                         <img
-                            className="w-64 h-64 object-contain"
+                            className="w-[350px] h-[300px]"
                             src="/assets/images/empty-cart.webp"
-                            alt="Empty Cart"
+                            alt=""
                         />
                     </div>
                 ) : (
-                    <div className="col-span-2 border-r p-6">
-                        <div className="flex items-center justify-between mb-4 bg-gray-100 p-3 rounded-lg shadow-sm">
+                    <div className="col-span-2 border-r p-4">
+                        <div className="flex items-center justify-between mb-2 bg-[#f0f0f0] p-3 rounded-lg">
                             <div className="flex items-center">
                                 <input
                                     type="checkbox"
-                                    className="form-checkbox h-5 w-5 text-orange-500"
+                                    className="form-checkbox h-4 w-4 text-orange-500"
                                     onChange={() => {
                                         const allSelected = cart.every(item => item.selected);
                                         cart.forEach(item => toggleItemSelection(item.subId, !allSelected));
@@ -64,7 +65,7 @@ const Cart = () => {
                             <div>
                                 <button
                                     onClick={handleOpenDiscount}
-                                    className="px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 transition duration-300"
+                                    className=" px-4 py-2 text-white bg-[#BC9A6C] rounded hover:bg-red-600 transition duration-300"
                                 >
                                     Chọn mã giảm giá
                                 </button>
@@ -79,40 +80,41 @@ const Cart = () => {
                         </div>
 
                         {cart.map((item, index) => (
-                            <div key={index} className="flex items-center border-t py-4 hover:bg-gray-50 transition duration-200">
+                            <div key={index} className="flex items-center border-t py-4 h-46 hover:bg-gray-50 transition duration-200">
                                 <input
                                     type="checkbox"
-                                    className="form-checkbox h-5 w-5 text-orange-500"
+                                    className="form-checkbox h-4 w-4 text-orange-500"
                                     checked={item.selected || false}
                                     onChange={() => toggleItemSelection(item.subId)}
                                 />
-                                <Link to={`/detail/${item.id}`} className="flex w-full">
-                                    <div className="ml-4 w-20 h-20 rounded-lg overflow-hidden">
-                                        <img
-                                            src={formatImage(item.image)}
-                                            alt={item.name}
-                                            className="w-full h-full object-cover rounded-lg"
-                                        />
-                                    </div>
-                                    <div className="ml-6 flex-grow">
-                                        <h2 className="font-semibold text-lg text-gray-800">{item.name}</h2>
-                                        <p className="text-sm text-gray-500">Kích thước: {item.size}</p>
-                                        <p className="text-sm text-gray-500">Chi tiết: {
-                                            item.crust && item.border ? item.crust + " | " + item.border : "Không có"
-                                        }</p>
-                                        <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>
+                                <Link to={`/detail/${item.id}`}>
+                                    <div className="flex justify-between items-center w-full">
+                                        <div className="ml-4 w-16 h-16 rounded">
+                                            <img
+                                                src={formatImage(item.image)}
+                                                alt={item.name}
+                                                className="w-full h-full object-cover rounded-lg"
+                                            />
+                                        </div>
+                                        <div className="w-[220px] ml-4 flex-grow">
+                                            <h2 className="font-semibold text-gray-800">{item.name}</h2>
+                                            <p className="text-sm text-gray-500">Kích thước: {item.size}</p>
+                                            <p className="text-sm text-gray-500">Chi tiết: {
+                                                item.crust && item.border ? item.crust + " | " + item.border : "Không có"
+                                            }</p>
+                                            <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>
+                                        </div>
                                     </div>
                                 </Link>
 
                                 <div className="ml-8 flex-grow">
                                     <div className="text-orange-500 font-bold text-lg">{formatCurrencyVND(item.price * item.quantity)}</div>
                                 </div>
-
                                 {/* Quantity Control */}
-                                <div className="flex items-center space-x-2">
-                                    <button onClick={() => item.quantity > 1 && updateCartItem(item.subId, item.quantity - 1)} className="px-3 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-200">-</button>
+                                <div className="me-4 flex items-center">
+                                    <button onClick={() => item.quantity > 1 && updateCartItem(item.subId, item.quantity - 1)} className="px-2 py-1 border text-gray-500 bg-gray-100 rounded">-</button>
                                     <input
-                                        className="w-12 text-center outline-none border rounded-lg"
+                                        className="w-12 text-center outline-none"
                                         type="number"
                                         value={item.quantity}
                                         min="1"
@@ -122,9 +124,8 @@ const Cart = () => {
                                             updateCartItem(item.subId, newQuantity);
                                         }}
                                     />
-                                    <button onClick={() => updateCartItem(item.subId, item.quantity + 1, item.qty)} className="px-3 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-200">+</button>
+                                    <button onClick={() => updateCartItem(item.subId, item.quantity + 1, item.qty)} className="px-2 py-1 border text-gray-500 bg-gray-100 rounded">+</button>
                                 </div>
-
                                 {/* Delete Button */}
                                 <button
                                     onClick={() =>
@@ -139,9 +140,9 @@ const Cart = () => {
                                             if (result.isConfirmed) removeFromCart(item.subId);
                                         })
                                     }
-                                    className="px-2 py-1 text-gray-400 hover:text-red-500 transition duration-200"
+                                    className="px-2 text-gray-400 hover:text-red-500"
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                     </svg>
                                 </button>
@@ -149,38 +150,48 @@ const Cart = () => {
                         ))}
                     </div>
                 )}
-
                 {/* Right Box: Order Summary */}
-                <div className="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col">
+                <div className="p-4 bg-[#f0f0f0] flex flex-col h-full rounded-lg">
                     <div className="flex-grow">
                         <h2 className="text-gray-800 font-semibold text-lg mb-4">Thông tin đơn hàng</h2>
                         <div className="flex justify-between text-gray-600 mb-2">
                             <span>Tạm tính: </span>
                             <span>{formatCurrencyVND(subPrice)}</span>
                         </div>
-                        {selectedCode && (
-                            <div className="flex justify-between text-gray-600 mb-2">
-                                <span>Mã giảm giá: </span>
-                                <span>{selectedCode.name}</span>
+                        <div className="mb-2">
+                            {selectedCode && (
+                                <div className="flex justify-between text-gray-600 mb-2">
+                                    <span className="text-gray-600">Mã giảm giá: </span>
+                                    <span>
+                                        {selectedCode.name}
+                                    </span>
+                                </div>
+                            )}
                             </div>
-                        )}
-                        {selectedItems.length > 0 && discount && (
-                            <div className="flex justify-between text-gray-600 mb-2">
-                                <span>Giảm giá: </span>
-                                <span>{formatCurrencyVND(discountValue)}</span>
-                            </div>
-                        )}
-                    </div>
+                        <div>
+                            {selectedItems.length > 0 && discount && (
+                                <div className="flex justify-between text-gray-600 mb-2">
+                                     <span>Giảm giá: </span>
+                                    <span>
+                                        {formatCurrencyVND(discountValue)}
+                                    </span>
+                                </div>
+                            )
+                            }
+                        </div>
 
-                    {/* Total */}
-                    <div className="flex justify-between mt-4 text-lg font-semibold text-gray-800">
-                        <span>Tổng cộng</span>
-                        <span className="text-orange-500">{formatCurrencyVND(totalPrice)}</span>
+                        {/* Discount Code */}
+                        <div className="flex items-center mt-4 justify-between gap-2">
+                        </div>
+                        {/* Total */}
+                        <div className="flex justify-between mt-4 text-lg font-semibold text-gray-800">
+                            <span>Tổng cộng</span>
+                            <span className="text-orange-500">{formatCurrencyVND(totalPrice)}</span>
+                        </div>
                     </div>
-
                     {/* Confirm Button */}
                     <Link to="/checkout">
-                        <button className="mt-4 py-2 bg-[#BC9A6C] text-white font-semibold rounded-lg w-full hover:bg-[#BC9A6C]-600 transition duration-200">
+                        <button className="mt-4 w-full py-2 bg-[#BC9A6C] text-white font-semibold rounded hover:bg-[#BC9A6C]-600 transition duration-200">
                             Xác nhận đơn hàng
                         </button>
                     </Link>
@@ -188,6 +199,5 @@ const Cart = () => {
             </div>
         </div>
     );
-};
-
+}
 export default memo(Cart);
