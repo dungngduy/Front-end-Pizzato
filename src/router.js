@@ -50,7 +50,7 @@ const renderUserRouter = () => {
 
                 },
                 {
-                    path: ROUTER.USER.NOTÌICATION,
+                    path: ROUTER.USER.NOTIFICATION,
                     element: <NotificationPage />,
 
                 },
