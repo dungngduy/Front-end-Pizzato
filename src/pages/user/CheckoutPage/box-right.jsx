@@ -154,13 +154,17 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                     selectedItems.length > 0 && (
                         <div className="total__price flex justify-between gap-5 py-3 border-b-2 border-[#000000]-400">
                             <div className="title__total">
-                                <p className="text-[#676767] mb-2">Tạm tính</p>
-                                <p className="text-[#676767] mb-2">Phí vận chuyển</p>
-                                <p className="text-[#676767]">Mã giảm giá</p>
+                                <p className="text-[#676767] mb-2">Tạm tính: </p>
+                                <p className="text-[#676767] mb-2">Phí vận chuyển: </p>
+                                <p className="text-[#676767] mb-2">Mã giảm giá: </p>
+                                <p className="text-[#676767]">Giảm giá </p>
                             </div>
                             <div className="price__total">
                                 <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(subPrice)}</p>
                                 <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(shippingFee)}</p>
+                                <p className="text-[#f00000] font-bold">
+                                 {discount ? discount.name : "Chưa có mã giảm giá"}
+                                </p>
                                 <p className="text-[#f00000] font-bold">
                                     {discount
                                         ? discount.discount_type === "percent"
