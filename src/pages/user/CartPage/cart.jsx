@@ -155,19 +155,31 @@ const Cart = () => {
                     <div className="flex-grow">
                         <h2 className="text-gray-800 font-semibold text-lg mb-4">Thông tin đơn hàng</h2>
                         <div className="flex justify-between text-gray-600 mb-2">
-                            <span>Tạm tính</span>
+                            <span>Tạm tính: </span>
                             <span>{formatCurrencyVND(subPrice)}</span>
                         </div>
-                        {
-                            selectedItems.length > 0 && discount && (
+                        <div className="mb-2">
+                            {selectedCode && (
                                 <div className="flex justify-between text-gray-600 mb-2">
-                                    <span>Mã giảm giá</span>
+                                    <span className="text-gray-600">Mã giảm giá: </span>
+                                    <span>
+                                        {selectedCode.name}
+                                    </span>
+                                </div>
+                            )}
+                            </div>
+                        <div>
+                            {selectedItems.length > 0 && discount && (
+                                <div className="flex justify-between text-gray-600 mb-2">
+                                     <span>Giảm giá: </span>
                                     <span>
                                         {formatCurrencyVND(discountValue)}
                                     </span>
                                 </div>
                             )
-                        }
+                            }
+                        </div>
+
                         {/* Discount Code */}
                         <div className="flex items-center mt-4 justify-between gap-2">
                         </div>
