@@ -49,7 +49,7 @@ const Cart = () => {
                     </div>
                 ) : (
                     <div className="col-span-2 border-r p-4">
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center justify-between mb-2 bg-[#f0f0f0] p-3 rounded-lg">
                             <div className="flex items-center">
                                 <input
                                     type="checkbox"
@@ -65,7 +65,7 @@ const Cart = () => {
                             <div>
                                 <button
                                     onClick={handleOpenDiscount}
-                                    className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600 transition duration-300"
+                                    className=" px-4 py-2 text-white bg-[#BC9A6C] rounded hover:bg-red-600 transition duration-300"
                                 >
                                     Chọn mã giảm giá
                                 </button>
@@ -151,23 +151,35 @@ const Cart = () => {
                     </div>
                 )}
                 {/* Right Box: Order Summary */}
-                <div className="p-4 bg-gray-50 flex flex-col h-full">
+                <div className="p-4 bg-[#f0f0f0] flex flex-col h-full rounded-lg">
                     <div className="flex-grow">
                         <h2 className="text-gray-800 font-semibold text-lg mb-4">Thông tin đơn hàng</h2>
                         <div className="flex justify-between text-gray-600 mb-2">
-                            <span>Tạm tính</span>
+                            <span>Tạm tính: </span>
                             <span>{formatCurrencyVND(subPrice)}</span>
                         </div>
-                        {
-                            selectedItems.length > 0 && discount && (
+                        <div className="mb-2">
+                            {selectedCode && (
                                 <div className="flex justify-between text-gray-600 mb-2">
-                                    <span>Mã giảm giá</span>
+                                    <span className="text-gray-600">Mã giảm giá: </span>
+                                    <span>
+                                        {selectedCode.name}
+                                    </span>
+                                </div>
+                            )}
+                            </div>
+                        <div>
+                            {selectedItems.length > 0 && discount && (
+                                <div className="flex justify-between text-gray-600 mb-2">
+                                     <span>Giảm giá: </span>
                                     <span>
                                         {formatCurrencyVND(discountValue)}
                                     </span>
                                 </div>
                             )
-                        }
+                            }
+                        </div>
+
                         {/* Discount Code */}
                         <div className="flex items-center mt-4 justify-between gap-2">
                         </div>
