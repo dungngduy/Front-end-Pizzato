@@ -1,5 +1,6 @@
 import { memo, useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import ReactDOM from "react-dom";
 import { Rate, Tag } from "antd";
 import {
     FaFacebookF,
@@ -12,6 +13,8 @@ import "react-multi-carousel/lib/styles.css";
 import "assets/user/scss/detail-page.scss";
 import AxiosInstance from "utils/apiServers";
 import { CartContext } from "components/add-to-cart";
+import Login from "pages/user/LoginPage/login/login";
+import Swal from "sweetalert2";
 import { formatCurrencyVND, formatImage } from "utils/format";
 
 const responsive = {
@@ -38,6 +41,7 @@ const DetailProduct = () => {
     const [selectedImage, setSelectedImage] = useState("");
     const [activeTab, setActiveTab] = useState("description");
     const [quantity, setQuantity] = useState(1);
+    const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
     // Product
     const { id } = useParams();
@@ -108,6 +112,8 @@ const DetailProduct = () => {
     }, [id]);
 
     const handleAddToCart = () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+
         if (
             (bases.length > 0 && !selectedBases) ||
             (edges.length > 0 && !selectedEdges) ||
@@ -117,7 +123,6 @@ const DetailProduct = () => {
             return;
         }
         const subId = `${product.id}-${selectedBases || "Not Updated"}-${selectedEdges || "Not Updated"}-${selectedSizes || "Not Updated"}`;
-        const user = JSON.parse(localStorage.getItem("user"));
         const newPizza = {
             subId: subId,
             id: product.id,
@@ -132,9 +137,19 @@ const DetailProduct = () => {
             user_id: user?.id
         };
 
-        addToCart(newPizza);
-
-        alert("Đã thêm thành công");
+        if (!user) {
+            Swal.fire({
+                title: "Lỗi truy cập!",
+                text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.",
+                icon: "warning",
+                confirmButtonText: "OK",
+            }).then(() => {
+                setIsLoginPopupOpen(true);
+            });
+        } else {
+            addToCart(newPizza);
+            alert("Đã thêm thành công");
+        }
     };
 
     useEffect(() => {
@@ -214,7 +229,7 @@ const DetailProduct = () => {
                                         disabled
                                         defaultValue={avgReview}
                                     />
-                                    <span className="text-gray-600">{avgReview} đánh giá</span>
+                                    <span className="text-gray-600">{avgReview ? avgReview : "0"} đánh giá</span>
                                     <span className="text-gray-500">| {product.view} Lượt xem</span>
                                 </div>
                                 <div>
@@ -430,6 +445,13 @@ const DetailProduct = () => {
                     </div>
                 </div>
             </div>
+            {isLoginPopupOpen && ReactDOM.createPortal(
+                <div>
+                    <div className="overlay active" onClick={() => setIsLoginPopupOpen(false)}></div>
+                    <Login />
+                </div>,
+                document.body
+            )}
         </div>
     );
 };
