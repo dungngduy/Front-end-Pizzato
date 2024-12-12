@@ -233,7 +233,36 @@ const Policy = () => {
                 Pizzato&apos;s Pizza Vietnam có quyền sử dụng những thông tin này cho mục
                 đích quảng cáo trên website, ứng dụng & các kênh truyền thông khác.
             </p>
-            
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
+                4. TỪ CHỐI BẢO HÀNH
+            </h3>
+            <p className="text-[16px] leading-relaxed text-gray-700">
+                Khách hàng đồng ý rằng khi sử dụng Website & Ứng dụng của Pizzato&apos;s
+                Pizza, khách hàng sẽ tự chấp nhận các rủi ro có thể xảy ra. Các nhân
+                viên văn phòng, ban giám đốc, nhân viên và các đại lý của Pizzato&apos;s
+                Pizza từ chối bảo hành có liên quan đến website, ứng dụng và việc sử
+                dụng Pizzato&apos;s Pizza website, ứng dụng của khách hàng. Pizzato&apos;s Pizza
+                không bảo hành tính chính xác hoặc hoàn thiện của nội dung trên website
+                hoặc nội dung của bất kỳ website nào được kết nối với Website & Ứng dụng
+                của Pizzato&apos;s Pizza và chúng tôi không có quyền và nghĩa vụ cho bất cứ
+                những nội dung sai sót và sơ suất hoặc không chính xác, những tổn thương
+                cá nhân hoặc hư hại tài sản đến từ tự nhiên trong quá trình truy cập và
+                sử dụng website, ứng dụng của chúng tôi, truy cập bất hợp pháp vào các
+                máy chủ của chúng tôi để lấy thông tin cá nhân hoặc/và những thông tin
+                tài chính mà chúng tôi bảo quản trong đó, cắt ngang hoặc chấm dứt truyền
+                thông tin đến website, ứng dụng của chúng tôi, sai sót, vi-rút, hoặc
+                những thứ tương tự như vậy có thể truyền đến thông qua website, ứng dụng
+                của chúng tôi bởi bên thứ ba, và lỗi hoặc sai sót trong phần nội dung
+                hoặc những mất mát hư hỏng do sử dụng nội dung đăng tải, email, đường
+                truyền hoặc những thứ tương tự từ Pizzato&apos;s Pizza website, ứng dụng.
+                Pizzato&apos;s Pizza sẽ không bảo hành và chịu trách nhiệm bất cứ sản phẩm,
+                dịch vụ nào hoặc các chương trình khuyến mãi của bên thứ ba thông qua
+                Website & Ứng dụng của Pizzato&apos;s Pizza và Pizzato&apos;s Pizza cũng không có
+                trách nhiệm giám sát bất cứ giao dịch nào của khách hàng với bên thứ ba,
+                những người cung cấp sản phẩm và dịch vụ. Việc mua sản phẩm và dịch vụ
+                thông qua trung gian, tốt nhất là khách hàng nên sử dụng khả năng phán
+                xét của mình để quyết định thế nào là hợp lý.
+            </p>
             <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
                 5. HẠN CHẾ VỀ NGHĨA VỤ PHÁP LÝ
             </h3>
