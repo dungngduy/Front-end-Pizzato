@@ -18,7 +18,6 @@ const Rating = ({ onClose, order }) => {
 
         const reviewData = {
             user_id: user.id,
-            // product_id: product.id,
             order_id: order,
             rating,
             review
