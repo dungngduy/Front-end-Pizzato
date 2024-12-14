@@ -1,12 +1,13 @@
 import { FaHeart, FaExchangeAlt } from 'react-icons/fa';
 import { memo, useState, useEffect } from 'react';
 import AxiosInstance from 'utils/apiServers';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { formatCurrencyVND, formatImage } from 'utils/format';
 
 const SimilarProducts = () => {
     const { id } = useParams();
     const [isSimilarPizza, setIsSimilarPizza] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         AxiosInstance.get(`/similar-pizza/${id}`)
@@ -18,12 +19,16 @@ const SimilarProducts = () => {
             });
     }, [id]);
 
+    const handleNavigate = (newId) => {
+        navigate(`/detail/${newId}`);
+    };
+
     return (
         <div className="container mx-auto py-4 pb-[90px]">
             <h2 className="text-2xl font-bold mb-10" data-aos="fade-up">Sản phẩm tương tự</h2>
             <div className="grid grid-cols-4 gap-10" data-aos="fade-up">
                 {isSimilarPizza.map((pizza) => (
-                    <Link to={`/detail/${pizza.id}`} key={pizza.id}>
+                    <Link to={`/detail/${pizza.id}`} onClick={() => handleNavigate(pizza.id)}>
                         <div key={pizza.id} className="relative group">
                             {/* Product Image */}
                             <img className="object-cover rounded-md w-[180px] h-[180px]" src={formatImage(pizza.thumb_image)} alt={pizza.thumb_image} />

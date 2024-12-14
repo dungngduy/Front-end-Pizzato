@@ -90,47 +90,9 @@
             }
         }
 
-        li:hover .header__menu__dropdown {
-            opacity: 1;
-            visibility: visible;
-            transition: map-get($map: $theme-transitions, $key: "other");
-        }
-
         .active a {
             color: map-get($map: $theme-colors, $key: "main");
             transition: map-get($map: $theme-transitions, $key: "other");
-        }
-
-        .header__menu__dropdown {
-            position: absolute;
-            background-color: #ede3ea;
-            display: block;
-            z-index: 999;
-            width: 220px;
-            opacity: 0;
-            visibility: hidden;
-            transition: map-get($map: $theme-transitions, $key: "other");
-
-            li {
-                padding: 5px 0px;
-
-                &:hover {
-                    color: map-get($map: $theme-colors, $key: "white");
-                    background-color: map-get($map: $theme-colors, $key: "main");
-                    transition: map-get($map: $theme-transitions, $key: "other");
-
-                    a {
-                        color: map-get($map: $theme-colors, $key: "white");
-                    }
-                }
-
-                a {
-                    text-transform: capitalize;
-                    color: map-get($map: $theme-colors, $key: "black");
-                    font-weight: 400;
-                    padding: 0px 15px;
-                }
-            }
         }
     }
 }

@@ -1,7 +1,6 @@
 import { memo, useState, useEffect } from "react";
 import CarouselMulti from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Link } from "react-router-dom";
 import AxiosInstance from "utils/apiServers";
 import { formatImage } from "utils/format";
 
@@ -54,10 +53,8 @@ const Category = () => {
                         categories.map((category, index) => {
                             return (
                                 <div key={index} className="categories__item" data-aos="zoom-in">
-                                    <Link to="">
-                                        <img src={formatImage(category.image)} alt={category.name} />
-                                        <p>{category.name}</p>
-                                    </Link>
+                                    <img src={formatImage(category.image)} alt={category.name} />
+                                    <p>{category.name}</p>
                                 </div>
                             )
                         })

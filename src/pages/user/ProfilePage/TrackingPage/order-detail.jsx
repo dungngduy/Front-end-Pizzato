@@ -2,22 +2,43 @@ import { memo, useEffect, useState } from "react";
 import "assets/user/scss/tracking.scss";
 import { formatCurrencyVND } from "utils/format";
 import AxiosInstance from "utils/apiServers";
+import Rating from "./rating";
 
 const OrderStatus = ({ order, onClose }) => {
     const [orderItems, setOrderItems] = useState([]);
     const [address, setAddress] = useState({});
+    const [isPopupVisibleRating, setIsPopupVisibleRating] = useState(false);
+    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
-        AxiosInstance.get(`/order/${order.id}`)
+        const fetchOrderItems = () => {
+            AxiosInstance.get(`/order/${order.id}`)
             .then((res) => {
-                const data = res.data.order; // Lấy dữ liệu gốc từ API
-                setOrderItems(data.items || []); // Đảm bảo luôn là mảng
+                const data = res.data.order;
+                setOrderItems(data.items || []);
                 setAddress(data.addresses || {});
             })
             .catch((err) => {
                 console.log(err);
             })
+        }
+
+        // Gọi hàm lấy đơn hàng ngay khi load
+        fetchOrderItems();
+
+        // Thực hiện polling mỗi 5 giây (5000ms)
+        const intervalId = setInterval(fetchOrderItems, 5000);
+
+        // Cleanup khi component unmount
+        return () => {
+            clearInterval(intervalId);
+        };
     }, [order.id]);
+
+    const handleRatingOrder = (orderItimes) => {
+        setSelectedItems(orderItimes);
+        setIsPopupVisibleRating(true);
+    };
 
     return (
         <div>
@@ -40,12 +61,12 @@ const OrderStatus = ({ order, onClose }) => {
                             <h1 className="text-lg font-semibold">Mã đơn hàng: {order.invoice_id}</h1>
                             <span
                                 className={`font-medium uppercase ${order.order_status === "pending"
-                                        ? "text-red-500"
-                                        : order.order_status === "processing"
-                                            ? "text-green-500"
-                                            : order.order_status === "completed"
-                                                ? "text-blue-500"
-                                                : "text-gray-500"
+                                    ? "text-red-500"
+                                    : order.order_status === "processing"
+                                        ? "text-green-500"
+                                        : order.order_status === "completed"
+                                            ? "text-blue-500"
+                                            : "text-gray-500"
                                     }`}
                             >
                                 {order.order_status === "pending"
@@ -54,7 +75,9 @@ const OrderStatus = ({ order, onClose }) => {
                                         ? "Đang Xử Lý"
                                         : order.order_status === "completed"
                                             ? "Đã Giao Hàng"
-                                            : "Trạng Thái Không Xác Định"}
+                                            : order.order_status === "canceled"
+                                                ? "Đơn Hàng Đã Bị Hủy"
+                                                : "Trạng Thái Không Xác Định"}
                             </span>
                         </div>
                     </div>
@@ -154,10 +177,26 @@ const OrderStatus = ({ order, onClose }) => {
                                                     Đế bánh: {item.product_option || "Không có"}
                                                 </p>
                                             </div>
-                                            <div>
+                                            <div className="flex justify-center items-center gap-5">
                                                 <p className="text-sm font-medium">
                                                     {formatCurrencyVND(item.unit_price * item.qty)}
                                                 </p>
+                                                <div>
+                                                    {
+                                                        order.order_status === "completed" && (
+                                                            <button
+                                                                className={`px-2 py-2 rounded-lg border ${item.product_reviews !== null && item.product_reviews.product_id === item.product_id
+                                                                        ? "border-gray-400 bg-gray-300 text-gray-600 cursor-not-allowed"
+                                                                        : "border-[#ff0000] bg-[#ff0000] text-white"
+                                                                    }`}
+                                                                onClick={() => handleRatingOrder(item)}
+                                                                disabled={item.product_reviews !== null && item.product_reviews.product_id === item.product_id ? true : false}
+                                                            >
+                                                                {item.product_reviews !== null && item.product_reviews.product_id === item.product_id ? "Đã đánh giá" : "Đánh giá"}
+                                                            </button>
+                                                        )
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
@@ -167,6 +206,7 @@ const OrderStatus = ({ order, onClose }) => {
                     </div>
                 </div>
             </div>
+            {isPopupVisibleRating && <Rating onClose={() => setIsPopupVisibleRating(false)} selectedItems={selectedItems} />}
         </div>
     );
 };

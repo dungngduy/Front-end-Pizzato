@@ -6,7 +6,7 @@ import { CartContext } from "components/add-to-cart";
 import Discount from "./discount-cart";
 
 const Cart = () => {
-    const { cart, updateCartItem, removeFromCart, calculateTotalPrice, toggleItemSelection } = useContext(CartContext);
+    const { cart, updateCartItem, removeFromCart, calculateTotalPrice, toggleItemSelection, allSelected, toggleAllSelection } = useContext(CartContext);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCode, setSelectedCode] = useState(null);
 
@@ -35,17 +35,28 @@ const Cart = () => {
         }
     };
 
+    const handleToggleAll = () => {
+        toggleAllSelection(); // Chọn/ bỏ chọn tất cả
+    };
+
     return (
         <div className="flex justify-center py-16 w-[1200px] max-w-7xl mx-auto">
             <div className="grid grid-cols-3 gap-4 w-full bg-white rounded-lg overflow-hidden">
                 {/* Left Box: Product List */}
                 {cart.length === 0 ? (
-                    <div className="col-span-2 border p-4 flex justify-center items-center">
+                    <div className="col-span-2 border p-4 flex flex-col justify-center items-center">
                         <img
                             className="w-[350px] h-[300px]"
                             src="/assets/images/empty-cart.webp"
                             alt=""
                         />
+                        <div className="mt-4">
+                            <Link to="/category">
+                                <button className="px-4 py-2 text-white font-semibold bg-[#BC9A6C] rounded hover:bg-red-600 transition duration-300">
+                                    Tiếp tục mua hàng
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 ) : (
                     <div className="col-span-2 border-r p-4">
@@ -54,10 +65,8 @@ const Cart = () => {
                                 <input
                                     type="checkbox"
                                     className="form-checkbox h-4 w-4 text-orange-500"
-                                    onChange={() => {
-                                        const allSelected = cart.every(item => item.selected);
-                                        cart.forEach(item => toggleItemSelection(item.subId, !allSelected));
-                                    }}
+                                    checked={allSelected}
+                                    onChange={handleToggleAll}
                                 />
                                 <span className="ml-2 font-semibold text-lg">Chọn tất cả</span>
                             </div>
@@ -167,11 +176,11 @@ const Cart = () => {
                                     </span>
                                 </div>
                             )}
-                            </div>
+                        </div>
                         <div>
                             {selectedItems.length > 0 && discount && (
                                 <div className="flex justify-between text-gray-600 mb-2">
-                                     <span>Giảm giá: </span>
+                                    <span>Giảm giá: </span>
                                     <span>
                                         {formatCurrencyVND(discountValue)}
                                     </span>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import AxiosInstance from "utils/apiServers";
-import Rating from "./rating";
 import Notification from "./notification";
 import OrderDetail from "./order-detail";
 import Swal from "sweetalert2";
@@ -11,7 +10,6 @@ const Tracking = () => {
     const [filterDate, setFilterDate] = useState("");
     const [orderList, setOrderList] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null);
-    const [isPopupVisibleRating, setIsPopupVisibleRating] = useState(false);
     const [isPopupVisibleNotification, setIsPopupVisibleNotification] = useState(false);
     const [isPopupVisibleOrderDetail, setIsPopupVisibleOrderDetail] = useState(false);
 
@@ -41,11 +39,6 @@ const Tracking = () => {
         };
     }, [user.id]);
 
-    const handleRatingOrder = (order) => {
-        setSelectedOrder(order);
-        setIsPopupVisibleRating(true);
-    };
-
     const handleCancelOrderVNpay = (order) => {
         setSelectedOrder(order);
         setIsPopupVisibleNotification(true);
@@ -59,12 +52,12 @@ const Tracking = () => {
     const handleCancelOrderCOD = async (order) => {
         try {
             const confirmCancel = await Swal.fire({
-                title: "Xóa đơn hàng?",
-                text: "Bạn có chắc chắn muốn xóa đơn hàng này không?",
+                title: "Hủy đơn hàng?",
+                text: "Bạn có chắc chắn muốn hủy đơn hàng này không?",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Xóa",
-                cancelButtonText: "Hủy",
+                confirmButtonText: "Đồng ý",
+                cancelButtonText: "Đóng",
             })
 
             if (!confirmCancel.isConfirmed) return;
@@ -73,7 +66,7 @@ const Tracking = () => {
 
             if (response.status === 200) {
                 await Swal.fire({
-                    title: "Xóa đơn hàng thành công!",
+                    title: "Hủy đơn hàng thành công!",
                     text: "Đơn hàng của bạn đã được xử lý",
                     icon: "success",
                     confirmButtonText: "OK",
@@ -173,7 +166,17 @@ const Tracking = () => {
                                     <td className="flex items-center justify-center gap-2 px-2 py-2 text-center text-blue-500 cursor-pointer">
                                         {
                                             order.order_status === "canceled" ? (
-                                                <p className="text-red-500 font-semibold">Đơn hàng đã bị hủy</p>
+                                                <>
+                                                    <button onClick={() => handleViewOrderDetail(order)} className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white">Chi tiết</button>
+                                                    <button
+                                                        className={`px-2 py-2 rounded-lg border ${order.order_status === "canceled"
+                                                            ? "border-gray-400 bg-gray-300 text-gray-600 cursor-not-allowed"
+                                                            : "border-[#ff0000] bg-[#ff0000] text-white"
+                                                        }`}
+                                                    >
+                                                        Đã bị hủy
+                                                    </button>
+                                                </>
                                             ) : (
                                                 <>
                                                     <button onClick={() => handleViewOrderDetail(order)} className="px-2 py-2 rounded-lg border border-[#BC9A6C] bg-[#BC9A6C] text-white">Chi tiết</button>
@@ -183,9 +186,6 @@ const Tracking = () => {
                                                         ) : (
                                                             <button onClick={() => handleCancelOrderCOD(order)} className="px-2 py-2 rounded-lg border border-[#ff0000] bg-[#ff0000] text-white">Hủy đơn hàng</button>
                                                         )
-                                                    )}
-                                                    {order.order_status === "completed" && (
-                                                        <button onClick={() => handleRatingOrder(order)} className="px-2 py-2 rounded-lg border border-[#FFD700] bg-[#FFD700] text-white">Viết đánh giá</button>
                                                     )}
                                                 </>
                                             )
@@ -204,7 +204,6 @@ const Tracking = () => {
                 </table>
             </div>
 
-            {isPopupVisibleRating && <Rating onClose={() => setIsPopupVisibleRating(false)} order={selectedOrder} />}
             {isPopupVisibleNotification && <Notification onClose={() => setIsPopupVisibleNotification(false)} order={selectedOrder} />}
             {isPopupVisibleOrderDetail && <OrderDetail onClose={() => setIsPopupVisibleOrderDetail(false)} order={selectedOrder} />}
         </div>

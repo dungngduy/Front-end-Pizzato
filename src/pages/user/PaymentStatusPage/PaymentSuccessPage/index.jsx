@@ -2,14 +2,12 @@ import { memo, useEffect, useContext } from "react";
 import { CartContext } from "components/add-to-cart";
 
 const PaymentSuccessPage = () => {
-    const { cart, removeItemsAfterPayment } = useContext(CartContext);
-    const selectedItems = cart.filter(item => item.selected);
+    const { clearCartAfterPayment } = useContext(CartContext);
 
     useEffect(() => {
-        if (selectedItems.length > 0) {
-            removeItemsAfterPayment(selectedItems);
-        }
-    }, [selectedItems, removeItemsAfterPayment]);
+        // Khi trang load, bạn xóa giỏ hàng sau khi thanh toán thành công
+        clearCartAfterPayment();
+    }, [clearCartAfterPayment]);
 
     return (
         <div className="container flex justify-center items-center my-4">

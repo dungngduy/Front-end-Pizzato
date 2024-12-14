@@ -145,6 +145,16 @@ const Address = ({ onClose, setSelectedAddress }) => {
     const handleSubmitAddress = (e) => {
         e.preventDefault();
 
+        if (!formAddress.province || !formAddress.district || !formAddress.ward) {
+            setErrorAddress(prev => ({
+                ...prev,
+                province: !formAddress.province ? 'Bạn phải chọn Tỉnh/Thành phố!' : null,
+                district: !formAddress.district ? 'Bạn phải chọn Quận/Huyện!' : null,
+                ward: !formAddress.ward ? 'Bạn phải chọn Phường/Xã!' : null,
+            }));
+            return;
+        }
+
         const { address, ward, district, province } = formAddress;
         const fullAddress = [address, ward, district, province]
         .filter(Boolean)
@@ -186,6 +196,7 @@ const Address = ({ onClose, setSelectedAddress }) => {
                     onClose();
                 } else {
                     setError(res.data.errors);
+                    console.log(errorAddress);
                     alert('Thêm địa chỉ giao hàng thất bại');
                 }
             })
@@ -242,6 +253,7 @@ const Address = ({ onClose, setSelectedAddress }) => {
                             options={provinces}
                             getPopupContainer={trigger => trigger.parentNode}
                         />
+                        <br />
                         {errorAddress.province && <span className="text-red-500">{errorAddress.province}</span>}
                     </div>
                     <div className="input">
@@ -256,6 +268,7 @@ const Address = ({ onClose, setSelectedAddress }) => {
                             disabled={!selectedProvince}
                             getPopupContainer={trigger => trigger.parentNode}
                         />
+                        <br />
                         {errorAddress.district && <span className="text-red-500">{errorAddress.district}</span>}
                     </div>
                     <div className="input">
@@ -269,6 +282,7 @@ const Address = ({ onClose, setSelectedAddress }) => {
                             disabled={!selectedDistrict}
                             getPopupContainer={trigger => trigger.parentNode}
                         />
+                        <br />
                         {errorAddress.ward && <span className="text-red-500">{errorAddress.ward}</span>}
                     </div>
                 </div>
