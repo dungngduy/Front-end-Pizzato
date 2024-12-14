@@ -13,14 +13,14 @@ const OrderStatus = ({ order, onClose }) => {
     useEffect(() => {
         const fetchOrderItems = () => {
             AxiosInstance.get(`/order/${order.id}`)
-            .then((res) => {
-                const data = res.data.order;
-                setOrderItems(data.items || []);
-                setAddress(data.addresses || {});
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+                .then((res) => {
+                    const data = res.data.order;
+                    setOrderItems(data.items || []);
+                    setAddress(data.addresses || {});
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         }
 
         // Gọi hàm lấy đơn hàng ngay khi load
@@ -35,8 +35,8 @@ const OrderStatus = ({ order, onClose }) => {
         };
     }, [order.id]);
 
-    const handleRatingOrder = (orderItimes) => {
-        setSelectedItems(orderItimes);
+    const handleRatingOrder = (orderItems) => {
+        setSelectedItems(orderItems);
         setIsPopupVisibleRating(true);
     };
 
@@ -49,8 +49,19 @@ const OrderStatus = ({ order, onClose }) => {
                             className="bg-white px-2 py-1 rounded-md shadow-md hover:bg-gray-200 transition duration-200"
                             onClick={onClose}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
                             </svg>
                         </button>
                     </div>
@@ -88,13 +99,21 @@ const OrderStatus = ({ order, onClose }) => {
                             {/* Đơn Hàng Đã Đặt */}
                             <div className="flex-1 flex flex-col items-center">
                                 <div
-                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "pending" || order.order_status === "processing" || order.order_status === "completed" ? "bg-green-500 text-white" : "bg-gray-300 text-gray-500"
+                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "pending" ||
+                                            order.order_status === "processing" ||
+                                            order.order_status === "completed"
+                                            ? "bg-green-500 text-white"
+                                            : "bg-gray-300 text-gray-500"
                                         }`}
                                 >
                                     1
                                 </div>
                                 <span
-                                    className={`text-sm mt-2 ${order.order_status === "pending" || order.order_status === "processing" || order.order_status === "completed" ? "font-bold text-green-500" : "text-gray-500"
+                                    className={`text-sm mt-2 ${order.order_status === "pending" ||
+                                            order.order_status === "processing" ||
+                                            order.order_status === "completed"
+                                            ? "font-bold text-green-500"
+                                            : "text-gray-500"
                                         }`}
                                 >
                                     Đơn Hàng Đã Đặt
@@ -102,24 +121,30 @@ const OrderStatus = ({ order, onClose }) => {
                             </div>
 
                             <div
-                                className={`flex-1 border-t-2 ${order.order_status === "pending" || order.order_status === "processing" || order.order_status === "completed"
-                                    ? "border-green-500"
-                                    : "border-gray-300"
+                                className={`flex-1 border-t-2 ${order.order_status === "pending" ||
+                                        order.order_status === "processing" ||
+                                        order.order_status === "completed"
+                                        ? "border-green-500"
+                                        : "border-gray-300"
                                     }`}
                             ></div>
 
                             {/* Chờ Xử lý */}
                             <div className="flex-1 flex flex-col items-center">
                                 <div
-                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "processing" || order.order_status === "completed"
-                                        ? "bg-green-500 text-white"
-                                        : "bg-gray-300 text-gray-500"
+                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "processing" ||
+                                            order.order_status === "completed"
+                                            ? "bg-green-500 text-white"
+                                            : "bg-gray-300 text-gray-500"
                                         }`}
                                 >
                                     2
                                 </div>
                                 <span
-                                    className={`text-sm mt-2 ${order.order_status === "processing" || order.order_status === "completed" ? "font-bold text-green-500" : "text-gray-500"
+                                    className={`text-sm mt-2 ${order.order_status === "processing" ||
+                                            order.order_status === "completed"
+                                            ? "font-bold text-green-500"
+                                            : "text-gray-500"
                                         }`}
                                 >
                                     Chờ Xử Lý
@@ -127,18 +152,25 @@ const OrderStatus = ({ order, onClose }) => {
                             </div>
 
                             <div
-                                className={`flex-1 border-t-2 ${order.order_status === "processing" || order.order_status === "completed" ? "border-green-500" : "border-gray-300"
+                                className={`flex-1 border-t-2 ${order.order_status === "processing" ||
+                                        order.order_status === "completed"
+                                        ? "border-green-500"
+                                        : "border-gray-300"
                                     }`}
                             ></div>
                             <div className="flex-1 flex flex-col items-center">
                                 <div
-                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "completed" ? "bg-green-500 text-white" : "bg-gray-300 text-gray-500"
+                                    className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "completed"
+                                            ? "bg-green-500 text-white"
+                                            : "bg-gray-300 text-gray-500"
                                         }`}
                                 >
                                     3
                                 </div>
                                 <span
-                                    className={`text-sm mt-2 ${order.order_status === "completed" ? "font-bold text-green-500" : "text-gray-500"
+                                    className={`text-sm mt-2 ${order.order_status === "completed"
+                                            ? "font-bold text-green-500"
+                                            : "text-gray-500"
                                         }`}
                                 >
                                     Hoàn Thành
@@ -146,7 +178,6 @@ const OrderStatus = ({ order, onClose }) => {
                             </div>
                         </div>
                     </div>
-
 
                     {/* Order Details */}
                     <div className="grid grid-cols-2 justify-between bg-white shadow-md rounded-md">
@@ -186,8 +217,8 @@ const OrderStatus = ({ order, onClose }) => {
                                                         order.order_status === "completed" && (
                                                             <button
                                                                 className={`px-2 py-2 rounded-lg border ${item.product_reviews !== null && item.product_reviews.product_id === item.product_id
-                                                                        ? "border-gray-400 bg-gray-300 text-gray-600 cursor-not-allowed"
-                                                                        : "border-[#ff0000] bg-[#ff0000] text-white"
+                                                                    ? "border-gray-400 bg-gray-300 text-gray-600 cursor-not-allowed"
+                                                                    : "border-[#ff0000] bg-[#ff0000] text-white"
                                                                     }`}
                                                                 onClick={() => handleRatingOrder(item)}
                                                                 disabled={item.product_reviews !== null && item.product_reviews.product_id === item.product_id ? true : false}

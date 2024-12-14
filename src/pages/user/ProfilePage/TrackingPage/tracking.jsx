@@ -72,7 +72,9 @@ const Tracking = () => {
                     confirmButtonText: "OK",
                 });
 
-                const updatedOrders = await AxiosInstance.get(`/orders?user_id=${order.user_id}`);
+                const updatedOrders = await AxiosInstance.get(
+                    `/orders?user_id=${order.user_id}`
+                );
                 setOrderList(updatedOrders.data.orders);
             } else {
                 throw new Error("Có lỗi xảy ra khi hủy đơn hàng.");
@@ -172,7 +174,7 @@ const Tracking = () => {
                                                         className={`px-2 py-2 rounded-lg border ${order.order_status === "canceled"
                                                             ? "border-gray-400 bg-gray-300 text-gray-600 cursor-not-allowed"
                                                             : "border-[#ff0000] bg-[#ff0000] text-white"
-                                                        }`}
+                                                            }`}
                                                     >
                                                         Đã bị hủy
                                                     </button>

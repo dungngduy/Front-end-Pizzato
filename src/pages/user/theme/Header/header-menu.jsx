@@ -47,14 +47,11 @@ const HeaderMenu = () => {
     ];
 
     useEffect(() => {
-        // Kiểm tra localStorage
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
     }, []);
-
-    // Toggle popup tìm kiếm món ăn
     const toggleSearchPopup = () => {
         setSearchVisible(!isSearchVisible);
     };
