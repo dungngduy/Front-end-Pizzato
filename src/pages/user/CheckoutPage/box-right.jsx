@@ -67,7 +67,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
             user_id: user?.id,
             address: selectedAddress.address,
             sub_total: subPrice,
-            grand_total: totalPrice + shippingFee - (discount?.discount || 0),
+            grand_total: totalPrice + shippingFee,
             discount: discountValue,
             product_qty: selectedItems.reduce((total, item) => total + item.quantity, 0),
             payment_method: selectedPayment,
@@ -83,7 +83,6 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                     .then(res => {
                         const paymentUrl = res.data.vnp_Url;
                         window.location.href = paymentUrl;
-
                     })
                     .catch(error => {
                         setError(error?.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán qua VNPAY.');
@@ -161,13 +160,13 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                                 <p className="text-[#676767] mb-2">Tạm tính: </p>
                                 <p className="text-[#676767] mb-2">Phí vận chuyển: </p>
                                 <p className="text-[#676767] mb-2">Mã giảm giá: </p>
-                                <p className="text-[#676767]">Giảm giá </p>
+                                <p className="text-[#676767]">Giảm giá: </p>
                             </div>
                             <div className="price__total">
                                 <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(subPrice)}</p>
                                 <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(shippingFee)}</p>
-                                <p className="text-[#f00000] font-bold">
-                                 {discount ? discount.name : "Chưa có mã giảm giá"}
+                                <p className="text-[#f00000] font-bold mb-2">
+                                    {discount ? discount.name : "Chưa có mã giảm giá"}
                                 </p>
                                 <p className="text-[#f00000] font-bold">
                                     {formatCurrencyVND(discountValue)}

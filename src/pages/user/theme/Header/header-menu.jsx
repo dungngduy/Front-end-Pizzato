@@ -8,7 +8,6 @@ import {
     AiOutlineClose
 } from 'react-icons/ai';
 import { Link, useLocation } from "react-router-dom";
-import AxiosInstance from "utils/apiServers";
 import { formatCurrencyVND, formatImage } from "utils/format";
 import { ROUTER } from "utils/router";
 import { CartContext } from "components/add-to-cart";
@@ -22,7 +21,7 @@ const HeaderMenu = () => {
     const { cart } = useContext(CartContext);
 
     // Menu
-    const [Menus, setMenus] = useState([
+    const Menus = [
         {
             name: "Trang chủ",
             path: ROUTER.USER.HOME,
@@ -45,29 +44,7 @@ const HeaderMenu = () => {
             name: "Chính sách",
             path: ROUTER.USER.POLICY,
         }
-    ]);
-
-    useEffect(() => {
-        AxiosInstance.get('/categories')
-            .then((res) => {
-                setMenus(preMenu => {
-                    const newMenus = [...preMenu];
-
-                    newMenus[2] = {
-                        ...newMenus[2],
-                        child: res.data.categories.map(category => ({
-                            name: category.name,
-                            path: `${ROUTER.USER.CATEGORY}/${category.id}`
-                        }))
-                    };
-
-                    return newMenus;
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
+    ];
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -125,17 +102,6 @@ const HeaderMenu = () => {
                                             return (
                                                 <li key={index} className={isActive ? "active" : ""}>
                                                     <Link to={menu.path}>{menu.name}</Link>
-                                                    {
-                                                        menu.child && (
-                                                            <ul className="header__menu__dropdown">
-                                                                {menu.child.map((childItem, childKey) => (
-                                                                    <li key={`${index}-${childKey}`}>
-                                                                        <Link to={childItem.path}>{childItem.name}</Link>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        )
-                                                    }
                                                 </li>
                                             );
                                         })

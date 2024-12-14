@@ -13,6 +13,7 @@ const { Option } = Select;
 const ListProduct = () => {
     const [viewMode, setViewMode] = useState('Kanban');
     const [inputValue, setInputValue] = useState([0, 500000]);
+    const [tempInputValue, setTempInputValue] = useState(inputValue);
     const [menus, setMenus] = useState([]);
     const [pizzaRating, setPizzaRating] = useState(null);
     const [pizzaRatingOnTop, setPizzaRatingOnTop] = useState([]);
@@ -74,7 +75,11 @@ const ListProduct = () => {
     };
 
     const onChangePrice = (newValue) => {
-        setInputValue(newValue);
+        setTempInputValue(newValue);
+    };
+
+    const applyPriceFilter = () => {
+        setInputValue(tempInputValue);
         setCurrentPage(1);
     };
 
@@ -198,7 +203,7 @@ const ListProduct = () => {
                                                     <div className="product__item__rating">
                                                         <Rate allowHalf disabled defaultValue={menu.avg_rating} />
                                                         {viewMode === 'List' && (
-                                                            <span className="rating__count">(10 đánh giá)</span>
+                                                            <span className="rating__count">({menu.rating_count} đánh giá)</span>
                                                         )}
                                                     </div>
                                                 </div>
@@ -267,10 +272,17 @@ const ListProduct = () => {
                                 range
                                 min={0}
                                 max={5000000}
-                                value={inputValue}
+                                value={tempInputValue}
                                 onChange={onChangePrice}
+                                allowCross={false}
                             />
-                            <p>Giá: <strong>{formatCurrencyVND(inputValue[0])} - {formatCurrencyVND(inputValue[1])}</strong></p>
+                            <p>Giá: <strong>{formatCurrencyVND(tempInputValue[0])} - {formatCurrencyVND(tempInputValue[1])}</strong></p>
+                            <button
+                                type="button"
+                                onClick={applyPriceFilter}
+                            >
+                                Áp dụng
+                            </button>
                         </form>
                     </div>
                     <div className="category__sidebar__lastest-product">

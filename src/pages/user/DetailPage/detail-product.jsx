@@ -94,6 +94,11 @@ const DetailProduct = () => {
     };
 
     useEffect(() => {
+        setSelectedBases("");
+        setSelectedEdges("");
+        setSelectedSizes("");
+        setQuantity(1);
+        
         AxiosInstance.get(`/detail/${id}`)
             .then((res) => {
                 const image = res.data.product.thumb_image;
