@@ -2,6 +2,7 @@ import { memo, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import FormAddress from "./form-address";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
     const [isPopupAddressVisible, setIsPopupAddressVisible] = useState(false);
@@ -10,13 +11,29 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
 
     const togglePopupAddress = () => {
         setIsPopupAddressVisible(!isPopupAddressVisible);
-    }
+    };
 
     const handleSelectAddress = (address) => {
         onSelectAddress(address);
         onClose();
     };
 
+    const handleDeleteAddress = async (addressId) => {
+        try {
+            await axios.delete('http://localhost:8000/api/delete-address/' + addressId, {
+                data: { address_id: addressId }
+            });
+            alert("Địa chỉ đã được xóa thành công!");
+            const updatedAddresses = savedAddresses.filter(address => address.id !== addressId);
+            user.address = updatedAddresses;
+            localStorage.setItem("user", JSON.stringify(user));
+            window.location.reload();
+        } catch (error) {
+            console.error("Lỗi khi xóa địa chỉ:", error.response?.data || error.message);
+            alert("Lỗi khi xóa địa chỉ.");
+        }
+    };
+    
     return (
         <div className="popup-address__overlay">
             <div className="form__content" data-aos="fade-down">
@@ -44,8 +61,20 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                                         <p>{address.email}</p>
                                     </div>
                                     <div className="w-[100px]">
+                                        <div className="flex space-y-2 gap-2">
+                                            <div>
+                                                <button className="text-[14px]">Cập nhập</button>
+                                            </div>
+                                            <p 
+                                                className="text-[14px] cursor-pointer text-red-500 hover:underline" 
+                                                onClick={() => handleDeleteAddress(address.id)}
+                                            >
+                                                Xóa
+                                            </p>
+                                            <div></div>
+                                        </div>
                                         <button
-                                            className="w-full cursor-pointer py-3 bg-[#BC9A6C] text-white font-semibold rounded-lg hover:bg-[#676767] transition duration-300"
+                                            className="text-[16px] font-bold w-full cursor-pointer py-2 bg-[#BC9A6C] text-white rounded-lg hover:bg-[#676767] transition duration-300"
                                             onClick={() => handleSelectAddress(address)}
                                         >
                                             Sử dụng
