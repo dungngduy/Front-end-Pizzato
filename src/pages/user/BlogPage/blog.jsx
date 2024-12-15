@@ -4,7 +4,6 @@ const BlogList = () => {
     return (
         <div className="container py-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Content chính */}
                 <div className="col-span-2 bg-white rounded-md p-6">
                     <h1 className="text-2xl font-extrabold text-red-500 mb-6 text-center uppercase tracking-wide">
                         Đôi Nét Về Món Pizza Trong Văn Hoá Ẩm Thực Mỹ
@@ -54,7 +53,7 @@ const BlogList = () => {
                         <p className="py-4 text-[16px] leading-relaxed text-gray-700">
                             <span className="font-semibold text-lg">
                                 Như các bạn đã biết,
-                            </span>{" "}
+                            </span>
                             Pizza được biết đến là một nét đặc biệt trong ẩm thực Ý. Bên cạnh
                             đó, nó đã trở thành món ăn rất được yêu thích và phổ biến trên
                             toàn thế giới. Với một đất nước rộng lớn và luôn ưu tiên sự tiện
@@ -85,7 +84,7 @@ const BlogList = () => {
                         <p className="py-4 text-[16px] leading-relaxed text-gray-700">
                             <span className="font-semibold text-lg">
                                 Tận Hưởng Những Chiếc Bánh Pizza Thơm Ngon Với Đặc Trưng Riêng
-                            </span>{" "}
+                            </span>
                             phổ Đôi Nét Về Món Pizza Trong Văn Hoá Ẩm Thực Của Mỹ Chuyên mục
                             hôm nay, Pizza Express xin được gửi đến các bạn đôi điều về món
                             Pizza trong ẩm thực của nước Mỹ. Hãy cùng theo dõi bài viết để
@@ -157,7 +156,7 @@ const BlogList = () => {
                             tại nhà.
                         </p>
                         <p className="py-4 text-[16px] leading-relaxed text-gray-700">
-                            Một trong những phong cách đặc biệt nhất là{" "}
+                            Một trong những phong cách đặc biệt nhất làm
                             <span className="font-semibold italic">
                                 Pizza Express Với 3 Tiêu Chí: Pizza ngon - Giá rẻ - Vận chuyển
                                 tận nhà
@@ -166,9 +165,8 @@ const BlogList = () => {
                             bạn là một “fan” của Pizza hoặc đam mê thức ăn nhanh, đây chắc
                             chắn là món bạn không nên bỏ lỡ.
                             <span className="font-semibold text-red-600">
-                                {" "}
                                 Pizza Express
-                            </span>{" "}
+                            </span>
                             là địa chỉ lý tưởng để bạn trải nghiệm Pizza kiểu Mỹ ngay tại Hà
                             Nội, mà không cần phải bay đến Mỹ.
                         </p>
@@ -186,7 +184,7 @@ const BlogList = () => {
                         <ul className="list-disc list-inside text-gray-700 mb-6">
                             <li className="font-medium">🎉 Sinh nhật là phải có quà 🎉</li>
                             <li>
-                                <span className="text-red-600 font-bold">Pizza Express</span>{" "}
+                                <span className="text-red-600 font-bold">Pizza Express</span>
                                 khuyến mãi tưng bừng - Mừng sinh nhật bạn.
                             </li>
                             <li>
@@ -203,7 +201,7 @@ const BlogList = () => {
                             <li>Đơn hàng tối thiểu từ 399k trở lên.</li>
                         </ul>
                         <p className="text-gray-700 mb-4">
-                            Vui lòng cung cấp mã{" "}
+                            Vui lòng cung cấp mã
                             <span className="text-red-500 font-bold">SN12</span> cho nhân viên
                             khi đặt bánh.
                         </p>
@@ -212,7 +210,7 @@ const BlogList = () => {
                             các chương trình khuyến mãi khác.
                         </p>
                         <p className="text-gray-700 mb-6">
-                            📞 Liên hệ tổng đài tư vấn:{" "}
+                            📞 Liên hệ tổng đài tư vấn:
                             <span className="text-red-600 font-bold">024.3688.7777</span>
                         </p>
 
