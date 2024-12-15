@@ -69,11 +69,11 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                                         <p>{address.phone}</p>
                                         <p>{address.email}</p>
                                     </div>
-                                    <div className="flex gap-2 w-[190px]">
+                                    <div className="flex gap-2 w-[200px]">
                                         <Link>
                                             <button
                                                 onClick={() => togglePopupAddressEdit(address)}
-                                                className="w-full text-sm font-semibold py-2 bg-[#BC9A6C] text-white rounded-lg hover:bg-[#676767] transition duration-300"
+                                                className=" text-center w-full text-sm font-semibold py-2 bg-red-400 text-white rounded-lg hover:bg-[#676767] transition duration-300"
                                                     >
                                                 Sửa
                                             </button>
@@ -101,7 +101,7 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                 <UpdateAddress 
                     onClose={togglePopupAddressEdit} 
                     setSelectedAddress={setSelectedAddress} 
-                    address={selectedAddress} // Truyền địa chỉ cần cập nhật vào UpdateAddress
+                    address={selectedAddress}
                 />
             )}
             {isPopupAddressVisible && (
