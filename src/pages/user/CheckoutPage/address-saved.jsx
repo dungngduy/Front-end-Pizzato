@@ -70,26 +70,26 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                                         <p>{address.email}</p>
                                     </div>
                                     <div className="flex gap-2 w-[190px]">
-                                        <button>
-                                             <Link
-                                             onClick={() => togglePopupAddressEdit(address)}
-                                            className="w-full text-sm font-semibold py-2 bg-[#BC9A6C] text-white rounded-lg hover:bg-[#676767] transition duration-300"
-                                                >
-                                            Sửa
+                                        <Link>
+                                            <button
+                                                onClick={() => togglePopupAddressEdit(address)}
+                                                className="w-full text-sm font-semibold py-2 bg-[#BC9A6C] text-white rounded-lg hover:bg-[#676767] transition duration-300"
+                                                    >
+                                                Sửa
+                                            </button>
                                         </Link>
-                                        </button>
-                                            <p
-                                                 className=" text-center w-full text-sm font-semibold py-2 bg-[#BC9A6C] text-white rounded-lg hover:bg-[#676767] transition duration-300"
-                                                onClick={() => handleDeleteAddress(address.id)}
-                                                >
-                                             Xóa
-                                            </p>
                                         <button
                                              className="w-full text-sm font-semibold py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300"
                                             onClick={() => handleSelectAddress(address)}
                                         >
                                             Sử dụng
                                         </button>
+                                            <p
+                                                 className=" text-center w-full text-sm font-semibold py-2 bg-red-400 text-white rounded-lg hover:bg-[#676767] transition duration-300"
+                                                onClick={() => handleDeleteAddress(address.id)}
+                                                >
+                                             Xóa
+                                            </p>
                                     </div>
                                 </div>
                             ))}
