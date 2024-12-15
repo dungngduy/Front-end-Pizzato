@@ -17,7 +17,7 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
         onSelectAddress(address);
         onClose();
     };
-
+    
     const handleDeleteAddress = async (addressId) => {
         try {
             await axios.delete('http://localhost:8000/api/delete-address/' + addressId, {
@@ -63,15 +63,21 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                                     <div className="w-[100px]">
                                         <div className="flex space-y-2 gap-2">
                                             <div>
-                                                <button className="text-[14px]">Cập nhập</button>
+                                                  <Link
+
+                                                    className="cursor-pointer font-semibold text-[#BC9A6C] underline"
+                                                >
+                                                     Cập nhập
+                                                </Link>
                                             </div>
-                                            <p 
-                                                className="text-[14px] cursor-pointer text-red-500 hover:underline" 
-                                                onClick={() => handleDeleteAddress(address.id)}
-                                            >
-                                                Xóa
-                                            </p>
-                                            <div></div>
+                                            <div>
+                                                <p 
+                                                    className="text-[14px] cursor-pointer text-red-500 hover:underline" 
+                                                    onClick={() => handleDeleteAddress(address.id)}
+                                                >
+                                                    Xóa
+                                                </p>
+                                            </div>
                                         </div>
                                         <button
                                             className="text-[16px] font-bold w-full cursor-pointer py-2 bg-[#BC9A6C] text-white rounded-lg hover:bg-[#676767] transition duration-300"
