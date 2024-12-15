@@ -7,7 +7,7 @@ import axios from "axios";
 const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
     const [isPopupAddressVisible, setIsPopupAddressVisible] = useState(false);
     const user = JSON.parse(localStorage.getItem("user"));
-    const savedAddresses = user?.address || [];
+    const [addresses, setAddresses] = useState(user?.address || []); // State để quản lý danh sách địa chỉ
 
     const togglePopupAddress = () => {
         setIsPopupAddressVisible(!isPopupAddressVisible);
@@ -17,23 +17,27 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
         onSelectAddress(address);
         onClose();
     };
-    
+
     const handleDeleteAddress = async (addressId) => {
         try {
             await axios.delete('http://localhost:8000/api/delete-address/' + addressId, {
                 data: { address_id: addressId }
             });
             alert("Địa chỉ đã được xóa thành công!");
-            const updatedAddresses = savedAddresses.filter(address => address.id !== addressId);
+
+            // Lọc danh sách địa chỉ mới và cập nhật state
+            const updatedAddresses = addresses.filter(address => address.id !== addressId);
+            setAddresses(updatedAddresses);
+
+            // Cập nhật localStorage
             user.address = updatedAddresses;
             localStorage.setItem("user", JSON.stringify(user));
-            window.location.reload();
         } catch (error) {
             console.error("Lỗi khi xóa địa chỉ:", error.response?.data || error.message);
             alert("Lỗi khi xóa địa chỉ.");
         }
     };
-    
+
     return (
         <div className="popup-address__overlay">
             <div className="form__content" data-aos="fade-down">
@@ -52,7 +56,7 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                             </Link>
                         </div>
                         <div className="space-y-4 max-h-[433px] overflow-y-auto custom-scrollbar">
-                            {savedAddresses.map((address, index) => (
+                            {addresses.map((address, index) => (
                                 <div key={index} className="flex justify-between items-center p-4 border rounded-lg hover:bg-gray-50">
                                     <div>
                                         <h4 className="text-lg font-semibold">{address.last_name} {address.first_name}</h4>
@@ -63,11 +67,10 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                                     <div className="w-[100px]">
                                         <div className="flex space-y-2 gap-2">
                                             <div>
-                                                  <Link
-
+                                                <Link
                                                     className="cursor-pointer font-semibold text-[#BC9A6C] underline"
                                                 >
-                                                     Cập nhập
+                                                    Cập nhật
                                                 </Link>
                                             </div>
                                             <div>
