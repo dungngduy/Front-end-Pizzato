@@ -1,285 +1,328 @@
-import { memo, useState, useEffect } from 'react';
-import { Select } from 'antd';
-import 'assets/user/scss/checkout.scss';
-import AxiosInstance from 'utils/apiServers';
-import { useAddress } from 'components/address';
+import { memo, useState, useEffect } from "react";
+import AxiosInstance from "utils/apiServers";
+import Select from "react-select";
 
-const UpdateAddress = ({ onClose, setSelectedAddress }) => {
-    const [provinces, setProvinces] = useState([]);
-    const [districts, setDistricts] = useState([]);
-    const [wards, setWards] = useState([]);
-    const [selectedProvince, setSelectedProvince] = useState(null);
-    const [selectedDistrict, setSelectedDistrict] = useState(null);
-    const [deliveryAddressId, setDeliveryAddressId] = useState(null);
-    const [error, setError] = useState(null);
-    const [errorAddress, setErrorAddress] = useState({
-        province: null,
-        district: null,
-        ward: null
-    });
-    const { updateUser } = useAddress();
+const UpdateAddress = ({ onClose, setSelectedAddress, address }) => {
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
 
-    // Fetch tỉnh
-    const fetchProvinces = async () => {
-        try {
-            const response = await AxiosInstance.get('/get-delivery-area'); // API tỉnh
-            const data = await response.data.delivery_area;
-            const provinceOptions = data.map(province => ({
-                value: province.id,
-                label: province.area_name,
-            }));
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const [selectedWard, setSelectedWard] = useState(null);
 
-            setProvinces(provinceOptions);
-        } catch (error) {
-            console.error('Error fetching provinces:', error);
-        }
-    };
+  const [error, setError] = useState({});
 
-    // Fetch huyện
-    const fetchDistricts = async (provinceId) => {
-        try {
-            const response = await fetch('https://api.npoint.io/34608ea16bebc5cffd42'); // API huyện
-            const data = await response.json();
-            const districtOptions = data
-                .filter(district => district.ProvinceId === provinceId) // Lọc huyện theo ID tỉnh
-                .map(district => ({
-                    value: district.Id,
-                    label: district.Name,
-                }));
-            setDistricts(districtOptions);
-        } catch (error) {
-            console.error('Error fetching districts:', error);
-        }
-    };
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    // Fetch xã
-    const fetchWards = async (districtId) => {
-        try {
-            const response = await fetch('https://api.npoint.io/dd278dc276e65c68cdf5'); // API xã
-            const data = await response.json();
-            const wardOptions = data
-                .filter(ward => ward.DistrictId === districtId) // Lọc xã theo ID huyện
-                .map(ward => ({
-                    value: ward.Id,
-                    label: ward.Name,
-                }));
-            setWards(wardOptions);
-        } catch (error) {
-            console.error('Error fetching wards:', error);
-        }
-    };
+  const [formAddress, setFormAddress] = useState({
+    email: address?.email || "",
+    user_id: user?.id || "",
+    last_name: address?.last_name || "",
+    first_name: address?.first_name || "",
+    phone: address?.phone || "",
+    province: address?.province || "",
+    district: address?.district || "",
+    ward: address?.ward || "",
+    address: address?.address || "",
+    address_id: address?.id || "",
+  });
 
-    // Gọi API tỉnh khi component render
-    useEffect(() => {
-        fetchProvinces();
-    }, []);
+  const fetchProvinces = async () => {
+    try {
+      const response = await AxiosInstance.get("/get-delivery-area");
+      if (response?.data?.delivery_area) {
+        const provinceOptions =
+          response.data.delivery_area.map((province) => ({
+            value: province.id,
+            label: province.area_name,
+          })) || [];
+        setProvinces(provinceOptions);
+      } else {
+        console.error("No delivery_area found in the response");
+        setProvinces([]); // Handle the case where no data is found
+      }
+    } catch (error) {
+      console.error("Error fetching provinces:", error);
+      setProvinces([]); // Handle the case where there is an error in fetching data
+    }
+  };
 
-    // Xử lý khi chọn tỉnh
-    const handleProvinceChange = (provinceId, option) => {
-        if (!provinceId) {
-            setErrorAddress(prev => ({ ...prev, province: 'Bạn phải chọn Tỉnh/Thành phố!' }));
-            return;
-        }
-        setSelectedProvince(provinceId);
-        setSelectedDistrict(null); // Reset huyện và xã
+  const fetchDistricts = async (provinceId) => {
+    if (!provinceId) return;
+    try {
+      const response = await fetch(
+        "https://api.npoint.io/34608ea16bebc5cffd42"
+      );
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        const districtOptions = data
+          .filter((district) => district.ProvinceId === provinceId)
+          .map((district) => ({
+            value: district.Id,
+            label: district.Name,
+          }));
+        setDistricts(districtOptions);
         setWards([]);
-        fetchDistricts(provinceId); // Gọi API lấy huyện
+      } else {
+        console.error("Invalid data format for districts");
+        setDistricts([]); // Handle invalid format
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+      setDistricts([]); // Handle the case where there is an error in fetching data
+    }
+  };
 
-        setDeliveryAddressId(option.value);
-        setFormAddress(prev => ({
-            ...prev,
-            province: option.label,
-            district: '',
-            ward: ''
-        }));
+  const fetchWards = async (districtId) => {
+    if (!districtId) return;
+    try {
+      const response = await fetch(
+        "https://api.npoint.io/dd278dc276e65c68cdf5"
+      );
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        const wardOptions = data
+          .filter((ward) => ward.DistrictId === districtId)
+          .map((ward) => ({
+            value: ward.Id,
+            label: ward.Name,
+          }));
+        setWards(wardOptions);
+      } else {
+        console.error("Invalid data format for wards");
+        setWards([]); // Handle invalid format
+      }
+    } catch (error) {
+      console.error("Error fetching wards:", error);
+      setWards([]); // Handle the case where there is an error in fetching data
+    }
+  };
 
-        setErrorAddress(prev => ({ ...prev, province: null }));
-    };
+  useEffect(() => {
+    fetchProvinces();
+  }, []);
 
-    // Xử lý khi chọn huyện
-    const handleDistrictChange = (districtId, option) => {
-        if (!districtId) {
-            setErrorAddress(prev => ({ ...prev, district: 'Bạn phải chọn Quận/Huyện!' }));
-            return;
-        }
-        setSelectedDistrict(districtId);
-        fetchWards(districtId); // Gọi API lấy xã
+  const handleProvinceChange = (option) => {
+    if (!option) return;
+    setSelectedProvince(option);
+    setSelectedDistrict(null);
+    setSelectedWard(null);
+    setDistricts([]);
+    setWards([]);
 
-        setFormAddress(prev => ({
-            ...prev,
-            district: option.label,
-            ward: ''
-        }));
+    setFormAddress((prev) => ({
+      ...prev,
+      province: option.label,
+      district: "",
+      ward: "",
+      address: "",
+    }));
 
-        setErrorAddress(prev => ({ ...prev, district: null }));
-    };
+    fetchDistricts(option.value);
+    setError((prev) => ({ ...prev, province: null }));
+  };
 
-    const handleWardChange = (wardId, option) => {
-        if (!wardId) {
-            setErrorAddress(prev => ({ ...prev, ward: 'Bạn phải chọn Phường/Xã!' }));
-            return;
-        }
-        fetchWards(wardId);
-        setFormAddress(prev => ({
-            ...prev,
-            ward: option.label
-        }));
+  const handleDistrictChange = (option) => {
+    if (!option) return;
+    setSelectedDistrict(option);
+    setSelectedWard(null);
+    setWards([]);
 
-        setErrorAddress(prev => ({ ...prev, ward: null }));
-    };
+    setFormAddress((prev) => ({
+      ...prev,
+      district: option.label,
+      ward: "",
+      address: "",
+    }));
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    fetchWards(option.value);
+    setError((prev) => ({ ...prev, district: null }));
+  };
 
-    const [formAddress, setFormAddress] = useState({
-        email: '',
-        user_id: user.id,
-        last_name: '',
-        first_name: '',
-        phone: '',
-        province: '',
-        district: '',
-        ward: '',
-        address: '',
-    });
+  const handleWardChange = (option) => {
+    if (!option) return;
 
-    const handleSubmitAddress = (e) => {
-        e.preventDefault();
+    setSelectedWard(option);
+    setFormAddress((prev) => ({
+      ...prev,
+      ward: option.label,
+    }));
+    setError((prev) => ({ ...prev, ward: null }));
+  };
 
-        const { address, ward, district, province } = formAddress;
-        const fullAddress = [address, ward, district, province]
-        .filter(Boolean)
-        .join(", ");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormAddress((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-        const data = new FormData();
-        data.append('email', formAddress.email);
-        data.append('user_id', formAddress.user_id);
-        data.append('delivery_area_id', deliveryAddressId);
-        data.append('last_name', formAddress.last_name);
-        data.append('first_name', formAddress.first_name);
-        data.append('phone', formAddress.phone);
-        data.append('address', fullAddress);
+  const validateForm = () => {
+    let errors = {};
+    if (!formAddress.province) errors.province = "Please select a province";
+    if (!formAddress.district) errors.district = "Please select a district";
+    if (!formAddress.ward) errors.ward = "Please select a ward";
+    if (!formAddress.address) errors.address = "Please provide a valid address";
 
-        if (addressToUpdate) {
-            // Update existing address
-            AxiosInstance.put(`/update-address/${addressToUpdate.id}`, data)
-                .then((res) => {
-                    if (res.status === 200) {
-                        const updatedAddress = res.data;
-                        // Update local storage and user data
-                        const updatedUser = { ...user, address: user.address.map(addr => addr.id === updatedAddress.id ? updatedAddress : addr) };
-                        updateUser(updatedUser);
-                        setSelectedAddress(updatedAddress);
-                        alert('Cập nhật địa chỉ thành công');
-                        onClose();
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error updating address:', error);
-                    alert('Cập nhật địa chỉ thất bại');
-                });
-        }
-    };
+    setError(errors);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormAddress({
-            ...formAddress,
-            [name]: value
-        });
-    };
+    return Object.keys(errors).length === 0;
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
 
-    return (
-        <div className="popup-address__overlay">
-            <div className="form__content" data-aos="fade-down">
-                <h2 className="title mb-3 text-[20px] font-bold">Cập nhật thông tin</h2>
-                <div className="input">
-                    <div className="input__field">
-                        <input type="email" name="email" value={formAddress.email} placeholder="Email (tùy chọn)" onChange={handleChange} />
-                    </div>
-                    <span className="text-red-600">{error?.email}</span>
-                </div>
-                <div className="input mt-4 flex gap-2">
-                    <div className="input__field flex-1">
-                        <input type="text" name="last_name" value={formAddress.last_name} placeholder="Họ" onChange={handleChange} />
-                    </div>
-                    <div className="input__field flex-1">
-                        <input type="text" name="first_name" value={formAddress.first_name} placeholder="Tên" onChange={handleChange} />
-                    </div>
-                </div>
-                <div className="flex gap-2">
-                    <span className="flex-1 text-red-600">{error?.last_name}</span>
-                    <span className="flex-1 text-red-600">{error?.first_name}</span>
-                </div>
-                <div className="input mt-4">
-                    <div className="input__field">
-                        <input type="text" name="phone" value={formAddress.phone} placeholder="Số điện thoại" onChange={handleChange} />
-                    </div>
-                    <span className="text-red-600">{error?.phone}</span>
-                </div>
-                <div className="flex justify-between mt-4">
-                    <div className="input">
-                        <Select
-                            showSearch
-                            style={{ width: 200, height: 38.4 }}
-                            placeholder="Tỉnh/Thành phố"
-                            optionFilterProp="label"
-                            value={selectedProvince}
-                            onChange={handleProvinceChange}
-                            options={provinces}
-                            getPopupContainer={trigger => trigger.parentNode}
-                        />
-                        {errorAddress.province && <span className="text-red-500">{errorAddress.province}</span>}
-                    </div>
-                    <div className="input">
-                        <Select
-                            showSearch
-                            style={{ width: 200, height: 38.4 }}
-                            placeholder="Quận/Huyện"
-                            optionFilterProp="label"
-                            value={selectedDistrict}
-                            onChange={handleDistrictChange}
-                            options={districts}
-                            disabled={!selectedProvince}
-                            getPopupContainer={trigger => trigger.parentNode}
-                        />
-                        {errorAddress.district && <span className="text-red-500">{errorAddress.district}</span>}
-                    </div>
-                    <div className="input">
-                        <Select
-                            showSearch
-                            style={{ width: 200, height: 38.4 }}
-                            placeholder="Phường/Xã"
-                            optionFilterProp="label"
-                            options={wards}
-                            onChange={handleWardChange}
-                            disabled={!selectedDistrict}
-                            getPopupContainer={trigger => trigger.parentNode}
-                        />
-                        {errorAddress.ward && <span className="text-red-500">{errorAddress.ward}</span>}
-                    </div>
-                </div>
-                <div className="input mt-4">
-                    <div className="input__field">
-                        <input type="text" name="address" value={formAddress.address} placeholder="Đường, số nhà ..." onChange={handleChange} />
-                    </div>
-                    <span className="text-red-600">{error?.address}</span>
-                </div>
-                <div className="input mt-4">
-                    <div className="textarea__field">
-                        <textarea cols="50" rows="5" name="note" placeholder="Ghi chú (Tùy chọn)" onChange={handleChange}></textarea>
-                    </div>
-                </div>
-                <div className="flex justify-end mt-4">
-                    <button type="button" className="border border-[#000000]-300 py-2 px-4 rounded-md text-[#cccccc]" onClick={onClose}>
-                        Huỷ
-                    </button>
-                    <button onClick={handleSubmitAddress} type="submit" className="ms-3 border border-[#BC9A6C]-300 bg-[#BC9A6C] py-2 px-4 rounded-md text-[#fff]">
-                        Lưu
-                    </button>
-                </div>
-            </div>
+    try {
+      const response = await AxiosInstance.put(
+        `/update-addresses/${address.id}`,
+        formAddress
+      );
+      if (response?.status === 200) {
+        setSelectedAddress(response?.data?.address);
+        alert("Address updated successfully");
+        onClose();
+      }
+    } catch (error) {
+      console.error("Failed to submit:", error);
+      alert("Failed to update the address.");
+    }
+  };
+
+  return (
+    <div className="popup-address__overlay">
+      <div className="form__content" data-aos="fade-down">
+        <h2 className="title mb-3 text-[20px] font-bold">Cập nhập mua hàng</h2>
+        <div className="input">
+          <div className="input__field">
+            <input
+              type="email"
+              name="email"
+              value={formAddress.email}
+              placeholder="Email (tùy chọn)"
+              onChange={handleChange}
+            />
+          </div>
+          <span className="text-red-600">{error?.email}</span>
         </div>
-    );
+        <div className="input mt-4 flex gap-2">
+          <div className="input__field flex-1">
+            <input
+              type="text"
+              name="last_name"
+              value={formAddress.last_name}
+              placeholder="Họ"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input__field flex-1">
+            <input
+              type="text"
+              name="first_name"
+              value={formAddress.first_name}
+              placeholder="Tên"
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <span className="flex-1 text-red-600">{error?.last_name}</span>
+          <span className="flex-1 text-red-600">{error?.first_name}</span>
+        </div>
+        <div className="input mt-4">
+          <div className="input__field">
+            <input
+              type="text"
+              name="phone"
+              value={formAddress.phone}
+              placeholder="Số điện thoại"
+              onChange={handleChange}
+            />
+          </div>
+          <span className="text-red-600">{error?.phone}</span>
+        </div>
+        <div className="flex justify-between mt-4">
+          <div className="input">
+            <Select
+              showSearch
+              style={{ width: 200, height: 38.4 }}
+              placeholder="Tỉnh/Thành phố"
+              optionFilterProp="label"
+              value={selectedProvince}
+              onChange={handleProvinceChange}
+              options={provinces}
+              getPopupContainer={(trigger) => trigger.parentNode}
+            />
+          </div>
+          <div className="input">
+            <Select
+              showSearch
+              style={{ width: 200, height: 38.4 }}
+              placeholder="Quận/Huyện"
+              optionFilterProp="label"
+              value={selectedDistrict}
+              onChange={handleDistrictChange}
+              options={districts}
+              disabled={!formAddress.province}
+              getPopupContainer={(trigger) => trigger.parentNode}
+            />
+          </div>
+          <div className="input">
+            <Select
+              showSearch
+              style={{ width: 200, height: 38.4 }}
+              placeholder="Phường/Xã"
+              optionFilterProp="label"
+              options={wards}
+              onChange={handleWardChange}
+              disabled={!selectedDistrict}
+              value={selectedWard}
+              getPopupContainer={(trigger) => trigger.parentNode}
+            />
+          </div>
+        </div>
+        <div className="input mt-4">
+          <div className="input__field">
+            <input
+              type="text"
+              name="address"
+              value={formAddress.address}
+              placeholder="Đường, số nhà ..."
+              onChange={handleChange}
+            />
+          </div>
+          <span className="text-red-600">{error?.address}</span>
+        </div>
+        <div className="input mt-4">
+          <div className="textarea__field">
+            <textarea
+              cols="50"
+              rows="5"
+              name="note"
+              placeholder="Ghi chú (Tùy chọn)"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+        </div>
+        <div className="flex justify-end mt-4">
+          <button
+            onClick={onClose}
+            type="button"
+            className="border border-[#000000]-300 py-2 px-4 rounded-md text-[#cccccc]"
+          >
+            Hủy
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="ms-3 border border-[#BC9A6C]-300 bg-[#BC9A6C] py-2 px-4 rounded-md text-[#fff]"
+          >
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default memo(UpdateAddress);
