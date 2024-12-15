@@ -18,7 +18,7 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
     };
 
     const togglePopupAddressEdit = (address) => {
-        setSelectedAddressLocal(address);  // Lưu địa chỉ chọn để cập nhật
+        setSelectedAddressLocal(address);  
         setIsPopupAddressVisibleEdit(!isPopupAddressVisibleEdit);
     };
 
@@ -78,12 +78,12 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                                             Sửa
                                         </Link>
                                         </button>
-                                            <button 
-                                                 className="w-full text-sm font-semibold py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300"
+                                            <p
+                                                 className=" text-center w-full text-sm font-semibold py-2 bg-[#BC9A6C] text-white rounded-lg hover:bg-[#676767] transition duration-300"
                                                 onClick={() => handleDeleteAddress(address.id)}
                                                 >
                                              Xóa
-                                            </button>
+                                            </p>
                                         <button
                                              className="w-full text-sm font-semibold py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300"
                                             onClick={() => handleSelectAddress(address)}
