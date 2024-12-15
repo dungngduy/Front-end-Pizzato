@@ -103,7 +103,7 @@ const Address = ({ onClose, setSelectedAddress }) => {
             return;
         }
         setSelectedDistrict(districtId);
-        fetchWards(districtId); // Gọi API lấy xã
+        fetchWards(districtId);
 
         setFormAddress(prev => ({
             ...prev,

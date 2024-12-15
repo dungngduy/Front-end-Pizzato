@@ -3,33 +3,38 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import FormAddress from "./form-address";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import UpdateAddress from "./update-address";
 
 const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
     const [isPopupAddressVisible, setIsPopupAddressVisible] = useState(false);
+    const [isPopupAddressVisibleEdit, setIsPopupAddressVisibleEdit] = useState(false);
+    const [selectedAddress, setSelectedAddressLocal] = useState(null); // Lưu địa chỉ chọn để cập nhật
     const user = JSON.parse(localStorage.getItem("user"));
-    const [addresses, setAddresses] = useState(user?.address || []); // State để quản lý danh sách địa chỉ
+    const savedAddresses = user?.address || [];
+    const [addresses, setAddresses] = useState(user?.address || []);
 
     const togglePopupAddress = () => {
         setIsPopupAddressVisible(!isPopupAddressVisible);
+    };
+
+    const togglePopupAddressEdit = (address) => {
+        setSelectedAddressLocal(address);  
+        setIsPopupAddressVisibleEdit(!isPopupAddressVisibleEdit);
     };
 
     const handleSelectAddress = (address) => {
         onSelectAddress(address);
         onClose();
     };
-
+    
     const handleDeleteAddress = async (addressId) => {
         try {
-            await axios.delete('http://localhost:8000/api/delete-address/' + addressId, {
+            await axios.delete(`http://localhost:8000/api/delete-address/${addressId}`, {
                 data: { address_id: addressId }
             });
             alert("Địa chỉ đã được xóa thành công!");
-
-            // Lọc danh sách địa chỉ mới và cập nhật state
             const updatedAddresses = addresses.filter(address => address.id !== addressId);
             setAddresses(updatedAddresses);
-
-            // Cập nhật localStorage
             user.address = updatedAddresses;
             localStorage.setItem("user", JSON.stringify(user));
         } catch (error) {
@@ -37,7 +42,7 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
             alert("Lỗi khi xóa địa chỉ.");
         }
     };
-
+    
     return (
         <div className="popup-address__overlay">
             <div className="form__content" data-aos="fade-down">
@@ -56,7 +61,7 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                             </Link>
                         </div>
                         <div className="space-y-4 max-h-[433px] overflow-y-auto custom-scrollbar">
-                            {addresses.map((address, index) => (
+                            {savedAddresses.map((address, index) => (
                                 <div key={index} className="flex justify-between items-center p-4 border rounded-lg hover:bg-gray-50">
                                     <div>
                                         <h4 className="text-lg font-semibold">{address.last_name} {address.first_name}</h4>
@@ -64,30 +69,27 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                                         <p>{address.phone}</p>
                                         <p>{address.email}</p>
                                     </div>
-                                    <div className="w-[100px]">
-                                        <div className="flex space-y-2 gap-2">
-                                            <div>
-                                                <Link
-                                                    className="cursor-pointer font-semibold text-[#BC9A6C] underline"
-                                                >
-                                                    Cập nhật
-                                                </Link>
-                                            </div>
-                                            <div>
-                                                <p 
-                                                    className="text-[14px] cursor-pointer text-red-500 hover:underline" 
-                                                    onClick={() => handleDeleteAddress(address.id)}
-                                                >
-                                                    Xóa
-                                                </p>
-                                            </div>
-                                        </div>
+                                    <div className="flex gap-2 w-[200px]">
+                                        <Link>
+                                            <button
+                                                onClick={() => togglePopupAddressEdit(address)}
+                                                className=" text-center w-full text-sm font-semibold py-2 bg-red-400 text-white rounded-lg hover:bg-[#676767] transition duration-300"
+                                                    >
+                                                Sửa
+                                            </button>
+                                        </Link>
                                         <button
-                                            className="text-[16px] font-bold w-full cursor-pointer py-2 bg-[#BC9A6C] text-white rounded-lg hover:bg-[#676767] transition duration-300"
+                                             className="w-full text-sm font-semibold py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300"
                                             onClick={() => handleSelectAddress(address)}
                                         >
                                             Sử dụng
                                         </button>
+                                            <p
+                                                 className=" text-center w-full text-sm font-semibold py-2 bg-red-400 text-white rounded-lg hover:bg-[#676767] transition duration-300"
+                                                onClick={() => handleDeleteAddress(address.id)}
+                                                >
+                                             Xóa
+                                            </p>
                                     </div>
                                 </div>
                             ))}
@@ -95,8 +97,19 @@ const AddressSaved = ({ onClose, onSelectAddress, setSelectedAddress }) => {
                     </div>
                 </div>
             </div>
-
-            {isPopupAddressVisible && <FormAddress onClose={togglePopupAddress} setSelectedAddress={setSelectedAddress} />}
+            {isPopupAddressVisibleEdit && (
+                <UpdateAddress 
+                    onClose={togglePopupAddressEdit} 
+                    setSelectedAddress={setSelectedAddress} 
+                    address={selectedAddress}
+                />
+            )}
+            {isPopupAddressVisible && (
+                <FormAddress 
+                    onClose={togglePopupAddress} 
+                    setSelectedAddress={setSelectedAddress} 
+                />
+            )}
         </div>
     );
 };
