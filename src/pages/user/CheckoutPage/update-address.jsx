@@ -1,6 +1,6 @@
 import { memo, useState, useEffect } from "react";
 import AxiosInstance from "utils/apiServers";
-import Select from "react-select";
+import { Select } from 'antd';
 
 const UpdateAddress = ({ onClose, setSelectedAddress, address }) => {
   const [provinces, setProvinces] = useState([]);

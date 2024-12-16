@@ -113,8 +113,16 @@ export const CartProvider = ({ children }) => {
         let totalPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
         if (discount) {
+            // Nếu mã giảm giá là giảm theo phần trăm
             if (discount.discount_type === "percent") {
-                totalPrice -= totalPrice * (discount.discount / 100);
+                // Tính giảm giá theo phần trăm
+                let discountAmount = totalPrice * (discount.discount / 100);
+                
+                // Nếu giảm giá vượt quá số tiền tối đa, thì chỉ giảm tối đa
+                discountAmount = Math.min(discountAmount, discount.max_discount_amount);
+                
+                // Trừ giá trị giảm từ tổng tiền
+                totalPrice -= discountAmount;
             } else if (discount.discount_type === "amount") {
                 totalPrice = Math.max(totalPrice - discount.discount, 0);
             }

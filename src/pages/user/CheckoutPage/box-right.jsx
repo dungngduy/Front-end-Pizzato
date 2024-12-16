@@ -26,9 +26,20 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
     const subPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const totalPrice = calculateTotalPrice(cart, discount);
 
-    const discountValue = discount && discount.discount_type === "percent"
-        ? (subPrice * discount.discount) / 100
-        : discount?.discount || 0;
+    let discountValue = 0;
+
+    if (discount) {
+        if (discount.discount_type === "percent") {
+            // Tính giảm giá theo phần trăm
+            const discountAmount = (subPrice * discount.discount) / 100;
+
+            // So sánh với số tiền giảm tối đa
+            discountValue = Math.min(discountAmount, discount.max_discount_amount);
+        } else {
+            // Nếu là giảm giá cố định
+            discountValue = discount.discount;
+        }
+    }
 
     const handleSelectItem = () => {
         Swal.fire({
@@ -145,7 +156,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                                             )}
                                         </div>
                                         <div className="info__price w-[110px] flex justify-end">
-                                            <p className="font-bold text-[#f00000]">{formatCurrencyVND(item.price)}</p>
+                                            <p className="font-bold text-[#f00000] text-end">{formatCurrencyVND(item.price)}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -163,12 +174,12 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                                 <p className="text-[#676767]">Giảm giá: </p>
                             </div>
                             <div className="price__total">
-                                <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(subPrice)}</p>
-                                <p className="text-[#f00000] font-bold mb-2">{formatCurrencyVND(shippingFee)}</p>
-                                <p className="text-[#f00000] font-bold mb-2">
-                                    {discount ? discount.name : "Chưa có mã giảm giá"}
+                                <p className="text-[#f00000] text-end font-bold mb-2">{formatCurrencyVND(subPrice)}</p>
+                                <p className="text-[#f00000] text-end font-bold mb-2">{formatCurrencyVND(shippingFee)}</p>
+                                <p className="text-[#f00000] text-end font-bold mb-2">
+                                    {discount ? discount.code : "Không"}
                                 </p>
-                                <p className="text-[#f00000] font-bold">
+                                <p className="text-[#f00000] text-end font-bold">
                                     {formatCurrencyVND(discountValue)}
                                 </p>
                             </div>
@@ -182,7 +193,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
                                 <p className="text-[#676767] font-bold">Tổng tiền</p>
                             </div>
                             <div className="price">
-                                <p className="text-[#f00000] font-bold">{formatCurrencyVND(totalPrice + shippingFee)}</p>
+                                <p className="text-[#f00000] text-end font-bold">{formatCurrencyVND(totalPrice + shippingFee)}</p>
                             </div>
                         </div>
                     )

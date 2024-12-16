@@ -28,8 +28,8 @@ const SimilarProducts = () => {
             <h2 className="text-2xl font-bold mb-10" data-aos="fade-up">Sản phẩm tương tự</h2>
             <div className="grid grid-cols-4 gap-10" data-aos="fade-up">
                 {isSimilarPizza.map((pizza) => (
-                    <Link to={`/detail/${pizza.id}`} onClick={() => handleNavigate(pizza.id)}>
-                        <div key={pizza.id} className="relative group">
+                    <Link to={`/detail/${pizza.id}`} key={pizza.id} onClick={() => handleNavigate(pizza.id)}>
+                        <div className="relative group">
                             {/* Product Image */}
                             <img className="object-cover rounded-md w-[180px] h-[180px]" src={formatImage(pizza.thumb_image)} alt={pizza.thumb_image} />
 

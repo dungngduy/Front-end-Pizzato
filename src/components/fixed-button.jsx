@@ -53,8 +53,8 @@ const FixedButton = () => {
         <div className="flex flex-col">
             <div className="relative">
                 {/* Hiệu ứng vòng tròn */}
-                <div className="fixed bottom-[70px] right-[18px] w-10 h-10 rounded-full bg-blue-400 opacity-50 animate-pulseRing"></div>
-                <div className="fixed bottom-[66px] right-[14px] w-12 h-12 rounded-full bg-blue-400 opacity-50 animate-pulseRing"></div>
+                <div className="fixed z-50 bottom-[70px] right-[18px] w-10 h-10 rounded-full bg-blue-400 opacity-50 animate-pulseRing"></div>
+                <div className="fixed z-50 bottom-[66px] right-[14px] w-12 h-12 rounded-full bg-blue-400 opacity-50 animate-pulseRing"></div>
 
                 {/* Nút chính */}
                 <button
