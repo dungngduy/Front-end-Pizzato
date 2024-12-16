@@ -18,9 +18,20 @@ const Cart = () => {
     const subPrice = selectedItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const totalPrice = calculateTotalPrice(cart, discount);
 
-    const discountValue = discount && discount.discount_type === "percent"
-        ? (subPrice * discount.discount) / 100
-        : discount?.discount || 0;
+    let discountValue = 0;
+
+    if (discount) {
+        if (discount.discount_type === "percent") {
+            // Tính giảm giá theo phần trăm
+            const discountAmount = (subPrice * discount.discount) / 100;
+
+            // So sánh với số tiền giảm tối đa
+            discountValue = Math.min(discountAmount, discount.max_discount_amount);
+        } else {
+            // Nếu là giảm giá cố định
+            discountValue = discount.discount;
+        }
+    }
 
     const handleOpenDiscount = () => {
         if (selectedItems.length === 0) {
@@ -36,7 +47,7 @@ const Cart = () => {
     };
 
     const handleToggleAll = () => {
-        toggleAllSelection(); // Chọn/ bỏ chọn tất cả
+        toggleAllSelection();
     };
 
     return (
@@ -168,11 +179,11 @@ const Cart = () => {
                             <span>{formatCurrencyVND(subPrice)}</span>
                         </div>
                         <div className="mb-2">
-                            {selectedCode && (
+                            {discount && (
                                 <div className="flex justify-between text-gray-600 mb-2">
                                     <span className="text-gray-600">Mã giảm giá: </span>
                                     <span>
-                                        {selectedCode.name}
+                                        {discount?.code}
                                     </span>
                                 </div>
                             )}

@@ -110,6 +110,8 @@ const DetailProduct = () => {
                 setBases(res.data.product.bases || []);
                 setEdges(res.data.product.edges || []);
                 setSizes(res.data.product.sizes || []);
+
+                setSelectedSizes(res.data.product.sizes[0]?.name || "");
             })
             .catch((err) => {
                 console.log(err);
@@ -118,15 +120,6 @@ const DetailProduct = () => {
 
     const handleAddToCart = () => {
         const user = JSON.parse(localStorage.getItem("user"));
-
-        if (
-            (bases.length > 0 && !selectedBases) ||
-            (edges.length > 0 && !selectedEdges) ||
-            (sizes.length > 0 && !selectedSizes)
-        ) {
-            alert("Vui lớn chọn đế bánh, viền, cỡ bánh");
-            return;
-        }
         const subId = `${product.id}-${selectedBases || "Not Updated"}-${selectedEdges || "Not Updated"}-${selectedSizes || "Not Updated"}`;
         const newPizza = {
             subId: subId,
@@ -239,7 +232,30 @@ const DetailProduct = () => {
                                 </div>
                                 <div>
                                     {/* biến thể */}
-                                    {bases.length > 0 && (
+                                    {sizes.length > 0 && (
+                                        <div>
+                                            <span className="font-bold">Chọn Cỡ Bánh</span>
+                                            <div className="flex gap-4 py-3">
+                                                {sizes.map((size) => (
+                                                    <label
+                                                        key={size.id}
+                                                        className="flex items-center gap-2 text-gray-600 text-[15px]"
+                                                    >
+                                                        <input
+                                                            type="radio"
+                                                            name="pizza-size"
+                                                            value={size.name}
+                                                            checked={selectedSizes === size.name}
+                                                            onChange={handleSizeChange}
+                                                            className="form-radio h-4 w-4 text-blue-600"
+                                                        />
+                                                        <span>{size.name}</span>
+                                                    </label>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                    {bases.length > 0 && (selectedSizes === "Vừa" || selectedSizes === "Lớn") && (
                                         <div className="mb-2">
                                             <span className="font-bold">Chọn Đế Bánh</span>
                                             <div className="flex gap-4 py-3">
@@ -263,7 +279,7 @@ const DetailProduct = () => {
                                         </div>
                                     )}
 
-                                    {edges.length > 0 && (
+                                    {edges.length > 0 && (selectedSizes === "Vừa" || selectedSizes === "Lớn") && (
                                         <div className="mb-2">
                                             <span className="font-bold">Tùy Chọn Viền</span>
                                             <div className="flex gap-4 py-3">
@@ -281,30 +297,6 @@ const DetailProduct = () => {
                                                             className="form-radio h-4 w-4 text-blue-600"
                                                         />
                                                         <span>{edge.name}</span>
-                                                    </label>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {sizes.length > 0 && (
-                                        <div>
-                                            <span className="font-bold">Chọn Cỡ Bánh</span>
-                                            <div className="flex gap-4 py-3">
-                                                {sizes.map((size) => (
-                                                    <label
-                                                        key={size.id}
-                                                        className="flex items-center gap-2 text-gray-600 text-[15px]"
-                                                    >
-                                                        <input
-                                                            type="radio"
-                                                            name="pizza-size"
-                                                            value={size.name}
-                                                            checked={selectedSizes === size.name}
-                                                            onChange={handleSizeChange}
-                                                            className="form-radio h-4 w-4 text-blue-600"
-                                                        />
-                                                        <span>{size.name}</span>
                                                     </label>
                                                 ))}
                                             </div>

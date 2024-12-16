@@ -205,7 +205,10 @@ const OrderStatus = ({ order, onClose }) => {
                                                     Kích thước: {item.product_size || "Không có"}
                                                 </p>
                                                 <p className="text-sm text-gray-500">
-                                                    Đế bánh: {item.product_option || "Không có"}
+                                                    Đế bánh: {item.pizza_base || "Không có"}
+                                                </p>
+                                                <p className="text-sm text-gray-500">
+                                                    Đế bánh: {item.pizza_edge || "Không có"}
                                                 </p>
                                             </div>
                                             <div className="flex justify-center items-center gap-5">
