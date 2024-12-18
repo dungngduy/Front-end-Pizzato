@@ -193,7 +193,7 @@ const UpdateAddress = ({ onClose, setSelectedAddress, address }) => {
   return (
     <div className="popup-address__overlay">
       <div className="form__content" data-aos="fade-down">
-        <h2 className="title mb-3 text-[20px] font-bold">Cập nhập mua hàng</h2>
+        <h2 className="title mb-3 text-[20px] font-bold">Cập nhật mua hàng</h2>
         <div className="input">
           <div className="input__field">
             <input

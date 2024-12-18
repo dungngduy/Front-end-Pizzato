@@ -23,8 +23,8 @@ const NewProduct = () => {
     };
 
     return (
-        <div className="row new__product__container">
-            <div className="col-xl-6">
+        <div className="flex justify-center ">
+            <div className="">
                 {hotProduct.map((item, index) => {
                     return (
                         <div key={index} className="new__product">
@@ -65,7 +65,7 @@ const NewProduct = () => {
                     )
                 })}
             </div>
-            <div className="col-xl-6">
+            <div className="">
                 <div className="new__product__image">
                     {hotProduct.map((item, index) => {
                         return (
