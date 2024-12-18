@@ -15,8 +15,6 @@ const ProfilePage = () => {
                 <div className="flex-[3]">
                     <SideBar />
                 </div>
-
-                {/* MainContent chiếm 9 phần */}
                 <div className="flex-[9]">
                     <Outlet />
                 </div>
