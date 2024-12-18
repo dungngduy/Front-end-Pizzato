@@ -23,7 +23,7 @@ const NewProduct = () => {
     };
 
     return (
-        <div className="flex justify-center my-2">
+        <div className="flex justify-center ">
             <div className="">
                 {hotProduct.map((item, index) => {
                     return (
