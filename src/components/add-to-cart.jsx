@@ -82,10 +82,28 @@ export const CartProvider = ({ children }) => {
         if (newQuantity > maxQuantity) {
             return;
         }
+
         setCart(prevCart => {
             const updatedCart = prevCart.map(item =>
                 item.subId === subId ? { ...item, quantity: newQuantity } : item
             );
+
+            // Cập nhật tổng giá trị sau khi thay đổi số lượng
+            const totalPrice = calculateTotalPrice(updatedCart, discount);
+
+
+            if (discount && totalPrice < (discount.min_purchase_amount || 0)) {
+                // Nếu không đủ điều kiện, chỉ xóa discount từ các sản phẩm trong giỏ hàng
+                const updatedCartWithoutDiscount = updatedCart.map(item => ({
+                    ...item,
+                    discount: null, // Xóa discount
+                }));
+
+                setCart(updatedCartWithoutDiscount); // Cập nhật lại giỏ hàng
+                setDiscount(null); // Xóa discount khỏi global state
+                saveDiscountForUser(userId, null); // Lưu lại trạng thái discount
+                return updatedCartWithoutDiscount;
+            }
 
             saveCartForUser(userId, updatedCart);
             return updatedCart;
@@ -94,19 +112,38 @@ export const CartProvider = ({ children }) => {
 
     // hàm giảm giá 
     const applyDiscount = (selectedDiscount) => {
+        if (!selectedDiscount) {
+            // Nếu không có mã giảm giá, xóa discount từ tất cả các sản phẩm trong giỏ hàng
+            setDiscount(null);
+            saveDiscountForUser(userId, null);
+    
+            setCart(prevCart => {
+                const updatedCart = prevCart.map(item => ({
+                    ...item,
+                    discount: null, // Xóa mã giảm giá khỏi sản phẩm
+                }));
+    
+                saveCartForUser(userId, updatedCart); // Lưu lại giỏ hàng sau khi xóa discount
+                return updatedCart;
+            });
+    
+            return;
+        }
+    
+        // Nếu có mã giảm giá, áp dụng vào giỏ hàng
         setDiscount(selectedDiscount);
         saveDiscountForUser(userId, selectedDiscount);
-
+    
         setCart(prevCart => {
             const updatedCart = prevCart.map(item => ({
                 ...item,
-                discount: selectedDiscount,
+                discount: selectedDiscount, // Áp dụng discount cho tất cả sản phẩm trong giỏ hàng
             }));
-
-            saveCartForUser(userId, updatedCart);
+    
+            saveCartForUser(userId, updatedCart); // Lưu lại giỏ hàng sau khi áp dụng discount
             return updatedCart;
         });
-    };
+    };    
 
     const calculateTotalPrice = (cart, discount) => {
         const selectedItems = cart.filter(item => item.selected);
@@ -181,22 +218,27 @@ export const CartProvider = ({ children }) => {
 
     // Xử lý vnpay
     const clearCartAfterPayment = useCallback(() => {
-        setCart([]); // Xóa giỏ hàng khỏi trạng thái
+        setCart((prevCart) => {
+            // Lọc giỏ hàng để chỉ giữ lại các sản phẩm chưa được chọn
+            const updatedCart = prevCart.filter(item => !item.selected);
 
-        // Lưu giỏ hàng rỗng vào localStorage
-        saveCartForUser(userId, []);
+            // Lưu giỏ hàng mới vào localStorage (chỉ giữ lại những sản phẩm chưa chọn)
+            saveCartForUser(userId, updatedCart);
 
-        // Phát sự kiện để các tab khác cập nhật
-        const event = new CustomEvent('cartUpdated', {
-            detail: { userId, updatedCart: [] },
+            // Phát sự kiện để các tab khác cập nhật
+            const event = new CustomEvent('cartUpdated', {
+                detail: { userId, updatedCart },
+            });
+            window.dispatchEvent(event);
+
+            return updatedCart;
         });
-        window.dispatchEvent(event);
     }, [userId, saveCartForUser]);
 
     const removeItemsAfterPayment = (itemsToRemove) => {
         setCart((prevCart) => {
             const updatedCart = prevCart.filter(
-                (item) => !itemsToRemove.some((removedItem) => removedItem.subId === item.subId)
+                (item) => !item.selected || !itemsToRemove.some((removedItem) => removedItem.subId === item.subId)
             );
 
             // Lưu cart mới vào localStorage
