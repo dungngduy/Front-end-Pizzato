@@ -23,7 +23,6 @@ const SideBar = () => {
         <nav className="flex-1 my-4 me-4 border border-[#f0f0f0]-200">
             <ul>
                 <li>
-                    {/* Sử dụng NavLink thay vì Link */}
                     <NavLink
                         to="info"
                         className={({ isActive }) =>
