@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import "assets/user/scss/tracking.scss";
-import { formatCurrencyVND } from "utils/format";
+import { Link } from "react-router-dom";
+import { formatCurrencyVND, formatImage } from "utils/format";
 import AxiosInstance from "utils/apiServers";
 import Rating from "./rating";
 
@@ -100,20 +101,20 @@ const OrderStatus = ({ order, onClose }) => {
                             <div className="flex-1 flex flex-col items-center">
                                 <div
                                     className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "pending" ||
-                                            order.order_status === "processing" ||
-                                            order.order_status === "completed"
-                                            ? "bg-green-500 text-white"
-                                            : "bg-gray-300 text-gray-500"
+                                        order.order_status === "processing" ||
+                                        order.order_status === "completed"
+                                        ? "bg-green-500 text-white"
+                                        : "bg-gray-300 text-gray-500"
                                         }`}
                                 >
                                     1
                                 </div>
                                 <span
                                     className={`text-sm mt-2 ${order.order_status === "pending" ||
-                                            order.order_status === "processing" ||
-                                            order.order_status === "completed"
-                                            ? "font-bold text-green-500"
-                                            : "text-gray-500"
+                                        order.order_status === "processing" ||
+                                        order.order_status === "completed"
+                                        ? "font-bold text-green-500"
+                                        : "text-gray-500"
                                         }`}
                                 >
                                     Đơn Hàng Đã Đặt
@@ -122,10 +123,10 @@ const OrderStatus = ({ order, onClose }) => {
 
                             <div
                                 className={`flex-1 border-t-2 ${order.order_status === "pending" ||
-                                        order.order_status === "processing" ||
-                                        order.order_status === "completed"
-                                        ? "border-green-500"
-                                        : "border-gray-300"
+                                    order.order_status === "processing" ||
+                                    order.order_status === "completed"
+                                    ? "border-green-500"
+                                    : "border-gray-300"
                                     }`}
                             ></div>
 
@@ -133,18 +134,18 @@ const OrderStatus = ({ order, onClose }) => {
                             <div className="flex-1 flex flex-col items-center">
                                 <div
                                     className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "processing" ||
-                                            order.order_status === "completed"
-                                            ? "bg-green-500 text-white"
-                                            : "bg-gray-300 text-gray-500"
+                                        order.order_status === "completed"
+                                        ? "bg-green-500 text-white"
+                                        : "bg-gray-300 text-gray-500"
                                         }`}
                                 >
                                     2
                                 </div>
                                 <span
                                     className={`text-sm mt-2 ${order.order_status === "processing" ||
-                                            order.order_status === "completed"
-                                            ? "font-bold text-green-500"
-                                            : "text-gray-500"
+                                        order.order_status === "completed"
+                                        ? "font-bold text-green-500"
+                                        : "text-gray-500"
                                         }`}
                                 >
                                     Chờ Xử Lý
@@ -153,24 +154,24 @@ const OrderStatus = ({ order, onClose }) => {
 
                             <div
                                 className={`flex-1 border-t-2 ${order.order_status === "processing" ||
-                                        order.order_status === "completed"
-                                        ? "border-green-500"
-                                        : "border-gray-300"
+                                    order.order_status === "completed"
+                                    ? "border-green-500"
+                                    : "border-gray-300"
                                     }`}
                             ></div>
                             <div className="flex-1 flex flex-col items-center">
                                 <div
                                     className={`w-8 h-8 rounded-full flex items-center justify-center ${order.order_status === "completed"
-                                            ? "bg-green-500 text-white"
-                                            : "bg-gray-300 text-gray-500"
+                                        ? "bg-green-500 text-white"
+                                        : "bg-gray-300 text-gray-500"
                                         }`}
                                 >
                                     3
                                 </div>
                                 <span
                                     className={`text-sm mt-2 ${order.order_status === "completed"
-                                            ? "font-bold text-green-500"
-                                            : "text-gray-500"
+                                        ? "font-bold text-green-500"
+                                        : "text-gray-500"
                                         }`}
                                 >
                                     Hoàn Thành
@@ -196,6 +197,15 @@ const OrderStatus = ({ order, onClose }) => {
                                 <div className="scrollbar-order overflow-y-auto max-h-[194px] space-y-4">
                                     {orderItems.map((item) => (
                                         <div key={item.id} className="flex items-center justify-between border-b pb-2">
+                                            <div>
+                                                <Link to={`/detail/${item.product.id}`} className="w-16 h-16">
+                                                    <img
+                                                        src={formatImage(item.product.thumb_image)}
+                                                        alt={item.product.name}
+                                                        className="w-16 h-16 object-cover rounded-md"
+                                                    />
+                                                </Link>
+                                            </div>
                                             <div>
                                                 <p className="text-sm font-medium">{item.product.name}</p>
                                                 <p className="text-sm text-gray-500">

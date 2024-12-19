@@ -98,7 +98,7 @@ const DetailProduct = () => {
         setSelectedEdges("");
         setSelectedSizes("");
         setQuantity(1);
-        
+
         AxiosInstance.get(`/detail/${id}`)
             .then((res) => {
                 const image = res.data.product.thumb_image;
@@ -332,10 +332,15 @@ const DetailProduct = () => {
                                     </div>
                                     <button
                                         onClick={handleAddToCart}
-                                        className={`bg-[#BC9A6C] text-white px-6 py-2 rounded-md hover:bg-[#a47d53] transition duration-300 ${product.qty === 0 ? "bg-gray-400 cursor-not-allowed" : ""}`}
-                                        disabled={product.qty === 0}
+                                        className={`bg-[#BC9A6C] text-white px-6 py-2 rounded-md hover:bg-[#a47d53] transition duration-300 ${product.qty === 0 || product.deleted_at ? "bg-gray-400 cursor-not-allowed" : ""
+                                            }`}
+                                        disabled={product.qty === 0 || product.deleted_at}
                                     >
-                                        {product.qty === 0 ? "Sản phẩm đã hết hàng" : "Thêm vào giỏ hàng"}
+                                        {product.deleted_at
+                                            ? "Sản phẩm không còn tồn tại"
+                                            : product.qty === 0
+                                                ? "Sản phẩm đã hết hàng"
+                                                : "Thêm vào giỏ hàng"}
                                     </button>
                                 </div>
 

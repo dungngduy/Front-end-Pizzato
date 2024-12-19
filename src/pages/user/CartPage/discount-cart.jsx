@@ -7,7 +7,7 @@ import "assets/user/scss/tracking.scss";
 const Discount = ({ isOpen, setIsOpen, setSelectedCode, subPrice }) => {
     const [discountCodes, setDiscountCodes] = useState([]);
     const [temporarySelectedCode, setTemporarySelectedCode] = useState(null);
-    const { applyDiscount } = useContext(CartContext);
+    const { cart, applyDiscount } = useContext(CartContext);
 
     useEffect(() => {
         AxiosInstance.get("/coupons")
@@ -26,6 +26,16 @@ const Discount = ({ isOpen, setIsOpen, setSelectedCode, subPrice }) => {
         }
         setIsOpen(false);
     };
+
+    useEffect(() => {
+        if (!cart.some(item => item.selected)) {
+            setTemporarySelectedCode(null);
+        }
+
+        if (temporarySelectedCode && subPrice < temporarySelectedCode.min_purchase_amount) {
+            setTemporarySelectedCode(null);
+        }
+    }, [cart, subPrice, temporarySelectedCode]);
 
     if (!isOpen) return null;
 
@@ -78,7 +88,11 @@ const Discount = ({ isOpen, setIsOpen, setSelectedCode, subPrice }) => {
                                         <div className="font-semibold text-gray-800">{discount.code}</div>
                                         <div className="text-sm text-gray-600">Đơn hàng tối thiểu: {formatCurrencyVND(discount.min_purchase_amount)}</div>
                                         <div className="text-sm text-gray-600">Giảm giá: {discount.discount_type === "percent" ? `${discount.discount}%` : formatCurrencyVND(discount.discount)}</div>
-                                        <div className="text-sm text-gray-600">Giảm tối đa: {formatCurrencyVND(discount.max_discount_amount)}</div>
+                                        {
+                                            discount.discount_type === "percent" && (
+                                                <div className="text-sm text-gray-600">Giảm tối đa: {discount.discount_type === "percent" ? formatCurrencyVND(discount.max_discount_amount) : ""}</div>
+                                            )
+                                        }
                                         <div className="text-xs text-gray-400">HSD: {discount.expire_date_date}</div>
                                     </div>
                                 </div>
