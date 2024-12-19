@@ -1,12 +1,13 @@
 import React, { memo, useState, useContext } from "react";
 import { formatCurrencyVND, formatImage } from "utils/format";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "components/add-to-cart";
 import Discount from "./discount-cart";
 
 const Cart = () => {
-    const { cart, updateCartItem, removeFromCart, calculateTotalPrice, toggleItemSelection, allSelected, toggleAllSelection } = useContext(CartContext);
+    const { cart, updateCartItem, removeFromCart, calculateTotalPrice, toggleItemSelection, allSelected, toggleAllSelection, applyDiscount } = useContext(CartContext);
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCode, setSelectedCode] = useState(null);
 
@@ -46,8 +47,23 @@ const Cart = () => {
         }
     };
 
+    const handleToggleItemSelection = (subId) => {
+        toggleItemSelection(subId);
+
+        // Nếu không còn sản phẩm nào được chọn, xóa mã giảm giá
+        const remainingSelectedItems = cart.filter(item => item.selected && item.subId !== subId);
+        if (remainingSelectedItems.length === 0) {
+            applyDiscount(null); // Xóa mã giảm giá
+        }
+    };
+
     const handleToggleAll = () => {
         toggleAllSelection();
+
+        // Nếu bỏ chọn tất cả sản phẩm, xóa mã giảm giá
+        if (allSelected) {
+            applyDiscount(null);
+        }
     };
 
     return (
@@ -105,7 +121,7 @@ const Cart = () => {
                                     type="checkbox"
                                     className="form-checkbox h-4 w-4 text-orange-500"
                                     checked={item.selected || false}
-                                    onChange={() => toggleItemSelection(item.subId)}
+                                    onChange={() => handleToggleItemSelection(item.subId)}
                                 />
                                 <Link to={`/detail/${item.id}`}>
                                     <div className="flex justify-between items-center w-full">
@@ -210,11 +226,24 @@ const Cart = () => {
                         </div>
                     </div>
                     {/* Confirm Button */}
-                    <Link to="/checkout">
-                        <button className="mt-4 w-full py-2 bg-[#BC9A6C] text-white font-semibold rounded hover:bg-[#BC9A6C]-600 transition duration-200">
-                            Xác nhận đơn hàng
-                        </button>
-                    </Link>
+                    <button
+                        className={`mt-4 w-full py-2 bg-[#BC9A6C] text-white font-semibold rounded transition duration-200 ${selectedItems.length > 0 ? "hover:bg-[#BC9A6C]-600" : "opacity-50 cursor-not-allowed"
+                            }`}
+                        onClick={() => {
+                            if (selectedItems.length === 0) {
+                                Swal.fire({
+                                    title: "Thông báo",
+                                    text: "Vui lòng chọn ít nhất một sản phẩm trước khi xác nhận đơn hàng!",
+                                    icon: "warning",
+                                    confirmButtonText: "OK",
+                                });
+                            } else {
+                                navigate("/checkout");
+                            }
+                        }}
+                    >
+                        Xác nhận đơn hàng
+                    </button>
                 </div>
             </div>
         </div>

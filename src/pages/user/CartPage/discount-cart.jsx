@@ -61,7 +61,7 @@ const Discount = ({ isOpen, setIsOpen, setSelectedCode, subPrice }) => {
                 {/* Danh sách mã giảm giá */}
                 <div className="overflow-y-auto custom-scrollbar max-h-[250px]">
                     {discountCodes.map((discount) => {
-                        const isDisabled = subPrice < discount.min_purchase_amount;
+                        const isDisabled = subPrice < discount.min_purchase_amount || discount.qty <= 0;
 
                         return (
                             <div

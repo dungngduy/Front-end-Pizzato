@@ -123,7 +123,7 @@ const Tracking = () => {
                         <tr className="bg-gray-50">
                             <th className="px-2 py-3 text-center text-gray-600">STT</th>
                             <th className="px-2 py-3 text-center text-gray-600">Mã hóa đơn</th>
-                            <th className="px-2 py-3 text-center text-gray-600">Số SP</th>
+                            <th className="px-2 py-3 text-center text-gray-600">Số lượng</th>
                             <th className="px-2 py-3 text-center text-gray-600">Tổng tiền</th>
                             <th className="px-4 py-3 text-center text-gray-600">Tình trạng</th>
                             <th className="px-4 py-3 text-center text-gray-600">Thơi gian đặt hàng</th>

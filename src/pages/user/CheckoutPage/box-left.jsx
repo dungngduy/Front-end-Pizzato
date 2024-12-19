@@ -31,12 +31,12 @@ const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment, 
     };
 
     useEffect(() => {
-        if (!selectedAddress && user?.address?.length > 0) {
-            const defaultAddress = user.address[0];
+        if (!selectedAddress || !user?.address?.some(addr => addr.id === selectedAddress.id)) {
+            const defaultAddress = user?.address?.[0] || null;
             setLocalSelectedAddress(defaultAddress);
             setSelectedAddress(defaultAddress);
         }
-    }, [user, selectedAddress, setSelectedAddress]);
+    }, [user.address, selectedAddress, setSelectedAddress]);
 
     return (
         <div className="checkout__box__left pe-10" style={{ width: '800px' }}>
@@ -66,9 +66,9 @@ const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment, 
                                     <p className="text-[#676767]">Email:</p>
                                 </div>
                                 <div className="delivery__address__content">
-                                    <input type="text" defaultValue={selectedAddress.address} disabled /><br />
-                                    <input type="text" defaultValue={selectedAddress.phone} disabled /><br />
-                                    <input type="email" defaultValue={selectedAddress.email} disabled />
+                                    <input type="text" value={selectedAddress.address || ''} disabled /><br />
+                                    <input type="text" value={selectedAddress.phone || ''} disabled /><br />
+                                    <input type="email" value={selectedAddress.email || ''} disabled />
                                 </div>
                             </div>
                         </div>
@@ -77,14 +77,14 @@ const CheckoutBoxLeft = ({ setShippingFee, selectedPayment, setSelectedPayment, 
                             <p className="text-xl pb-3">Chưa có</p>
                             <div className="flex gap-20">
                                 <div className="delivery__address__title">
-                                    <p className="text-[#676767]">Địa chỉ:</p>
+                                    <p className="text-[#676767]">Địa chỉ:</p>
                                     <p className="text-[#676767]">Điện thoại:</p>
                                     <p className="text-[#676767]">Email:</p>
                                 </div>
                                 <div className="delivery__address__content">
-                                    <input type="text" placeholder="Chưa có" disabled /><br />
-                                    <input type="text" placeholder="Chưa có" disabled /><br />
-                                    <input type="email" placeholder="Chưa có" disabled />
+                                    <input type="text" value="Chưa có" disabled /><br />
+                                    <input type="text" value="Chưa có" disabled /><br />
+                                    <input type="email" value="Chưa có" disabled />
                                 </div>
                             </div>
                         </div>

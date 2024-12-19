@@ -3,7 +3,7 @@ import { memo } from "react";
 const Policy = () => {
     return (
         <div className="container py-8 ">
-            <h1 className="text-2xl font-extrabold text-red-500 mb-6 text-center uppercase tracking-wide ">
+            <h1 className="text-2xl font-extrabold text-red-500 mb-6 uppercase tracking-wide">
                 A. CHÍNH SÁCH VẬN CHUYỂN, GIAO HÀNG, THANH TOÁN
             </h1>
             <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left ">
@@ -16,7 +16,7 @@ const Policy = () => {
                 www.Pizzatos.vn & Ứng dụng Pizzato&apos;s Pizza Vietnam và cửa hàng sẽ giao
                 hàng đến địa chỉ khách yêu cầu trong đơn hàng.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
                 2. Giao hàng
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
@@ -25,7 +25,7 @@ const Policy = () => {
                 vòng 30 phút trong khu vực giao hàng. Thời gian hoạt động: 10h00 - 22h00
                 mỗi ngày (Thời gian đặt hàng: 0h00 - 21h30).
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
                 3. Phương thức thanh toán cho giao hàng
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
@@ -36,7 +36,7 @@ const Policy = () => {
                 dụng/ghi nợ, Ví MoMo, ZaloPay, ShopeePay trên Website & Ứng dụng của
                 Pizzato&apos;s Pizza.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
+            <h3 className="text-2xl font-extrabold text-red-500 my-6 uppercase tracking-wide">
                 B. CHÍNH SÁCH ĐIỀU CHỈNH NỘI DUNG ĐƠN HÀNG
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
@@ -47,7 +47,7 @@ const Policy = () => {
                 thay đổi sản phẩm trong đơn hàng nếu đơn hàng đã và đang được thực hiện
                 bởi cửa hàng.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
+            <h3 className="text-2xl font-extrabold text-red-500 my-6 uppercase tracking-wide">
                 C. CHÍNH SÁCH BẢO MẬT
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
@@ -61,8 +61,8 @@ const Policy = () => {
                 Website & Ứng dụng của Pizzato&apos;s Pizza thường xuyên để cập nhật thông
                 tin mới.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
-                1. MỤC ĐÍCH VÀ PHẠM VI THU THẬP
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
+                1. Mục đích và phạm vi thu thập
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
                 Pizzato&apos;s Pizza có thể thu thập thông tin cá nhân từ khách hàng. Các dữ
@@ -80,8 +80,8 @@ const Policy = () => {
                 hợp pháp. Pizzato&apos;s Pizza không chịu mọi trách nhiệm liên quan đến pháp
                 luật của thông tin khách hàng khai báo.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
-                2. PHẠM VI SỬ DỤNG THÔNG TIN
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
+                2. Phạm vi sử dụng thông tin
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
                 Pizzato&apos;s Pizza thu thập và sử dụng thông tin cá nhân Quý khách hàng với
@@ -130,8 +130,8 @@ const Policy = () => {
                 dụng các thông tin cá nhân của Quý khách hàng vào những mục đích không
                 hợp pháp.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
-                3. CHIA SẺ THÔNG TIN
+            <h3 className="text-2xl font-extrabold text-red-500 my-6 uppercase tracking-wide">
+                D. CHIA SẺ THÔNG TIN
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
                 Pizzato&apos;s Pizza sẽ không cung cấp bất kỳ thông tin cá nhân nào của khách
@@ -144,8 +144,8 @@ const Policy = () => {
                 cầu về thông tin, phục vụ mục đích điều tra hoặc những yêu cầu khác theo
                 quy định của pháp luật.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
-                1. TÀI KHOẢN SỬ DỤNG CỦA KHÁCH HÀNG
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
+                1. Tài khoản sử dụng của khách hàng
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
                 Nếu khách hàng sử dụng Website & Ứng dụng của Pizzato&apos;s Pizza, khách
@@ -155,11 +155,10 @@ const Policy = () => {
                 cho tất cả mọi hoạt động diễn ra trong tài khoản hoặc mật mã của khách
                 hàng.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
-                2. TRUY CẬP VÀO WEBSITE & ỨNG DỤNG CỦA Pizzato&apos;s PIZZA (GỌI TẮT LÀ
-                WEBSITE, ỨNG DỤNG)
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
+                2. Truy cập vào website của Pizzato&apos;s PIZZA
             </h3>
-            <p className="text-[16px] leading-relaxed text-gray-700">
+            <p className="text-[16px] mb-4 leading-relaxed text-gray-700">
                 2.1 Pizzato&apos;s Pizza chấp thuận cho bạn sử dụng website, ứng dụng như đã
                 công bố trong điều khoản sử dụng dịch vụ, bao gồm: sử dụng website, ứng
                 dụng cho mục đích cá nhân, phi thương mại; khách hàng không được phép
@@ -169,7 +168,7 @@ const Policy = () => {
                 của website, ứng dụng này; khách hàng phải tuân theo điều khoản và điều
                 kiện sử dụng dịch vụ.
             </p>
-            <p className="text-[16px] leading-relaxed text-gray-700">
+            <p className="text-[16px] mb-4 leading-relaxed text-gray-700">
                 2.2 Để truy cập vào một số tính năng của website, ứng dụng khách hàng
                 phải tạo một tài khoản cho riêng mình. Khách hàng không được phép sử
                 dụng tài khoản của người khác nếu không được sự đồng ý của chủ tài
@@ -202,10 +201,10 @@ const Policy = () => {
                 ý không van nài, với mục đích thương mại, bất kỳ người sử dụng nào của
                 website, ứng dụng để yêu cầu đăng ký
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
-                3. ĐĂNG KÝ THÔNG TIN CỦA NGƯỜI SỬ DỤNG
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
+                3. Đăng ký thông tin của người sử dụng
             </h3>
-            <p className="text-[16px] leading-relaxed text-gray-700">
+            <p className="text-[16px] mb-4 leading-relaxed text-gray-700">
                 3.1. Website & Ứng dụng của Pizzato&apos;s Pizza cho phép đăng ký thông tin
                 cá nhân. Khách hàng nên hiểu rằng những thông tin đăng ký này có được
                 công bố hay không, Pizzato&apos;s Pizza cũng không đảm bảo rằng sẽ bảo mật
@@ -214,7 +213,7 @@ const Policy = () => {
                 tin trên Website & Ứng dụng của Pizzato&apos;s Pizza hoặc trong những phần
                 thông cáo báo chí hoặc trong các phương tiện truyền thông khác.
             </p>
-            <p>
+            <p className="text-[16px] leading-relaxed text-gray-700">
                 3.2. Khách hàng sẽ đơn phương chịu trách nhiệm cho phần đăng ký thông
                 tin cá nhân của mình và tầm quan trọng của việc công bố những thông tin
                 này. Để kết nối với phần đăng nhập thông tin, khách hàng xác nhận & cam
@@ -233,8 +232,8 @@ const Policy = () => {
                 Pizzato&apos;s Pizza Vietnam có quyền sử dụng những thông tin này cho mục
                 đích quảng cáo trên website, ứng dụng & các kênh truyền thông khác.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
-                4. TỪ CHỐI BẢO HÀNH
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
+                4. Từ chối bảo hành
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
                 Khách hàng đồng ý rằng khi sử dụng Website & Ứng dụng của Pizzato&apos;s
@@ -263,8 +262,8 @@ const Policy = () => {
                 thông qua trung gian, tốt nhất là khách hàng nên sử dụng khả năng phán
                 xét của mình để quyết định thế nào là hợp lý.
             </p>
-            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 text-left">
-                5. HẠN CHẾ VỀ NGHĨA VỤ PHÁP LÝ
+            <h3 className="text-xl font-semibold text-[#BC9A6C] mb-4 mt-2 text-left">
+                5. Hạn chế về nghĩa vụ pháp lý
             </h3>
             <p className="text-[16px] leading-relaxed text-gray-700">
                 Khách hàng đồng ý bảo vệ, bồi thường và không gây hại cho Pizzato&apos;s
