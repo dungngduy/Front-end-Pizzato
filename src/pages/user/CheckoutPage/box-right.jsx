@@ -105,7 +105,7 @@ const CheckoutBoxRight = ({ shippingFee, selectedPayment, selectedAddress }) => 
             } else {
                 AxiosInstance.post('/checkout', orderData)
                     .then(() => {
-                        window.location.href = '/payment-successed';
+                        // window.location.href = '/payment-successed';
                         removeItemsAfterPayment(selectedItems);
                     })
                     .catch(error => {

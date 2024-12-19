@@ -255,7 +255,7 @@ const DetailProduct = () => {
                                             </div>
                                         </div>
                                     )}
-                                    {bases.length > 0 && (selectedSizes === "Vừa" || selectedSizes === "Lớn") && (
+                                    {bases.length > 0 && (
                                         <div className="mb-2">
                                             <span className="font-bold">Chọn Đế Bánh</span>
                                             <div className="flex gap-4 py-3">
@@ -279,7 +279,7 @@ const DetailProduct = () => {
                                         </div>
                                     )}
 
-                                    {edges.length > 0 && (selectedSizes === "Vừa" || selectedSizes === "Lớn") && (
+                                    {edges.length > 0 && (
                                         <div className="mb-2">
                                             <span className="font-bold">Tùy Chọn Viền</span>
                                             <div className="flex gap-4 py-3">

@@ -117,10 +117,10 @@ export const CartProvider = ({ children }) => {
             if (discount.discount_type === "percent") {
                 // Tính giảm giá theo phần trăm
                 let discountAmount = totalPrice * (discount.discount / 100);
-                
+
                 // Nếu giảm giá vượt quá số tiền tối đa, thì chỉ giảm tối đa
                 discountAmount = Math.min(discountAmount, discount.max_discount_amount);
-                
+
                 // Trừ giá trị giảm từ tổng tiền
                 totalPrice -= discountAmount;
             } else if (discount.discount_type === "amount") {
@@ -133,16 +133,23 @@ export const CartProvider = ({ children }) => {
 
     // Hàm thay đổi trạng thái chọn/ bỏ chọn của một sản phẩm
     const toggleItemSelection = (subId) => {
-        setCart(prevCart => {
-            const updatedCart = prevCart.map(item =>
+        setCart((prevCart) => {
+            const updatedCart = prevCart.map((item) =>
                 item.subId === subId ? { ...item, selected: !item.selected } : item
             );
 
             saveCartForUser(userId, updatedCart);
 
             // Kiểm tra lại trạng thái "Chọn tất cả"
-            const allSelected = updatedCart.every(item => item.selected);
+            const allSelected = updatedCart.every((item) => item.selected);
             setAllSelected(allSelected);
+
+            // Nếu không còn sản phẩm nào được chọn, xóa mã giảm giá
+            const anyItemSelected = updatedCart.some((item) => item.selected);
+            if (!anyItemSelected) {
+                setDiscount(null);
+                saveDiscountForUser(userId, null);
+            }
 
             return updatedCart;
         });
@@ -150,11 +157,24 @@ export const CartProvider = ({ children }) => {
 
     // Hàm chọn/ bỏ chọn tất cả sản phẩm
     const toggleAllSelection = () => {
-        setAllSelected(prevState => {
+        setAllSelected((prevState) => {
             const newAllSelected = !prevState;
-            setCart(prevCart =>
-                prevCart.map(item => ({ ...item, selected: newAllSelected }))
-            );
+            setCart((prevCart) => {
+                const updatedCart = prevCart.map((item) => ({
+                    ...item,
+                    selected: newAllSelected,
+                }));
+
+                saveCartForUser(userId, updatedCart);
+
+                // Nếu bỏ chọn tất cả, xóa mã giảm giá
+                if (!newAllSelected) {
+                    setDiscount(null);
+                    saveDiscountForUser(userId, null);
+                }
+
+                return updatedCart;
+            });
             return newAllSelected;
         });
     };

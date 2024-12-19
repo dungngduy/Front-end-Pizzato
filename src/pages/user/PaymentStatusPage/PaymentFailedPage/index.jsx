@@ -18,6 +18,12 @@ const PaymentFailPage = () => {
                         >
                             Quay về trang chủ
                         </button>
+                        <button
+                            onClick={() => window.location.href = "checkout"}
+                            className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition duration-200"
+                        >
+                            Thanh toán lại
+                        </button>
                     </div>
                 </div>
             </div>
